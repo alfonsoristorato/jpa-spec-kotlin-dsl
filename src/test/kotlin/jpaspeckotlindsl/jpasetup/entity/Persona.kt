@@ -11,9 +11,11 @@ import jakarta.persistence.Table
 @Table
 class Persona(
     val name: String,
-    val lastName: String,
+    val lastName: String?,
     val age: Int,
     val userName: String,
+    val firstLogin: Boolean,
+    val isMagic: Boolean?,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_id_sequence")

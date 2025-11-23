@@ -81,5 +81,14 @@ class EqualTest(
                 result2[1].name shouldBe "Persona 2"
                 result2[2].name shouldBe "Persona 3"
             }
+            expect("witl nullable types") {
+                val personasWithSpecificLastName = Persona::lastName.equal(TestFixtures.DEFAULT_PERSONA_LAST_NAME)
+                val result =
+                    personaRepository.findAll(personasWithSpecificLastName)
+                result shouldHaveSize 3
+                result[0].name shouldBe "Persona 1"
+                result[1].name shouldBe "Persona 2"
+                result[2].name shouldBe "Persona 3"
+            }
         }
     })
