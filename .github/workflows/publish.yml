@@ -14,14 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Extract version from tag
-        id: get_version
-        run: |
-          # Remove 'v' prefix from tag (e.g., v0.1.0-alpha.1 -> 0.1.0-alpha.1)
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Publishing version: $VERSION"
-
       - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
@@ -36,4 +28,4 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_VERSION: ${{ steps.get_version.outputs.version }}
+          RELEASE_VERSION: ${{ github.ref_name }}
