@@ -10,13 +10,11 @@ on:
 
 jobs:
   call_test:
-    name: Run Tests
     uses: ./.github/workflows/test.yml
     permissions:
       contents: read
 
   call_publish:
-    name: Build and Publish
     needs: [ call_test ]
     if: ${{ github.event_name == 'release' }}
     uses: ./.github/workflows/publish.yml
