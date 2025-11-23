@@ -34,6 +34,7 @@ kotlin {
         extraWarnings.set(true)
         allWarningsAsErrors.set(true)
     }
+    jvmToolchain(21)
 }
 
 tasks.build {
