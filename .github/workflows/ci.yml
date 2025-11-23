@@ -2,7 +2,9 @@ name: Build, Scan and Publish
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   release:
     types: [ published ]
 
