@@ -34,8 +34,8 @@ object DatabaseCleanerAfterSpecListener : AfterSpecListener {
 object AllTables {
     val tablesList =
         listOf(
-            "user",
-            "post",
             "comment",
+            "post",
+            "user",
         )
 }

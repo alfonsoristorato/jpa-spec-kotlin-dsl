@@ -16,7 +16,7 @@ repositories {
 dependencies {
     // Core dependencies
     api(libs.kotlin.stdlib)
-    compileOnly(libs.spring.data.jpa)
+    compileOnly(libs.spring.boot.starter.data.jpa)
 
     // Testing
     testImplementation(libs.bundles.kotest)

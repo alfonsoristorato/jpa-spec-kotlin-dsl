@@ -1,4 +1,4 @@
-package jpaspeckotlindsl.or
+package jpaspeckotlindsl.predicatespecification.and
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.ExpectSpec
@@ -7,12 +7,13 @@ import io.kotest.matchers.shouldBe
 import jpaspeckotlindsl.jpasetup.JpaSetupApplication
 import jpaspeckotlindsl.jpasetup.entity.User
 import jpaspeckotlindsl.jpasetup.repository.UserRepository
+import jpaspeckotlindsl.predicatespecification.equal.equal
 import jpaspeckotlindsl.util.TestFixtures
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.jpa.domain.Specification
+import org.springframework.data.jpa.domain.PredicateSpecification
 
 @SpringBootTest(classes = [JpaSetupApplication::class])
-class OrTest(
+class AndTest(
     private val userRepository: UserRepository,
 ) : ExpectSpec({
         beforeSpec {
@@ -32,29 +33,21 @@ class OrTest(
             userRepository.findAll() shouldHaveSize 3
         }
 
-        expect("and combines specifications") {
+        expect("and combines PredicateSpecification") {
             // TODO: change below to new DSL once implemented
-            val idLowerThan3Spec =
-                Specification<User> { root, _, criteriaBuilder ->
+            val idLowerThan3 =
+                PredicateSpecification<User> { root, criteriaBuilder ->
                     criteriaBuilder.lessThan(
                         root.get(User::id.name),
                         3L,
                     )
                 }
-            // TODO: change below to new DSL once implemented
-            val lastNameEqualsSpec =
-                Specification<User> { root, _, criteriaBuilder ->
-                    criteriaBuilder.equal(
-                        root.get<String>(User::lastName.name),
-                        "LastName",
-                    )
-                }
-            val result = userRepository.findAll(idLowerThan3Spec or lastNameEqualsSpec)
+            val lastNameEquals = User::lastName.equal("LastName")
+            val result = userRepository.findAll(idLowerThan3 and lastNameEquals)
             assertSoftly {
-                result shouldHaveSize 3
+                result shouldHaveSize 2
                 result[0].name shouldBe "User 1"
                 result[1].name shouldBe "User 2"
-                result[2].name shouldBe "User 3"
             }
         }
     })

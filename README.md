@@ -31,7 +31,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - Built on top of [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-- Inspired by the need for more idiomatic Kotlin syntax in JPA queries
+- Inspired by the need for more idiomatic Kotlin syntax in JPA Specification and PredicateSpecification.
 
 ## Support
 

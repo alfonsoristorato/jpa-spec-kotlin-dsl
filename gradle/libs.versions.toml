@@ -9,7 +9,7 @@ spring                          = "4.0.0"
 [libraries]
 # Main
 kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
-spring-data-jpa                 = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
+spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
 
 # Test
 h2                              = { module = "com.h2database:h2", version.ref = "h2" }
@@ -17,7 +17,6 @@ kotest-assertions-core          = { module = "io.kotest:kotest-assertions-core",
 kotest-assertions-table         = { module = "io.kotest:kotest-assertions-table", version.ref = "kotest" }
 kotest-extensions-spring        = { module = "io.kotest:kotest-extensions-spring", version.ref = "kotest" }
 kotest-runner-junit5            = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
-spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
 spring-boot-starter-test        = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
 
 
