@@ -1,0 +1,22 @@
+# Keep alphabetical and formatted correctly please
+[versions]
+gradle-ktlint                   = "13.1.0"
+kotest                          = "6.0.5"
+kotlin                          = "2.2.21"
+mockk                           = "1.14.6"
+testcontainers                  = "2.0.1"
+
+[libraries]
+kotest-assertions-core          = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-assertions-table         = { module = "io.kotest:kotest-assertions-table", version.ref = "kotest" }
+kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+mockk                           = { module = "io.mockk:mockk", version.ref = "mockk" }
+testcontainers                  = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+
+[bundles]
+kotest                          = ["kotest-assertions-core" , "kotest-assertions-table"]
+
+[plugins]
+gradle-ktlint                   = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "gradle-ktlint" }
+kotest                          = { id = "io.kotest", version.ref = "kotest" }
+kotlin-jvm                      = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
