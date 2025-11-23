@@ -1,37 +1,35 @@
 # Keep alphabetical and formatted correctly please
 [versions]
+flyway                          = "11.17.1"
 gradle-ktlint                   = "13.1.0"
-h2                              = "2.4.240"
 kotest                          = "6.0.5"
 kotlin                          = "2.2.21"
+postgresql                      = "42.7.8"
+postgresql-test-containers      = "1.21.3"
 spring                          = "4.0.0"
 
 [libraries]
 # Main
 kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
-spring-data-jpa                 = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
+spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
 
 # Test
-h2                              = { module = "com.h2database:h2", version.ref = "h2" }
+flyway-database-psql            = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 kotest-assertions-core          = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-table         = { module = "io.kotest:kotest-assertions-table", version.ref = "kotest" }
 kotest-extensions-spring        = { module = "io.kotest:kotest-extensions-spring", version.ref = "kotest" }
 kotest-runner-junit5            = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
-spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
+postgresql                      = { module = "org.postgresql:postgresql" , version.ref = "postgresql"}
+postgresql-testcontainers       = { module = "org.testcontainers:postgresql", version.ref = "postgresql-test-containers" }
+spring-boot-testcontainers      = { module = "org.springframework.boot:spring-boot-testcontainers", version.ref = "spring" }
+spring-boot-starter-flyway      = { module = "org.springframework.boot:spring-boot-starter-flyway", version.ref = "spring" }
 spring-boot-starter-test        = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
 
 
 [bundles]
-kotest                          = [
-                                    "kotest-assertions-core" ,
-                                    "kotest-assertions-table",
-                                    "kotest-extensions-spring",
-                                    "kotest-runner-junit5"
-                                  ]
-spring-test                     = [
-                                    "spring-boot-starter-data-jpa",
-                                    "spring-boot-starter-test"
-                                  ]
+kotest                          = ["kotest-assertions-core", "kotest-assertions-table", "kotest-extensions-spring", "kotest-runner-junit5"]
+spring-test                     = ["spring-boot-starter-data-jpa", "spring-boot-starter-flyway", "spring-boot-starter-test", "spring-boot-testcontainers"]
+db-test                         = ["flyway-database-psql", "postgresql-testcontainers", "postgresql"]
 
 [plugins]
 gradle-ktlint                   = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "gradle-ktlint" }

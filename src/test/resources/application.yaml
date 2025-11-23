@@ -1,10 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb;NON_KEYWORDS=USER
-    username: user
-    password: password
-    driverClassName: org.h2.Driver
-
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     properties:

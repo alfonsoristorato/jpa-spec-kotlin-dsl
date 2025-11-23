@@ -25,17 +25,17 @@ object DatabaseCleanerAfterSpecListener : AfterSpecListener {
             val jdbcTemplate = context.getBean(JdbcTemplate::class.java)
             GenericTestUtils.DataCleanerUtils.cleanData(
                 jdbcTemplate,
-                AllTables.tablesList,
+                TablesData.tablesToSequences,
             )
         }
     }
 }
 
-object AllTables {
-    val tablesList =
+object TablesData {
+    val tablesToSequences =
         listOf(
-            "user",
-            "post",
-            "comment",
+            "comment" to "comment_id_sequence",
+            "post" to "post_id_sequence",
+            "persona" to "persona_id_sequence",
         )
 }

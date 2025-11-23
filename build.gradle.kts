@@ -16,11 +16,11 @@ repositories {
 dependencies {
     // Core dependencies
     api(libs.kotlin.stdlib)
-    compileOnly(libs.spring.data.jpa)
+    compileOnly(libs.spring.boot.starter.data.jpa)
 
     // Testing
     testImplementation(libs.bundles.kotest)
-    testImplementation(libs.h2)
+    testImplementation(libs.bundles.db.test)
     testImplementation(libs.bundles.spring.test)
 }
 
