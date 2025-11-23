@@ -15,14 +15,18 @@ object TestFixtures {
 
     fun createPersona(
         name: String = DEFAULT_PERSONA_NAME,
-        lastName: String = DEFAULT_PERSONA_LAST_NAME,
+        lastName: String? = DEFAULT_PERSONA_LAST_NAME,
         age: Int = DEFAULT_PERSONA_AGE,
         userName: String = DEFAULT_PERSONA_USERNAME,
+        firstLogin: Boolean = false,
+        isMagic: Boolean? = null,
     ) = Persona(
         name = name,
         lastName = lastName,
         age = age,
         userName = userName,
+        firstLogin = firstLogin,
+        isMagic = isMagic,
     )
 
     fun createPost(

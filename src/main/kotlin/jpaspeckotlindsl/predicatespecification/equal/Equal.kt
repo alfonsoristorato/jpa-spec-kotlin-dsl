@@ -6,7 +6,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [PredicateSpecification] that checks for equality between the property and the given value.
  *
- * @param T – the type of the entity.
+ * @receiver T – the type of the entity.
  * @param P – the type of the property.
  * @param value – the value to compare against.
  * @return A [PredicateSpecification] that checks for equality.
