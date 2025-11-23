@@ -1,22 +1,40 @@
 # Keep alphabetical and formatted correctly please
 [versions]
 gradle-ktlint                   = "13.1.0"
+h2                              = "2.4.240"
 kotest                          = "6.0.5"
 kotlin                          = "2.2.21"
-mockk                           = "1.14.6"
-testcontainers                  = "2.0.1"
+spring                          = "4.0.0"
 
 [libraries]
+# Main
+kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+spring-data-jpa                 = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
+
+# Test
+h2                              = { module = "com.h2database:h2", version.ref = "h2" }
 kotest-assertions-core          = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-table         = { module = "io.kotest:kotest-assertions-table", version.ref = "kotest" }
-kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
-mockk                           = { module = "io.mockk:mockk", version.ref = "mockk" }
-testcontainers                  = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+kotest-extensions-spring        = { module = "io.kotest:kotest-extensions-spring", version.ref = "kotest" }
+kotest-runner-junit5            = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
+spring-boot-starter-test        = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
+
 
 [bundles]
-kotest                          = ["kotest-assertions-core" , "kotest-assertions-table"]
+kotest                          = [
+                                    "kotest-assertions-core" ,
+                                    "kotest-assertions-table",
+                                    "kotest-extensions-spring",
+                                    "kotest-runner-junit5"
+                                  ]
+spring-test                     = [
+                                    "spring-boot-starter-data-jpa",
+                                    "spring-boot-starter-test"
+                                  ]
 
 [plugins]
 gradle-ktlint                   = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "gradle-ktlint" }
-kotest                          = { id = "io.kotest", version.ref = "kotest" }
+kotlin-jpa                      = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+kotlin-spring                   = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 kotlin-jvm                      = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
