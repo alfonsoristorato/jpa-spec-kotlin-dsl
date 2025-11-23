@@ -20,7 +20,7 @@ dependencies {
 
     // Testing
     testImplementation(libs.bundles.kotest)
-    testImplementation(libs.h2)
+    testImplementation(libs.bundles.db.test)
     testImplementation(libs.bundles.spring.test)
 }
 

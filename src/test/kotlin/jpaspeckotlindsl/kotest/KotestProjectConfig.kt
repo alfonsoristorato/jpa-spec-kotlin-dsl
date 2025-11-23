@@ -36,6 +36,6 @@ object AllTables {
         listOf(
             "comment",
             "post",
-            "user",
+            "persona",
         )
 }

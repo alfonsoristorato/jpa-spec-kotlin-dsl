@@ -2,23 +2,23 @@ package jpaspeckotlindsl.util
 
 import jpaspeckotlindsl.jpasetup.entity.Comment
 import jpaspeckotlindsl.jpasetup.entity.Post
-import jpaspeckotlindsl.jpasetup.entity.User
+import jpaspeckotlindsl.jpasetup.entity.Persona
 
 object TestFixtures {
-    const val DEFAULT_USER_NAME = "Name"
-    const val DEFAULT_USER_LAST_NAME = "LastName"
-    const val DEFAULT_USER_AGE = 30
-    const val DEFAULT_USER_USERNAME = "username"
+    const val DEFAULT_PERSONA_NAME = "Name"
+    const val DEFAULT_PERSONA_LAST_NAME = "LastName"
+    const val DEFAULT_PERSONA_AGE = 30
+    const val DEFAULT_PERSONA_USERNAME = "username"
     const val DEFAULT_POST_TITLE = "Default Post Title"
     const val DEFAULT_POST_CONTENT = "Default Post Content"
     const val DEFAULT_COMMENT_CONTENT = "Default Comment Content"
 
-    fun createUser(
-        name: String = DEFAULT_USER_NAME,
-        lastName: String = DEFAULT_USER_LAST_NAME,
-        age: Int = DEFAULT_USER_AGE,
-        userName: String = DEFAULT_USER_USERNAME,
-    ) = User(
+    fun createPersona(
+        name: String = DEFAULT_PERSONA_NAME,
+        lastName: String = DEFAULT_PERSONA_LAST_NAME,
+        age: Int = DEFAULT_PERSONA_AGE,
+        userName: String = DEFAULT_PERSONA_USERNAME,
+    ) = Persona(
         name = name,
         lastName = lastName,
         age = age,
@@ -26,22 +26,22 @@ object TestFixtures {
     )
 
     fun createPost(
-        user: User = createUser(),
+        persona: Persona = createPersona(),
         title: String = DEFAULT_POST_TITLE,
         content: String = DEFAULT_POST_CONTENT,
     ) = Post(
-        user = user,
+        persona = persona,
         title = title,
         content = content,
     )
 
     fun createComment(
         post: Post = createPost(),
-        user: User = createUser(),
+        persona: Persona = createPersona(),
         content: String = DEFAULT_COMMENT_CONTENT,
     ) = Comment(
         post = post,
-        user = user,
+        persona = persona,
         content = content,
     )
 }
