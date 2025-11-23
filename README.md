@@ -23,6 +23,10 @@ Combines two specifications with a logical OR operation.
 repository.findAll(specA or specB)
 ```
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## Acknowledgments
 
 - Built on top of [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
