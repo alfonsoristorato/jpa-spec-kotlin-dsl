@@ -1,0 +1,12 @@
+name: Build, Scan and Publish
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  call_test:
+    name: Run Tests
+    uses: ./.github/workflows/test.yml
+    permissions:
+      contents: read

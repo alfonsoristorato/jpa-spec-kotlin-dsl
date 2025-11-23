@@ -1,3 +1,8 @@
+# JPA Specification Kotlin DSL
+
+[![Test](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/test.yml/badge.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/test.yml)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.2.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+
 ## API Reference
 
 ### `and` Operator
