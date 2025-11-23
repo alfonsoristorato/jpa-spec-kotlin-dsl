@@ -3,6 +3,8 @@ name: Build, Scan and Publish
 on:
   push:
     branches: [ "main" ]
+  release:
+    types: [ published ]
 
 jobs:
   call_test:
@@ -10,3 +12,12 @@ jobs:
     uses: ./.github/workflows/test.yml
     permissions:
       contents: read
+
+  call_publish:
+    name: Build and Publish
+    needs: [ call_test ]
+    if: ${{ github.event_name == 'release' }}
+    uses: ./.github/workflows/publish.yml
+    permissions:
+      contents: write
+      packages: write
