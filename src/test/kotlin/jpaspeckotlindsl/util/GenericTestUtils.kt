@@ -11,10 +11,11 @@ object GenericTestUtils {
          */
         fun cleanData(
             jdbcTemplate: JdbcTemplate,
-            tableNames: List<String>,
+            tablesToSequences: List<Pair<String, String>>,
         ) {
-            tableNames.forEach { tableName ->
+            tablesToSequences.forEach { (tableName, pkSequence) ->
                 jdbcTemplate.execute("DELETE FROM $tableName")
+                jdbcTemplate.execute("ALTER SEQUENCE $pkSequence RESTART WITH 1")
             }
         }
     }

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.testcontainers.containers.PostgreSQLContainer
 import kotlin.apply
 
-@TestConfiguration(proxyBeanMethods = false)
+@TestConfiguration
 class PostgresContainer {
     @Bean
     @ServiceConnection

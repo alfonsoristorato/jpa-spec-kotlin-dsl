@@ -1,8 +1,8 @@
 package jpaspeckotlindsl.util
 
 import jpaspeckotlindsl.jpasetup.entity.Comment
-import jpaspeckotlindsl.jpasetup.entity.Post
 import jpaspeckotlindsl.jpasetup.entity.Persona
+import jpaspeckotlindsl.jpasetup.entity.Post
 
 object TestFixtures {
     const val DEFAULT_PERSONA_NAME = "Name"

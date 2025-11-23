@@ -3,10 +3,10 @@ package jpaspeckotlindsl.specification.equal
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import jpaspeckotlindsl.jpasetup.entity.Post
 import jpaspeckotlindsl.jpasetup.entity.Persona
-import jpaspeckotlindsl.jpasetup.repository.PostRepository
+import jpaspeckotlindsl.jpasetup.entity.Post
 import jpaspeckotlindsl.jpasetup.repository.PersonaRepository
+import jpaspeckotlindsl.jpasetup.repository.PostRepository
 import jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
 import jpaspeckotlindsl.util.TestFixtures
 
