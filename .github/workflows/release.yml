@@ -1,22 +1,17 @@
-name: Build, Scan and Publish
+name: Release
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   release:
     types: [ published ]
 
 jobs:
-  call_test:
+  test:
     uses: ./.github/workflows/test.yml
     permissions:
       contents: read
 
-  call_publish:
-    needs: [ call_test ]
-    if: ${{ github.event_name == 'release' }}
+  publish:
+    needs: [ test ]
     uses: ./.github/workflows/publish.yml
     permissions:
       contents: write

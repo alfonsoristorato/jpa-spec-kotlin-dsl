@@ -1,7 +1,6 @@
 # JPA Specification Kotlin DSL
 
-[![Test](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/test.yml/badge.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/test.yml)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Main](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/test.yml/badge.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/main.yml)
 [![Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/releases)
 
 A Kotlin DSL for building type-safe JPA Specifications and PredicateSpecifications using idiomatic Kotlin syntax. Write cleaner, more maintainable JPA Specifications with the power of Kotlin's type system.

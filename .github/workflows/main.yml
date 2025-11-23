@@ -1,0 +1,12 @@
+name: Main
+
+on:
+  push:
+    branches: [ main ]
+  workflow_call:
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    permissions:
+      contents: read
