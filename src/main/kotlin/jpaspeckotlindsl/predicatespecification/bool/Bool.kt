@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        this.isTrue(from, criteriaBuilder)
+        isTrue(from, criteriaBuilder)
     }
 
 /**
@@ -25,7 +25,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
 @JvmName("isTrueNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        this.isTrue(from, criteriaBuilder)
+        isTrue(from, criteriaBuilder)
     }
 
 /**
@@ -36,7 +36,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
  */
 fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        this.isFalse(from, criteriaBuilder)
+        isFalse(from, criteriaBuilder)
     }
 
 /**
@@ -48,5 +48,5 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
 @JvmName("isFalseNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isFalse(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        this.isFalse(from, criteriaBuilder)
+        isFalse(from, criteriaBuilder)
     }

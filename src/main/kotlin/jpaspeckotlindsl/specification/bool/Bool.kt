@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isTrue(root, criteriaBuilder)
+        isTrue(root, criteriaBuilder)
     }
 
 /**
@@ -25,7 +25,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
 @JvmName("isTrueNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isTrue(root, criteriaBuilder)
+        isTrue(root, criteriaBuilder)
     }
 
 /**
@@ -36,7 +36,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
  */
 fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isFalse(root, criteriaBuilder)
+        isFalse(root, criteriaBuilder)
     }
 
 /**
@@ -48,5 +48,5 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
 @JvmName("isFalseNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isFalse(root, criteriaBuilder)
+        isFalse(root, criteriaBuilder)
     }

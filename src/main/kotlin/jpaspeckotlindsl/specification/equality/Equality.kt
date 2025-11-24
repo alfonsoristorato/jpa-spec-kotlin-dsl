@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any, P> KProperty1<T, P>.equal(value: P): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.equal(root, criteriaBuilder, value)
+        equal(root, criteriaBuilder, value)
     }
 
 /**
@@ -28,5 +28,5 @@ fun <T : Any, P> KProperty1<T, P>.equal(value: P): Specification<T> =
  */
 fun <T : Any, P> KProperty1<T, P>.notEqual(value: P): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.notEqual(root, criteriaBuilder, value)
+        notEqual(root, criteriaBuilder, value)
     }

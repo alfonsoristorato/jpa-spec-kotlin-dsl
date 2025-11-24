@@ -12,7 +12,9 @@ import kotlin.reflect.KProperty1
  * @return A [PredicateSpecification] that checks if the property is null.
  */
 fun <T : Any, P> KProperty1<T, P>.isNull(): PredicateSpecification<T> =
-    PredicateSpecification { from, criteriaBuilder -> this.isNull(from, criteriaBuilder) }
+    PredicateSpecification { from, criteriaBuilder ->
+        isNull(from, criteriaBuilder)
+    }
 
 /**
  * Creates a [PredicateSpecification] that checks if the property is not null.
@@ -21,4 +23,6 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): PredicateSpecification<T> =
  * @return A [PredicateSpecification] that checks if the property is not null.
  */
 fun <T : Any, P> KProperty1<T, P>.isNotNull(): PredicateSpecification<T> =
-    PredicateSpecification { from, criteriaBuilder -> this.isNotNull(from, criteriaBuilder) }
+    PredicateSpecification { from, criteriaBuilder ->
+        isNotNull(from, criteriaBuilder)
+    }

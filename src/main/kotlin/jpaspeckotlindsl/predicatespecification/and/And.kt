@@ -9,4 +9,4 @@ import org.springframework.data.jpa.domain.PredicateSpecification
  * @param other – the other [PredicateSpecification].
  * @return The conjunction of the specifications.
  */
-infix fun <T : Any> PredicateSpecification<T>.and(other: PredicateSpecification<T>): PredicateSpecification<T> = this.and(other)
+infix fun <T : Any> PredicateSpecification<T>.and(other: PredicateSpecification<T>): PredicateSpecification<T> = and(other)

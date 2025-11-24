@@ -9,4 +9,4 @@ import org.springframework.data.jpa.domain.Specification
  * @param other – the other [Specification].
  * @return The conjunction of the specifications.
  */
-infix fun <T : Any> Specification<T>.and(other: Specification<T>): Specification<T> = this.and(other)
+infix fun <T : Any> Specification<T>.and(other: Specification<T>): Specification<T> = and(other)

@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isNull(root, criteriaBuilder)
+        isNull(root, criteriaBuilder)
     }
 
 /**
@@ -24,5 +24,5 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
  */
 fun <T : Any, P> KProperty1<T, P>.isNotNull(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        this.isNotNull(root, criteriaBuilder)
+        isNotNull(root, criteriaBuilder)
     }
