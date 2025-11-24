@@ -15,7 +15,7 @@ A Kotlin DSL for building type-safe JPA Specifications and PredicateSpecificatio
 
 ## Installation
 
-### GitHub Packages (will be soon switched with classic Maven Central)
+### GitHub Packages (this is temporary - library will be soon switched to Maven Central)
 
 Add the GitHub Packages repository to your `build.gradle.kts`:
 
@@ -47,7 +47,7 @@ gpr.token=your-github-pat-token
 ## Quick Start
 
 ```kotlin
-import jpaspeckotlindsl.specification.equal.equal
+import jpaspeckotlindsl.specification.equality.equal
 import jpaspeckotlindsl.specification.and.and
 import jpaspeckotlindsl.specification.or.or
 
@@ -132,17 +132,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 If you encounter any issues or have questions, please [open an issue](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/issues) on GitHub.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built on top of [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-- Inspired by the need for more idiomatic Kotlin syntax in JPA Specification and PredicateSpecification.
-
-## Support
-
-If you encounter any issues or have questions, please [open an issue](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/issues) on GitHub.
-
