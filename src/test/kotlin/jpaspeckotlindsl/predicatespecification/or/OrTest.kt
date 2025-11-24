@@ -7,7 +7,7 @@ import io.kotest.matchers.shouldBe
 import jpaspeckotlindsl.jpasetup.entity.Persona
 import jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
-import jpaspeckotlindsl.predicatespecification.equal.equal
+import jpaspeckotlindsl.predicatespecification.equality.equal
 import jpaspeckotlindsl.util.TestFixtures
 import org.springframework.data.jpa.domain.PredicateSpecification
 
