@@ -1,5 +1,7 @@
 package jpaspeckotlindsl.specification.bool
 
+import jpaspeckotlindsl.predicate.bool.isFalse
+import jpaspeckotlindsl.predicate.bool.isTrue
 import org.springframework.data.jpa.domain.Specification
 import kotlin.reflect.KProperty1
 
@@ -11,9 +13,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        criteriaBuilder.isTrue(
-            root.get(this.name),
-        )
+        isTrue(root, criteriaBuilder)
     }
 
 /**
@@ -25,9 +25,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
 @JvmName("isTrueNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        criteriaBuilder.isTrue(
-            root.get(this.name),
-        )
+        isTrue(root, criteriaBuilder)
     }
 
 /**
@@ -38,9 +36,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
  */
 fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        criteriaBuilder.isFalse(
-            root.get(this.name),
-        )
+        isFalse(root, criteriaBuilder)
     }
 
 /**
@@ -52,7 +48,5 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
 @JvmName("isFalseNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
-        criteriaBuilder.isFalse(
-            root.get(this.name),
-        )
+        isFalse(root, criteriaBuilder)
     }

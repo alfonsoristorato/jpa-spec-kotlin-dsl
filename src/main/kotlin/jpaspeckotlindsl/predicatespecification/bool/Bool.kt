@@ -1,5 +1,7 @@
 package jpaspeckotlindsl.predicatespecification.bool
 
+import jpaspeckotlindsl.predicate.bool.isFalse
+import jpaspeckotlindsl.predicate.bool.isTrue
 import org.springframework.data.jpa.domain.PredicateSpecification
 import kotlin.reflect.KProperty1
 
@@ -10,10 +12,8 @@ import kotlin.reflect.KProperty1
  * @return A [PredicateSpecification] that checks if the property is true.
  */
 fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
-    PredicateSpecification { root, criteriaBuilder ->
-        criteriaBuilder.isTrue(
-            root.get(this.name),
-        )
+    PredicateSpecification { from, criteriaBuilder ->
+        isTrue(from, criteriaBuilder)
     }
 
 /**
@@ -24,10 +24,8 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
  */
 @JvmName("isTrueNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
-    PredicateSpecification { root, criteriaBuilder ->
-        criteriaBuilder.isTrue(
-            root.get(this.name),
-        )
+    PredicateSpecification { from, criteriaBuilder ->
+        isTrue(from, criteriaBuilder)
     }
 
 /**
@@ -37,10 +35,8 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
  * @return A [PredicateSpecification] that checks if the property is false.
  */
 fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
-    PredicateSpecification { root, criteriaBuilder ->
-        criteriaBuilder.isFalse(
-            root.get(this.name),
-        )
+    PredicateSpecification { from, criteriaBuilder ->
+        isFalse(from, criteriaBuilder)
     }
 
 /**
@@ -51,8 +47,6 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
  */
 @JvmName("isFalseNullable")
 fun <T : Any> KProperty1<T, Boolean?>.isFalse(): PredicateSpecification<T> =
-    PredicateSpecification { root, criteriaBuilder ->
-        criteriaBuilder.isFalse(
-            root.get(this.name),
-        )
+    PredicateSpecification { from, criteriaBuilder ->
+        isFalse(from, criteriaBuilder)
     }

@@ -9,4 +9,4 @@ import org.springframework.data.jpa.domain.PredicateSpecification
  * @param other – the other [PredicateSpecification].
  * @return The disjunction of the specifications.
  */
-infix fun <T : Any> PredicateSpecification<T>.or(other: PredicateSpecification<T>): PredicateSpecification<T> = this.or(other)
+infix fun <T : Any> PredicateSpecification<T>.or(other: PredicateSpecification<T>): PredicateSpecification<T> = or(other)

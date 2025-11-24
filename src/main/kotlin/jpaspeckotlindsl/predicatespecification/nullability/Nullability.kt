@@ -1,5 +1,7 @@
 package jpaspeckotlindsl.predicatespecification.nullability
 
+import jpaspeckotlindsl.predicate.nullability.isNotNull
+import jpaspeckotlindsl.predicate.nullability.isNull
 import org.springframework.data.jpa.domain.PredicateSpecification
 import kotlin.reflect.KProperty1
 
@@ -11,9 +13,7 @@ import kotlin.reflect.KProperty1
  */
 fun <T : Any, P> KProperty1<T, P>.isNull(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        criteriaBuilder.isNull(
-            from.get<P>(this.name),
-        )
+        isNull(from, criteriaBuilder)
     }
 
 /**
@@ -24,7 +24,5 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): PredicateSpecification<T> =
  */
 fun <T : Any, P> KProperty1<T, P>.isNotNull(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        criteriaBuilder.isNotNull(
-            from.get<P>(this.name),
-        )
+        isNotNull(from, criteriaBuilder)
     }
