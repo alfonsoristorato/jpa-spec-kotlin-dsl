@@ -1,9 +1,18 @@
 plugins {
+    //region Plugins for main
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.gradle.ktlint)
+    alias(libs.plugins.kover)
+    //endregion
+
+    //region Plugins for test
     alias(libs.plugins.kotlin.jpa) // for test only
     alias(libs.plugins.kotlin.spring) // for test only
+    //endregion
+
+    //region Plugins for publishing
     `maven-publish`
+    //endregion
 }
 
 group = "alfonsoristorato"
@@ -38,7 +47,7 @@ kotlin {
 }
 
 tasks.build {
-    dependsOn(tasks.ktlintFormat)
+    dependsOn(tasks.ktlintFormat, tasks.koverVerify)
 }
 
 configurations {
@@ -89,6 +98,16 @@ publishing {
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+kover {
+    reports {
+        verify {
+            rule {
+                minBound(100)
             }
         }
     }
