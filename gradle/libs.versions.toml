@@ -1,6 +1,6 @@
 # Keep alphabetical and formatted correctly please
 [versions]
-flyway                          = "11.17.1"
+flyway                          = "11.17.2"
 gradle-ktlint                   = "14.0.1"
 kotest                          = "6.0.5"
 kotlin                          = "2.2.21"
