@@ -8,7 +8,6 @@ import jpaspeckotlindsl.jpasetup.entity.Post
 import jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import jpaspeckotlindsl.jpasetup.repository.PostRepository
 import jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
-import jpaspeckotlindsl.specification.equality.equal
 import jpaspeckotlindsl.util.TestFixtures
 
 @SpringBootTestEnhanced

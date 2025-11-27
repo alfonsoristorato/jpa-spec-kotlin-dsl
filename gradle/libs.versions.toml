@@ -1,5 +1,6 @@
 # Keep alphabetical and formatted correctly please
 [versions]
+archunit-junit5                 = "1.4.1"
 flyway                          = "11.17.1"
 gradle-ktlint                   = "14.0.1"
 kotest                          = "6.0.5"
@@ -15,6 +16,7 @@ kotlin-stdlib                   = { module = "org.jetbrains.kotlin:kotlin-stdlib
 spring-boot-starter-data-jpa    = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
 
 # Test
+archunit-junit5                 = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit-junit5" }
 flyway-database-psql            = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 kotest-assertions-core          = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-table         = { module = "io.kotest:kotest-assertions-table", version.ref = "kotest" }
