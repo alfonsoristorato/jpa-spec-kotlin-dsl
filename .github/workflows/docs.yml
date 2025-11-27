@@ -1,9 +1,7 @@
 name: Deploy Documentation
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 permissions:
   contents: read
@@ -32,6 +30,8 @@ jobs:
 
       - name: Build documentation with Dokka
         run: ./gradlew dokkaGenerateHtml
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

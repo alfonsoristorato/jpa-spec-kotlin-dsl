@@ -16,3 +16,11 @@ jobs:
     permissions:
       contents: write
       packages: write
+
+  docs:
+    needs: [ publish ]
+    uses: ./.github/workflows/docs.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
