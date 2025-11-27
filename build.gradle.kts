@@ -130,5 +130,3 @@ dokka {
         outputDirectory.set(layout.buildDirectory.dir("docs"))
     }
 }
-
-
