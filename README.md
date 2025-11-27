@@ -120,6 +120,16 @@ repository.findAll(specA or specB)
 repository.findAll(predicateSpecA or predicateSpecB)
 ```
 
+## Documentation
+
+Full API documentation is available at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
+
+The documentation includes:
+- Complete API reference for all packages (`predicate`, `specification`, `predicatespecification`)
+- Detailed KDoc for each function and extension
+- Type information and usage examples
+- Source code links
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
