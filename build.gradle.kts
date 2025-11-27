@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.gradle.ktlint)
     alias(libs.plugins.kover)
+    alias(libs.plugins.dokka)
     //endregion
 
     //region Plugins for test
@@ -113,3 +114,21 @@ kover {
         }
     }
 }
+
+dokka {
+    moduleName.set("JPA Specification Kotlin DSL")
+    dokkaSourceSets.main {
+        sourceLink {
+            localDirectory.set(file("src/main/kotlin"))
+            remoteUrl("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/tree/main/src/main/kotlin")
+            remoteLineSuffix.set("#L")
+        }
+    }
+
+    dokkaPublications.html {
+        suppressInheritedMembers.set(true)
+        outputDirectory.set(layout.buildDirectory.dir("docs"))
+    }
+}
+
+
