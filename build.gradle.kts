@@ -31,6 +31,7 @@ dependencies {
     testImplementation(libs.bundles.kotest)
     testImplementation(libs.bundles.db.test)
     testImplementation(libs.bundles.spring.test)
+    testImplementation(libs.archunit.junit5)
 }
 
 tasks.test {
