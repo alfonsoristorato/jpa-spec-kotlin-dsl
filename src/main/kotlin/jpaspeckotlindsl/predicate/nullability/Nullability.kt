@@ -9,6 +9,7 @@ import kotlin.reflect.KProperty1
  * Creates a [Predicate] that checks if the property is null.
  *
  * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is null.
@@ -22,6 +23,7 @@ fun <T, P> KProperty1<T, P>.isNull(
  * Creates a [Predicate] that checks if the property is not null.
  *
  * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is not null.

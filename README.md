@@ -80,49 +80,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ## API Reference
 
-### `equal` Operator
-
-Creates a specification that checks for equality between a property and a value. Uses Kotlin property references for type-safe queries.
-
-**Example:**
-```kotlin
-// For primitive types
-val usersByAge = User::age.equal(25)
-repository.findAll(usersByAge)
-
-// For entity types
-val author = authorRepository.findById(1)
-val postsByAuthor = Post::author.equal(author)
-repository.findAll(postsByAuthor)
-
-// Works with both Specification and PredicateSpecification
-val spec : Specification<User> = User::name.equal("John")
-val predicateSpec : PredicateSpecification<User> = User::email.equal("john@example.com")
-```
-
-### `and` Operator
-
-Combines two specifications with a logical AND operation.
-
-**Example:**
-```kotlin
-repository.findAll(specA and specB)
-repository.findAll(predicateSpecA and predicateSpecB)
-```
-
-### `or` Operator
-
-Combines two specifications with a logical OR operation.
-
-**Example:**
-```kotlin
-repository.findAll(specA or specB)
-repository.findAll(predicateSpecA or predicateSpecB)
-```
-
-## Documentation
-
-Full API documentation is available at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
+Full API Reference documentation is available at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
 
 The documentation includes:
 - Complete API reference for all packages (`predicate`, `specification`, `predicatespecification`)
