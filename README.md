@@ -4,15 +4,24 @@
 [![Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.alfonsoristorato/jpa-spec-kotlin-dsl.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.alfonsoristorato/jpa-spec-kotlin-dsl)
 
-A Kotlin DSL for building type-safe JPA Specifications and PredicateSpecifications using idiomatic Kotlin syntax. Write cleaner, more maintainable JPA Specifications with the power of Kotlin's type system.
+A Kotlin DSL for building type-safe JPA queries using idiomatic Kotlin syntax. The library provides three distinct DSLs:
+
+1. **Predicate DSL** - Build JPA `Predicate` objects for use within `Specification` or `PredicateSpecification`
+2. **Specification DSL** - Build complete `Specification<T>` queries (traditional Spring Data JPA)
+3. **PredicateSpecification DSL** - Build complete `PredicateSpecification<T>` queries (Spring Data JPA 3.0+)
 
 ## Features
 
--  **Type-safe queries** using Kotlin property references (`::`)
--  **Idiomatic Kotlin** syntax with infix operators
--  **Composable specifications** with `and` and `or` operators
--  **Works with Spring Data JPA** Specification and PredicateSpecification
--  **Zero overhead** - just extension functions on top of JPA
+- **Three DSL flavors**:
+    - **Predicate DSL** - For building predicates to use within `Specification {}` or `PredicateSpecification {}`
+      lambdas
+    - **Specification DSL** - Complete specifications
+    - **PredicateSpecification DSL** - Complete predicate specifications
+- **Type-safe queries** using Kotlin property references (`::`)
+- **Idiomatic Kotlin** syntax with infix operators
+- **Composable specifications** with `and` and `or` operators
+- **Zero overhead** - just extension functions on top of JPA
+- **Mix and match** - Use predicates within specifications or use specifications standalone
 
 ## Installation
 
@@ -51,6 +60,7 @@ dependencies {
 Full API Reference documentation is available at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
 
 The documentation includes:
+
 - Complete API reference for all packages (`predicate`, `specification`, `predicatespecification`)
 - Detailed KDoc for each function and extension
 - Type information and usage examples
@@ -67,4 +77,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/issues) on GitHub.
+If you encounter any issues or have questions,
+please [open an issue](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/issues) on GitHub.
