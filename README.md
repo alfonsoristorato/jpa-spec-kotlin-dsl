@@ -42,35 +42,9 @@ dependencies {
 </dependency>
 ```
 
-## Quick Start
+### Examples
 
-```kotlin
-// Define your entity
-@Entity
-data class User(
-    @Id val id: Long,
-    val name: String,
-    val age: Int,
-    val isActive: Boolean
-)
-
-// Use the DSL in your repository
-interface UserRepository : JpaRepository<User, Long>, JpaSpecificationExecutor<User>
-
-// Build type-safe queries
-class UserService(private val userRepository: UserRepository) {
-    
-    fun findActiveAdults(): List<User> {
-        val spec = User::isActive.equal(true) and User::age.equal(18)
-        return userRepository.findAll(spec)
-    }
-    
-    fun findYoungOrSenior(): List<User> {
-        val spec = User::age.equal(25) or User::age.equal(65)
-        return userRepository.findAll(spec)
-    }
-}
-```
+**[See comprehensive examples](EXAMPLES.md)**
 
 ## API Reference
 
