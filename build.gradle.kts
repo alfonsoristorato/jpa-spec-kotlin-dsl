@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "io.github.alfonsoristorato"
-version = System.getenv("RELEASE_VERSION") ?: "0.0.4-alpha"
+version = System.getenv("RELEASE_VERSION") ?: "LOCAL-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     // Core dependencies
-    api(libs.kotlin.stdlib)
+    compileOnly(libs.kotlin.stdlib)
     compileOnly(libs.spring.boot.starter.data.jpa)
 
     // Testing
@@ -55,7 +55,7 @@ tasks.build {
 }
 
 configurations {
-    all {
+    testImplementation {
         exclude(group = "org.mockito", module = "mockito-core")
         exclude(group = "org.mockito", module = "mockito-junit-jupiter")
     }
