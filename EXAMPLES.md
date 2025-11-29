@@ -163,6 +163,67 @@ repository.findAll(youngOrSenior)
 The DSL supports joins for querying across entity relationships. This feature is marked as experimental as the API may
 evolve.
 
+**Important:** Join operations must be used within a `Specification {}` or `PredicateSpecification {}` lambda block, as they require access to the JPA `Root` and `CriteriaBuilder`.
+
+### Setup
+
+First, define your related entities:
+
+```kotlin
+@Entity
+data class Post(
+    @Id val id: Long,
+    val title: String,
+    @ManyToOne val author: User
+)
+
+@Entity
+data class Comment(
+    @Id val id: Long,
+    val content: String,
+    @ManyToOne val post: Post,
+    @ManyToOne val author: User
+)
+
+interface PostRepository : JpaRepository<Post, Long>, JpaSpecificationExecutor<Post>
+interface CommentRepository : JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment>
+```
+
+### Using Joins with Specification
+
+```kotlin
+@OptIn(ExperimentalJoinApi::class)
+fun findCommentsByPostTitle(title: String): List<Comment> {
+    val spec = Specification { root, _, criteriaBuilder ->
+        // Create the join from Comment to Post
+        val postJoin = Comment::post.join(root)
+        
+        // Use the join to filter by post title
+        Post::title.equal(postJoin, criteriaBuilder, title)
+    }
+    
+    return commentRepository.findAll(spec)
+}
+
+@OptIn(ExperimentalJoinApi::class)
+fun findCommentsByAuthorName(authorName: String): List<Comment> {
+    val spec = Specification { root, _, criteriaBuilder ->
+        // Create the join from Comment to User (author)
+        val authorJoin = Comment::author.join(root)
+        
+        // Use the join to filter by author name
+        User::name.equal(authorJoin, criteriaBuilder, authorName)
+    }
+    
+    return commentRepository.findAll(spec)
+}
+```
+
+### Join Types
+
+You can specify different join types (INNER, LEFT, RIGHT):
+
+
 ## Testing
 
 This DSL is thoroughly tested using [Kotest](https://kotest.io/) with real database integration tests. Every feature has
