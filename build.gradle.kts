@@ -13,11 +13,13 @@ plugins {
 
     //region Plugins for publishing
     `maven-publish`
+    signing
+    alias(libs.plugins.gradle.nexus.publish.plugin)
     //endregion
 }
 
-group = "alfonsoristorato"
-version = System.getenv("RELEASE_VERSION") ?: "LOCAL-SNAPSHOT"
+group = "io.github.alfonsoristorato"
+version = System.getenv("RELEASE_VERSION") ?: "LOCAL_SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -59,52 +61,6 @@ configurations {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("gpr") {
-            from(components["java"])
-
-            pom {
-                name.set("JPA Specification Kotlin DSL")
-                description.set("A Kotlin DSL for building JPA Specifications with idiomatic syntax")
-                url.set("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
-
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/blob/main/LICENSE")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("alfonsoristorato")
-                        name.set("Alfonso Ristorato")
-                        url.set("https://github.com/alfonsoristorato")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/alfonsoristorato/jpa-spec-kotlin-dsl.git")
-                    developerConnection.set("scm:git:ssh://github.com/alfonsoristorato/jpa-spec-kotlin-dsl.git")
-                    url.set("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
-                }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
-
 kover {
     reports {
         verify {
@@ -130,3 +86,74 @@ dokka {
         outputDirectory.set(layout.buildDirectory.dir("docs"))
     }
 }
+
+//region Publishing artifacts
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.named<Jar>("javadocJar") {
+    from(tasks.named("dokkaGeneratePublicationHtml"))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            pom {
+                name.set("JPA Specification Kotlin DSL")
+                description.set("A Kotlin DSL for building JPA Specifications with idiomatic syntax")
+                url.set("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("alfonsoristorato")
+                        name.set("Alfonso Ristorato")
+                        url.set("https://github.com/alfonsoristorato")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/alfonsoristorato/jpa-spec-kotlin-dsl.git")
+                    developerConnection.set("scm:git:ssh://github.com:alfonsoristorato/jpa-spec-kotlin-dsl.git")
+                    url.set("https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
+                }
+            }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username = System.getenv("OSSRH_USERNAME")
+            password = System.getenv("OSSRH_PASSWORD")
+        }
+    }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
+}
+
+extensions.configure<SigningExtension> {
+    useInMemoryPgpKeys(
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PASSPHRASE")
+    )
+    sign(publishing.publications["mavenJava"])
+}
+
+
+//endregion
