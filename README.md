@@ -2,6 +2,7 @@
 
 [![Main](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/main.yml/badge.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/main.yml)
 [![Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.alfonsoristorato/jpa-spec-kotlin-dsl.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.alfonsoristorato/jpa-spec-kotlin-dsl)
 
 A Kotlin DSL for building type-safe JPA Specifications and PredicateSpecifications using idiomatic Kotlin syntax. Write cleaner, more maintainable JPA Specifications with the power of Kotlin's type system.
 
@@ -15,34 +16,31 @@ A Kotlin DSL for building type-safe JPA Specifications and PredicateSpecificatio
 
 ## Installation
 
-### GitHub Packages (this is temporary - library will be soon switched to Maven Central)
-
-Add the GitHub Packages repository to your `build.gradle.kts`:
+### Gradle (Kotlin DSL)
 
 ```kotlin
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/alfonsoristorato/jpa-spec-kotlin-dsl")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
-}
-
 dependencies {
-    implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:version")
+    implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>")
 }
 ```
 
-Create a `gradle.properties` file in your project root or `~/.gradle/gradle.properties`:
+### Gradle (Groovy)
 
-```properties
-gpr.user=your-github-username
-gpr.token=your-github-pat-token
+```groovy
+dependencies {
+    implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>'
+}
 ```
 
-**Note:** To generate a GitHub token, go to Settings → Developer settings → Personal access tokens → Generate new token. Select the `read:packages` scope.
+### Maven
+
+```xml
+<dependency>
+    <groupId>io.github.alfonsoristorato</groupId>
+    <artifactId>jpa-spec-kotlin-dsl</artifactId>
+    <version>version</version>
+</dependency>
+```
 
 ## Quick Start
 
