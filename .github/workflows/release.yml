@@ -14,8 +14,8 @@ jobs:
     needs: [ test ]
     uses: ./.github/workflows/publish.yml
     permissions:
-      contents: write
-      packages: write
+      contents: read
+    secrets: inherit
 
   docs:
     needs: [ publish ]
