@@ -45,10 +45,6 @@ dependencies {
 ## Quick Start
 
 ```kotlin
-import jpaspeckotlindsl.specification.equality.equal
-import jpaspeckotlindsl.specification.and.and
-import jpaspeckotlindsl.specification.or.or
-
 // Define your entity
 @Entity
 data class User(
