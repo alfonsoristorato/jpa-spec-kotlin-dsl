@@ -20,7 +20,7 @@ This is achieved with zero runtime overhead by providing extension functions on 
       lambdas
     - **Specification DSL** - Complete specifications
     - **PredicateSpecification DSL** - Complete predicate specifications
-- **Type-safe queries** using Kotlin property references (`::`) — implemented as extension functions on KProperty1<T, P>
+- **Type-safe queries** using Kotlin property references (`::`) - implemented as extension functions on `KProperty1<T, P>`
 - **Idiomatic Kotlin** syntax with infix operators
 - **Composable specifications** with `and` and `or` operators
 - **Zero overhead** - extension functions on top of JPA (no proxies or runtime code generation)
@@ -34,7 +34,6 @@ how the same logic becomes concise using this Kotlin DSL.
 Without the DSL (traditional Specification):
 
 ```kotlin
-// Traditional Spring Data JPA Specification (no DSL)
 val spec = Specification<User> { root, query, cb ->
     val namePath = root.get<String>("name")
     val agePath = root.get<Int>("age")
