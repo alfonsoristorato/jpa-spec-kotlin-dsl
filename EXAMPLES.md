@@ -136,10 +136,17 @@ repository.findAll(activeUsers)
 // Simple AND
 val activeAdults = User::isActive.isTrue() and User::age.greaterThanOrEqualTo(18)
 
-// Multiple conditions
+// Multiple and conditions
 val qualifiedUsers = User::isActive.isTrue() and
         User::age.greaterThanOrEqualTo(18) and
         User::email.isNotNull()
+
+// Multiple and conditions with different operators
+val qualifiedUsers = and(
+        User::isActive.isTrue(), 
+        User::age.greaterThanOrEqualTo(18), 
+        User::email.isNotNull()
+)
 
 repository.findAll(activeAdults)
 ```
@@ -150,10 +157,17 @@ repository.findAll(activeAdults)
 // Simple OR
 val youngOrSenior = User::age.lessThan(25) or User::age.greaterThan(65)
 
-// Multiple alternatives
+// Multiple or conditions
 val priorityUsers = User::role.equal("ADMIN") or
         User::role.equal("MODERATOR") or
         User::isPremium.isFalse()
+
+// Multiple or conditions with different operators
+val priorityUsers = or(
+        User::role.equal("ADMIN"), 
+        User::role.equal("MODERATOR"), 
+        User::isPremium.isFalse()
+)
 
 repository.findAll(youngOrSenior)
 ```
