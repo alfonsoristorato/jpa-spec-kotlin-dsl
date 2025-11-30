@@ -80,7 +80,7 @@ dependencies {
 </dependency>
 ```
 
-### Examples
+## Examples
 
 **[See comprehensive examples](EXAMPLES.md)**
 
