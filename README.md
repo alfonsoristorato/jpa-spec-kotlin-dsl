@@ -48,7 +48,7 @@ repository.findAll(spec)
 With the DSL:
 
 ```kotlin
-repository.findAll(User::name.equal("Alice") and User::age.equal(18))
+repository.findAll(User::name.equal("Alice") and User::age.greaterThan(18))
 ```
 
 ## Installation
