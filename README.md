@@ -7,20 +7,20 @@
 A Kotlin DSL for building type-safe JPA queries using idiomatic Kotlin syntax. The library provides three distinct DSLs:
 
 1. **Predicate DSL** - Build JPA `Predicate` objects for use within `Specification` or `PredicateSpecification`
-2. **Specification DSL** - Build complete `Specification<T>` queries (traditional Spring Data JPA)
-3. **PredicateSpecification DSL** - Build complete `PredicateSpecification<T>` queries (Spring Data JPA 3.0+)
+2. **Specification DSL** - Build complete `Specification<T>` queries
+3. **PredicateSpecification DSL** - Build complete `PredicateSpecification<T>` queries
 
-This is achieved with zero runtime overhead by providing extension functions on Kotlin property references 
-`KProperty1<T, P>`, letting you write type-safe predicates directly from property references like `User::name`.
+This is achieved with zero runtime overhead by providing extension functions on Kotlin property references
+`KProperty1<T, P>`, letting you write type-safe predicates directly from property references.
 
 ## Features
 
 - **Three DSL flavors**:
     - **Predicate DSL** - For building predicates to use within `Specification {}` or `PredicateSpecification {}`
-      lambdas
     - **Specification DSL** - Complete specifications
     - **PredicateSpecification DSL** - Complete predicate specifications
-- **Type-safe queries** using Kotlin property references (`::`) - implemented as extension functions on `KProperty1<T, P>`
+- **Type-safe queries** using Kotlin property references (`::`) - implemented as extension functions on
+  `KProperty1<T, ?>`
 - **Idiomatic Kotlin** syntax with infix operators
 - **Composable specifications** with `and` and `or` operators
 - **Zero overhead** - extension functions on top of JPA (no proxies or runtime code generation)
@@ -31,7 +31,7 @@ This is achieved with zero runtime overhead by providing extension functions on 
 Below is a short comparison showing how a simple specification looks with plain Spring Data JPA (without the DSL) and
 how the same logic becomes concise using this Kotlin DSL.
 
-Without the DSL (traditional Specification):
+Without the DSL:
 
 ```kotlin
 val spec = Specification<User> { root, query, cb ->
@@ -72,6 +72,7 @@ dependencies {
 ### Maven
 
 ```xml
+
 <dependency>
     <groupId>io.github.alfonsoristorato</groupId>
     <artifactId>jpa-spec-kotlin-dsl</artifactId>
@@ -91,7 +92,7 @@ The documentation includes:
 
 - Complete API reference for all packages (`predicate`, `specification`, `predicatespecification`)
 - Detailed KDoc for each function and extension
-- Type information and usage examples
+- Type information
 - Source code links
 
 ## License
@@ -101,7 +102,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - Built on top of [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-- Inspired by the need for more idiomatic Kotlin syntax in JPA Specification and PredicateSpecification.
+- Inspired by the need for more idiomatic Kotlin syntax in `JPA` `Specification` and `PredicateSpecification`.
 
 ## Support
 
