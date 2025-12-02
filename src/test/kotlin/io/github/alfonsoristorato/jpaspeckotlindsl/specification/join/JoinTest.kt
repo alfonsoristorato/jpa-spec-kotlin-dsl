@@ -96,7 +96,7 @@ class JoinTest(
             commentRepository.findAll() shouldHaveSize 5
         }
 
-        context("joinedWithPredicate creates joins and applies the provided predicate") {
+        context("joinWithPredicate creates joins and applies the provided predicate") {
             context("inner join") {
                 expect("Comment to Post") {
                     val spec =
@@ -200,10 +200,11 @@ class JoinTest(
         }
 
         /**
+         * TODO
          * Below provies that combining multiple conditions works as expected as no results are found
          * Should we in future have a more suitable data set to test positive matches for multiple conditions we can change these tests
          */
-        context("joinedWithPredicates creates joins and applies the provided predicates") {
+        context("joinWithPredicates creates joins and applies the provided predicates") {
             context("inner join") {
                 expect("Comment to Post") {
                     val spec =
