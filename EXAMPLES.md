@@ -166,9 +166,9 @@ val qualifiedUsers = User::isActive.isTrue() and
 
 // Multiple and conditions with different operators
 val qualifiedUsers = and(
-        User::isActive.isTrue(), 
-        User::age.greaterThanOrEqualTo(18), 
-        User::email.isNotNull()
+    User::isActive.isTrue(),
+    User::age.greaterThanOrEqualTo(18),
+    User::email.isNotNull()
 )
 
 repository.findAll(activeAdults)
@@ -187,9 +187,9 @@ val priorityUsers = User::role.equal("ADMIN") or
 
 // Multiple or conditions with different operators
 val priorityUsers = or(
-        User::role.equal("ADMIN"), 
-        User::role.equal("MODERATOR"), 
-        User::isPremium.isFalse()
+    User::role.equal("ADMIN"),
+    User::role.equal("MODERATOR"),
+    User::isPremium.isFalse()
 )
 
 repository.findAll(youngOrSenior)
@@ -200,66 +200,56 @@ repository.findAll(youngOrSenior)
 The DSL supports joins for querying across entity relationships. This feature is marked as experimental as the API may
 evolve.
 
-**Important:** Join operations must be used within a `Specification {}` or `PredicateSpecification {}` lambda block, as they require access to the JPA `Root` and `CriteriaBuilder`.
+### Using joinWithPredicate
 
-### Setup
-
-First, define your related entities:
+The `joinWithPredicate` function provides a clean, concise syntax for joins with a single predicate:
 
 ```kotlin
-@Entity
-data class Post(
-    @Id val id: Long,
-    val title: String,
-    @ManyToOne val author: User
-)
+val commentsWithUserNamed = Comment::user.joinWithPredicate { userJoin, cb ->
+    User::name.equal(userJoin, cb, "name")
+}
 
-@Entity
-data class Comment(
-    @Id val id: Long,
-    val content: String,
-    @ManyToOne val post: Post,
-    @ManyToOne val author: User
-)
+val commentsWithPostTitled = Comment::post.joinWithPredicate { postJoin, cb ->
+    Post::title.equal(postJoin, cb, "title")
+}
 
-interface PostRepository : JpaRepository<Post, Long>, JpaSpecificationExecutor<Post>
-interface CommentRepository : JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment>
+val commentsWithUserNamedLike = Comment::user.joinWithPredicate { userJoin, cb ->
+    User::name.like(userJoin, cb, "pattern")
+}
+
+val commentsWithUserAgedAtLeast = Comment::user.joinWithPredicate { userJoin, cb ->
+    User::age.greaterThan(userJoin, cb, 20)
+}
+
+repository.findAll(commentsWithUserAgedAtLeast)
 ```
 
-### Using Joins with Specification
+### Using joinWithPredicates
+
+When you need to combine multiple conditions on the joined entity, use `joinWithPredicates`:
 
 ```kotlin
-@OptIn(ExperimentalJoinApi::class)
-fun findCommentsByPostTitle(title: String): List<Comment> {
-    val spec = Specification { root, _, criteriaBuilder ->
-        // Create the join from Comment to Post
-        val postJoin = Comment::post.join(root)
-        
-        // Use the join to filter by post title
-        Post::title.equal(postJoin, criteriaBuilder, title)
-    }
-    
-    return commentRepository.findAll(spec)
+val commentsWithPostTitledAndContentEquals = Comment::post.joinWithPredicates { postJoin, cb ->
+    listOf(
+        Post::title.equal(postJoin, cb, title),
+        Post::content.equal(postJoin, cb, content)
+    )
+}
+val commentsWithUserAgeAtLeastAndUserNameEquals = Comment::user.joinWithPredicates { userJoin, cb ->
+    listOf(
+        User::age.greaterThanOrEqualTo(userJoin, cb, 10),
+        User::name.equals(userJoin, cb, "name")
+    )
 }
 
-@OptIn(ExperimentalJoinApi::class)
-fun findCommentsByAuthorName(authorName: String): List<Comment> {
-    val spec = Specification { root, _, criteriaBuilder ->
-        // Create the join from Comment to User (author)
-        val authorJoin = Comment::author.join(root)
-        
-        // Use the join to filter by author name
-        User::name.equal(authorJoin, criteriaBuilder, authorName)
-    }
-    
-    return commentRepository.findAll(spec)
-}
+repository.findAll(commentsWithUserAgedAtLeast)
 ```
+
+**Note:** Multiple predicates are automatically combined with AND logic.
 
 ### Join Types
 
 You can specify different join types (INNER, LEFT, RIGHT):
-
 
 ## Testing
 
