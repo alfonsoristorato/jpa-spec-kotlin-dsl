@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.join
+package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.join
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalJoinApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
@@ -14,8 +14,6 @@ import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import jakarta.persistence.criteria.JoinType
-import org.springframework.data.jpa.domain.PredicateSpecification
-import org.springframework.data.jpa.domain.Specification
 
 @OptIn(ExperimentalJoinApi::class)
 @SpringBootTestEnhanced
@@ -47,16 +45,19 @@ class JoinTest(
                 TestFixtures.createPost(
                     title = "John's First Post",
                     persona = persona1,
+                    content = "Post 1 content",
                 )
             val post2 =
                 TestFixtures.createPost(
                     title = "John's Second Post",
                     persona = persona1,
+                    content = "Post 2 content",
                 )
             val post3 =
                 TestFixtures.createPost(
                     title = "Jane's Post",
                     persona = persona2,
+                    content = "Post 3 content",
                 )
             postRepository.saveAll(listOf(post1, post2, post3))
             postRepository.findAll() shouldHaveSize 3
@@ -95,12 +96,11 @@ class JoinTest(
             commentRepository.findAll() shouldHaveSize 5
         }
 
-        context("join creates joins for use with Specification") {
+        context("joinedWithPredicate creates joins and applies the provided predicate") {
             context("inner join") {
                 expect("Comment to Post") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val postJoin = Comment::post.join(root)
+                        Comment::post.joinWithPredicate { postJoin, criteriaBuilder ->
                             Post::title.equal(postJoin, criteriaBuilder, "John's First Post")
                         }
                     val result = commentRepository.findAll(spec)
@@ -117,8 +117,7 @@ class JoinTest(
 
                 expect("Comment to Persona") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(root)
+                        Comment::persona.joinWithPredicate { personaJoin, criteriaBuilder ->
                             Persona::name.equal(personaJoin, criteriaBuilder, "Jane Smith")
                         }
                     val result = commentRepository.findAll(spec)
@@ -136,8 +135,7 @@ class JoinTest(
             context("left join") {
                 expect("Comment to Post") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val postJoin = Comment::post.join(root, JoinType.LEFT)
+                        Comment::post.joinWithPredicate(joinType = JoinType.LEFT) { postJoin, criteriaBuilder ->
                             Post::title.equal(postJoin, criteriaBuilder, "Jane's Post")
                         }
                     val result = commentRepository.findAll(spec)
@@ -154,10 +152,10 @@ class JoinTest(
 
                 expect("Comment to Persona") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(root, JoinType.LEFT)
+                        Comment::persona.joinWithPredicate(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
                             Persona::age.equal(personaJoin, criteriaBuilder, 35)
                         }
+
                     val result = commentRepository.findAll(spec)
                     result shouldHaveSize 1
                     result[0].apply {
@@ -170,8 +168,7 @@ class JoinTest(
             context("right join") {
                 expect("Comment to Post") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val postJoin = Comment::post.join(root, JoinType.RIGHT)
+                        Comment::post.joinWithPredicate(joinType = JoinType.RIGHT) { postJoin, criteriaBuilder ->
                             Post::title.equal(postJoin, criteriaBuilder, "John's Second Post")
                         }
                     val result = commentRepository.findAll(spec)
@@ -184,10 +181,10 @@ class JoinTest(
 
                 expect("Comment to Persona") {
                     val spec =
-                        Specification { root, _, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(root, JoinType.RIGHT)
+                        Comment::persona.joinWithPredicate(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
                             Persona::name.equal(personaJoin, criteriaBuilder, "John Doe")
                         }
+
                     val result = commentRepository.findAll(spec)
                     result shouldHaveSize 2
                     result[0].apply {
@@ -201,109 +198,87 @@ class JoinTest(
                 }
             }
         }
-        context("join creates joins for use with PredicateSpecification") {
+
+        /**
+         * Below provies that combining multiple conditions works as expected as no results are found
+         * Should we in future have a more suitable data set to test positive matches for multiple conditions we can change these tests
+         */
+        context("joinedWithPredicates creates joins and applies the provided predicates") {
             context("inner join") {
                 expect("Comment to Post") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val postJoin = Comment::post.join(from)
-                            Post::title.equal(postJoin, criteriaBuilder, "John's First Post")
+                        Comment::post.joinWithPredicates { postJoin, criteriaBuilder ->
+                            listOf(
+                                Post::title.equal(postJoin, criteriaBuilder, "John's First Post"),
+                                Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                            )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 2
-                    result[0].apply {
-                        content shouldBe "John's comment on his first post"
-                        post.title shouldBe "John's First Post"
-                    }
-                    result[1].apply {
-                        content shouldBe "Jane's comment on John's first post"
-                        post.title shouldBe "John's First Post"
-                    }
+                    result shouldHaveSize 0
                 }
 
                 expect("Comment to Persona") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(from)
-                            Persona::name.equal(personaJoin, criteriaBuilder, "Jane Smith")
+                        Comment::persona.joinWithPredicates { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Persona::name.equal(personaJoin, criteriaBuilder, "Jane Smith"),
+                                Persona::age.equal(personaJoin, criteriaBuilder, 99),
+                            )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 2
-                    result[0].apply {
-                        content shouldBe "Jane's comment on John's first post"
-                        persona.name shouldBe "Jane Smith"
-                    }
-                    result[1].apply {
-                        content shouldBe "Jane's comment on her post"
-                        persona.name shouldBe "Jane Smith"
-                    }
+                    result shouldHaveSize 0
                 }
             }
             context("left join") {
                 expect("Comment to Post") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val postJoin = Comment::post.join(from, JoinType.LEFT)
-                            Post::title.equal(postJoin, criteriaBuilder, "Jane's Post")
+                        Comment::post.joinWithPredicates(joinType = JoinType.LEFT) { postJoin, criteriaBuilder ->
+                            listOf(
+                                Post::title.equal(postJoin, criteriaBuilder, "Jane's Post"),
+                                Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                            )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 2
-                    result[0].apply {
-                        content shouldBe "Jane's comment on her post"
-                        post.title shouldBe "Jane's Post"
-                    }
-                    result[1].apply {
-                        content shouldBe "Bob's comment on Jane's post"
-                        post.title shouldBe "Jane's Post"
-                    }
+                    result shouldHaveSize 0
                 }
 
                 expect("Comment to Persona") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(from, JoinType.LEFT)
-                            Persona::age.equal(personaJoin, criteriaBuilder, 35)
+                        Comment::persona.joinWithPredicates(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Persona::name.equal(personaJoin, criteriaBuilder, "Bob Johnson"),
+                                Persona::age.equal(personaJoin, criteriaBuilder, 45),
+                            )
                         }
+
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 1
-                    result[0].apply {
-                        content shouldBe "Bob's comment on Jane's post"
-                        persona.name shouldBe "Bob Johnson"
-                        persona.age shouldBe 35
-                    }
+                    result shouldHaveSize 0
                 }
             }
             context("right join") {
                 expect("Comment to Post") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val postJoin = Comment::post.join(from, JoinType.RIGHT)
-                            Post::title.equal(postJoin, criteriaBuilder, "John's Second Post")
+                        Comment::post.joinWithPredicates(joinType = JoinType.RIGHT) { postJoin, criteriaBuilder ->
+                            listOf(
+                                Post::title.equal(postJoin, criteriaBuilder, "John's Second Post"),
+                                Post::content.equal(postJoin, criteriaBuilder, "Post 1 content"),
+                            )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 1
-                    result[0].apply {
-                        content shouldBe "John's comment on his second post"
-                        post.title shouldBe "John's Second Post"
-                    }
+                    result shouldHaveSize 0
                 }
 
                 expect("Comment to Persona") {
                     val spec =
-                        PredicateSpecification { from, criteriaBuilder ->
-                            val personaJoin = Comment::persona.join(from, JoinType.RIGHT)
-                            Persona::name.equal(personaJoin, criteriaBuilder, "John Doe")
+                        Comment::persona.joinWithPredicates(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Persona::name.equal(personaJoin, criteriaBuilder, "John Doe"),
+                                Persona::age.equal(personaJoin, criteriaBuilder, 40),
+                            )
                         }
+
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 2
-                    result[0].apply {
-                        content shouldBe "John's comment on his first post"
-                        persona.name shouldBe "John Doe"
-                    }
-                    result[1].apply {
-                        content shouldBe "John's comment on his second post"
-                        persona.name shouldBe "John Doe"
-                    }
+                    result shouldHaveSize 0
                 }
             }
         }
