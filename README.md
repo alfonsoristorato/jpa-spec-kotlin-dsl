@@ -1,8 +1,8 @@
 # JPA Specification Kotlin DSL
 
 [![Main](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/main.yml/badge.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/actions/workflows/main.yml)
-[![Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/releases)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.alfonsoristorato/jpa-spec-kotlin-dsl.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.alfonsoristorato/jpa-spec-kotlin-dsl)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.alfonsoristorato/jpa-spec-kotlin-dsl?style=flat-square&color=blue)](https://central.sonatype.com/artifact/io.github.alfonsoristorato/jpa-spec-kotlin-dsl)
+[![GitHub Release](https://img.shields.io/github/v/release/alfonsoristorato/jpa-spec-kotlin-dsl?style=flat-square&color=blue)](https://github.com/alfonsoristorato/jpa-spec-kotlin-dsl/releases)
 
 A Kotlin DSL for building type-safe JPA queries using idiomatic Kotlin syntax. The library provides three distinct DSLs:
 
