@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.PredicateSpecification
 import kotlin.reflect.KProperty1
 
 /**
- * Creates a [PredicateSpecification] that performs a join and applies a list of [Predicate]s to the joined entity.
+ * Creates a [PredicateSpecification] that performs a join and applies a list of [Predicate]s by ANDing them to the joined entity.
  *
  * @receiver [T] – the type of the root entity.
  * @receiver [R] – the type of the joined entity.
