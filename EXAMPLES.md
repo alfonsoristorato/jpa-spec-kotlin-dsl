@@ -11,6 +11,7 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [String Operations](#string-operations)
     - [Nullability](#nullability)
     - [Boolean Operations](#boolean-operations)
+    - [Inclusion](#inclusion)
 - [Combining Specifications](#combining-specifications)
 - [Working with Joins](#working-with-joins-experimental)
 - [PredicateSpecification vs Specification](#predicatespecification-vs-specification)
@@ -126,6 +127,28 @@ val inactiveUsers = User::isActive.isFalse()
 val unverifiedAccounts = User::isVerified.isFalse()
 
 repository.findAll(activeUsers)
+```
+
+### Inclusion
+
+Check if a property's value matches a given value using the IN clause:
+
+```kotlin
+// Check if age is in a specific value
+val usersAge25 = User::age.`in`(25)
+val usersAge30 = User::age.`in`(30)
+
+// Works with any property type
+val adminOrManagerRole = User::role.`in`(listOf("ADMIN", "MANAGER"))
+val specificEmail = User::email.`in`("john@example.com")
+val activeStatus = User::isActive.`in`(true)
+
+repository.findAll(usersAge25)
+
+// Combining with other operations
+val activeAdminsOrManagers = User::isActive.`in`(true) and User::role.`in`(listOf("ADMIN", "MANAGER"))
+
+repository.findAll(activeAdminsOrManagers)
 ```
 
 ## Combining Specifications
