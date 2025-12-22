@@ -2,15 +2,15 @@
 [versions]
 archunit-junit5                 = "1.4.1"
 dokka                           = "2.1.0"
-flyway                          = "11.19.0"
+flyway                          = "11.19.1"
 gradle-ktlint                   = "14.0.1"
 gradle-nexus-publish-plugin     = "2.0.0"
 kotest                          = "6.0.7"
-kotlin                          = "2.2.21"
+kotlin                          = "2.3.0"
 kover                           = "0.9.4"
 postgresql                      = "42.7.8"
 postgresql-test-containers      = "1.21.4"
-spring                          = "4.0.0"
+spring                          = "4.0.1"
 
 [libraries]
 # Main
