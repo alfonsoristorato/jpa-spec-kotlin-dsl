@@ -4,13 +4,13 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
 import io.github.alfonsoristorato.jpaspeckotlindsl.specification.comparison.greaterThan
+import io.github.alfonsoristorato.jpaspeckotlindsl.specification.comparison.lessThan
 import io.github.alfonsoristorato.jpaspeckotlindsl.specification.equality.equal
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.springframework.data.jpa.domain.Specification
 
 @SpringBootTestEnhanced
 class CombinerTest(
@@ -43,14 +43,7 @@ class CombinerTest(
         }
         context("and combines Specification") {
             expect("combines one by one") {
-                // TODO: change below to new DSL once implemented
-                val idLowerThan3 =
-                    Specification<Persona> { root, _, criteriaBuilder ->
-                        criteriaBuilder.lessThan(
-                            root.get(Persona::id.name),
-                            3L,
-                        )
-                    }
+                val idLowerThan3 = Persona::id.lessThan(3L)
                 val ageGreaterThan20 = Persona::age.greaterThan(20)
                 val lastNameEquals = Persona::lastName.equal("LastName")
                 val result =
@@ -64,14 +57,7 @@ class CombinerTest(
             }
 
             expect("combines altogether") {
-                // TODO: change below to new DSL once implemented
-                val idLowerThan3 =
-                    Specification<Persona> { root, _, criteriaBuilder ->
-                        criteriaBuilder.lessThan(
-                            root.get(Persona::id.name),
-                            3L,
-                        )
-                    }
+                val idLowerThan3 = Persona::id.lessThan(3L)
                 val ageGreaterThan20 = Persona::age.greaterThan(20)
                 val lastNameEquals = Persona::lastName.equal("LastName")
                 val result =
@@ -87,14 +73,7 @@ class CombinerTest(
 
         context("or combines _root_ide_package_.org.springframework.data.jpa.domain.Specification") {
             expect("combines one by one") {
-                // TODO: change below to new DSL once implemented
-                val idLowerThan3 =
-                    Specification<Persona> { root, _, criteriaBuilder ->
-                        criteriaBuilder.lessThan(
-                            root.get(Persona::id.name),
-                            3L,
-                        )
-                    }
+                val idLowerThan3 = Persona::id.lessThan(3L)
                 val ageGreaterThan20 = Persona::age.greaterThan(20)
                 val lastNameEquals = Persona::lastName.equal("LastName")
                 val result =
@@ -110,14 +89,7 @@ class CombinerTest(
             }
 
             expect("combines altogether") {
-                // TODO: change below to new DSL once implemented
-                val idLowerThan3 =
-                    Specification<Persona> { root, _, criteriaBuilder ->
-                        criteriaBuilder.lessThan(
-                            root.get(Persona::id.name),
-                            3L,
-                        )
-                    }
+                val idLowerThan3 = Persona::id.lessThan(3L)
                 val ageGreaterThan20 = Persona::age.greaterThan(20)
                 val lastNameEquals = Persona::lastName.equal("LastName")
                 val result =
