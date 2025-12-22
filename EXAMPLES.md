@@ -14,6 +14,11 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [Inclusion](#inclusion)
 - [Combining Specifications](#combining-specifications)
 - [Working with Joins](#working-with-joins-experimental)
+    - [Using joinWithPredicate](#using-joinwithpredicate)
+    - [Using fetchJoinWithPredicate](#using-fetchJoinWithPredicate)
+    - [Using joinWithPredicates](#using-joinwithpredicates)
+    - [Using fetchJoinWithPredicates](#using-fetchJoinWithPredicates)
+    - [Join Types](#join-types)
 - [PredicateSpecification vs Specification](#predicatespecification-vs-specification)
 - [Real-World Use Cases](#real-world-use-cases)
 - [Testing](#testing)
@@ -198,7 +203,7 @@ repository.findAll(youngOrSenior)
 ## Working with Joins (Experimental)
 
 The DSL supports joins for querying across entity relationships. This feature is marked as experimental as the API may
-evolve.
+evolve. An equivalent of the below functions is available as a fetch-join alternative for eager loading.
 
 ### Using joinWithPredicate
 
@@ -218,6 +223,30 @@ val commentsWithUserNamedLike = Comment::user.joinWithPredicate { userJoin, cb -
 }
 
 val commentsWithUserAgedAtLeast = Comment::user.joinWithPredicate { userJoin, cb ->
+    User::age.greaterThan(userJoin, cb, 20)
+}
+
+repository.findAll(commentsWithUserAgedAtLeast)
+```
+
+### Using fetchJoinWithPredicate
+
+The `fetchJoinWithPredicate` function provides a clean, concise syntax for fetch-joins with a single predicate:
+
+```kotlin
+val commentsWithUserNamed = Comment::user.fetchJoinWithPredicate { userJoin, cb ->
+    User::name.equal(userJoin, cb, "name")
+}
+
+val commentsWithPostTitled = Comment::post.fetchJoinWithPredicate { postJoin, cb ->
+    Post::title.equal(postJoin, cb, "title")
+}
+
+val commentsWithUserNamedLike = Comment::user.fetchJoinWithPredicate { userJoin, cb ->
+    User::name.like(userJoin, cb, "pattern")
+}
+
+val commentsWithUserAgedAtLeast = Comment::user.fetchJoinWithPredicate { userJoin, cb ->
     User::age.greaterThan(userJoin, cb, 20)
 }
 
@@ -244,12 +273,34 @@ val commentsWithUserAgeAtLeastAndUserNameEquals = Comment::user.joinWithPredicat
 
 repository.findAll(commentsWithUserAgedAtLeast)
 ```
+**Note:** Multiple predicates are automatically combined with AND logic.
+
+### Using fetchJoinWithPredicates
+
+When you need to combine multiple conditions on the fetch-joined entity, use `fetchJoinWithPredicates`:
+
+```kotlin
+val commentsWithPostTitledAndContentEquals = Comment::post.fetchJoinWithPredicates { postJoin, cb ->
+    listOf(
+        Post::title.equal(postJoin, cb, title),
+        Post::content.equal(postJoin, cb, content)
+    )
+}
+val commentsWithUserAgeAtLeastAndUserNameEquals = Comment::user.fetchJoinWithPredicates { userJoin, cb ->
+    listOf(
+        User::age.greaterThanOrEqualTo(userJoin, cb, 10),
+        User::name.equals(userJoin, cb, "name")
+    )
+}
+
+repository.findAll(commentsWithUserAgedAtLeast)
+```
 
 **Note:** Multiple predicates are automatically combined with AND logic.
 
 ### Join Types
 
-You can specify different join types (INNER, LEFT, RIGHT):
+You can specify different join types (INNER, LEFT, RIGHT).
 
 ## Testing
 

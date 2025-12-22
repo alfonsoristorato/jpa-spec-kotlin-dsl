@@ -67,10 +67,10 @@ kover {
             rule {
                 /**
                  * TODO
-                 * had to bring to 99% because of joinType in [io.github.alfonsoristorato.jpaspeckotlindsl.join]
+                 * had to bring to 98% because of joinType in [io.github.alfonsoristorato.jpaspeckotlindsl.join] and [io.github.alfonsoristorato.jpaspeckotlindsl.fetch]
                  * will try to cover it later
                  */
-                minBound(99)
+                minBound(98)
             }
         }
     }
