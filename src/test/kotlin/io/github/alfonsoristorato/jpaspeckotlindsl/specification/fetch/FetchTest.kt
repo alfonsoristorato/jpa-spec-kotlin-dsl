@@ -199,35 +199,49 @@ class FetchTest(
             }
         }
 
-        /**
-         * TODO
-         * Below provies that combining multiple conditions works as expected as no results are found
-         * Should we in future have a more suitable data set to test positive matches for multiple conditions we can change these tests
-         */
         context("fetchJoinWithPredicates creates fetch-joins and applies the provided predicates") {
             context("inner join") {
                 expect("Comment to Post") {
                     val spec =
                         Comment::post.fetchJoinWithPredicates { postJoin, criteriaBuilder ->
                             listOf(
-                                Post::title.equal(postJoin, criteriaBuilder, "John's First Post"),
-                                Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                                criteriaBuilder.or(
+                                    Post::title.equal(postJoin, criteriaBuilder, "John's First Post"),
+                                    Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                                ),
                             )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 3
+                    result[0].apply {
+                        content shouldBe "John's comment on his first post"
+                    }
+                    result[1].apply {
+                        content shouldBe "Jane's comment on John's first post"
+                    }
+                    result[2].apply {
+                        content shouldBe "John's comment on his second post"
+                    }
                 }
 
                 expect("Comment to Persona") {
                     val spec =
                         Comment::persona.fetchJoinWithPredicates { personaJoin, criteriaBuilder ->
                             listOf(
-                                Persona::name.equal(personaJoin, criteriaBuilder, "Jane Smith"),
-                                Persona::age.equal(personaJoin, criteriaBuilder, 99),
+                                criteriaBuilder.or(
+                                    Persona::name.equal(personaJoin, criteriaBuilder, "Jane Smith"),
+                                    Persona::age.equal(personaJoin, criteriaBuilder, 99),
+                                ),
                             )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 2
+                    result[0].apply {
+                        content shouldBe "Jane's comment on John's first post"
+                    }
+                    result[1].apply {
+                        content shouldBe "Jane's comment on her post"
+                    }
                 }
             }
             context("left join") {
@@ -235,25 +249,41 @@ class FetchTest(
                     val spec =
                         Comment::post.fetchJoinWithPredicates(joinType = JoinType.LEFT) { postJoin, criteriaBuilder ->
                             listOf(
-                                Post::title.equal(postJoin, criteriaBuilder, "Jane's Post"),
-                                Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                                criteriaBuilder.or(
+                                    Post::title.equal(postJoin, criteriaBuilder, "Jane's Post"),
+                                    Post::content.equal(postJoin, criteriaBuilder, "Post 2 content"),
+                                ),
                             )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 3
+                    result[0].apply {
+                        content shouldBe "John's comment on his second post"
+                    }
+                    result[1].apply {
+                        content shouldBe "Jane's comment on her post"
+                    }
+                    result[2].apply {
+                        content shouldBe "Bob's comment on Jane's post"
+                    }
                 }
 
                 expect("Comment to Persona") {
                     val spec =
                         Comment::persona.fetchJoinWithPredicates(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
                             listOf(
-                                Persona::name.equal(personaJoin, criteriaBuilder, "Bob Johnson"),
-                                Persona::age.equal(personaJoin, criteriaBuilder, 45),
+                                criteriaBuilder.or(
+                                    Persona::name.equal(personaJoin, criteriaBuilder, "Bob Johnson"),
+                                    Persona::age.equal(personaJoin, criteriaBuilder, 45),
+                                ),
                             )
                         }
 
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        content shouldBe "Bob's comment on Jane's post"
+                    }
                 }
             }
             context("right join") {
@@ -261,24 +291,44 @@ class FetchTest(
                     val spec =
                         Comment::post.fetchJoinWithPredicates(joinType = JoinType.RIGHT) { postJoin, criteriaBuilder ->
                             listOf(
-                                Post::title.equal(postJoin, criteriaBuilder, "John's Second Post"),
-                                Post::content.equal(postJoin, criteriaBuilder, "Post 1 content"),
+                                criteriaBuilder.or(
+                                    Post::title.equal(postJoin, criteriaBuilder, "John's Second Post"),
+                                    Post::content.equal(postJoin, criteriaBuilder, "Post 1 content"),
+                                ),
                             )
                         }
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 3
+                    result[0].apply {
+                        content shouldBe "John's comment on his first post"
+                    }
+                    result[1].apply {
+                        content shouldBe "Jane's comment on John's first post"
+                    }
+                    result[2].apply {
+                        content shouldBe "John's comment on his second post"
+                    }
                 }
 
                 expect("Comment to Persona") {
                     val spec =
                         Comment::persona.fetchJoinWithPredicates(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
                             listOf(
-                                Persona::name.equal(personaJoin, criteriaBuilder, "John Doe"),
-                                Persona::age.equal(personaJoin, criteriaBuilder, 40),
+                                criteriaBuilder.or(
+                                    Persona::name.equal(personaJoin, criteriaBuilder, "John Doe"),
+                                    Persona::age.equal(personaJoin, criteriaBuilder, 40),
+                                ),
                             )
                         }
+
                     val result = commentRepository.findAll(spec)
-                    result shouldHaveSize 0
+                    result shouldHaveSize 2
+                    result[0].apply {
+                        content shouldBe "John's comment on his first post"
+                    }
+                    result[1].apply {
+                        content shouldBe "John's comment on his second post"
+                    }
                 }
             }
         }

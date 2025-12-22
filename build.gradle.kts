@@ -65,12 +65,7 @@ kover {
     reports {
         verify {
             rule {
-                /**
-                 * TODO
-                 * had to bring to 98% because of joinType in [io.github.alfonsoristorato.jpaspeckotlindsl.join] and [io.github.alfonsoristorato.jpaspeckotlindsl.fetch]
-                 * will try to cover it later
-                 */
-                minBound(98)
+                minBound(100)
             }
         }
     }
