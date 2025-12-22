@@ -2,7 +2,7 @@
 [versions]
 archunit-junit5                 = "1.4.1"
 dokka                           = "2.1.0"
-flyway                          = "11.19.0"
+flyway                          = "11.19.1"
 gradle-ktlint                   = "14.0.1"
 gradle-nexus-publish-plugin     = "2.0.0"
 kotest                          = "6.0.7"
