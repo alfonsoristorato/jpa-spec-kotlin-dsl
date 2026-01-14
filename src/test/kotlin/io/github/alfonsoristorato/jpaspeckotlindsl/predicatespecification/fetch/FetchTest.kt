@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.fetch
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalJoinApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
@@ -15,7 +14,6 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import jakarta.persistence.criteria.JoinType
 
-@OptIn(ExperimentalJoinApi::class)
 @SpringBootTestEnhanced
 class FetchTest(
     private val personaRepository: PersonaRepository,

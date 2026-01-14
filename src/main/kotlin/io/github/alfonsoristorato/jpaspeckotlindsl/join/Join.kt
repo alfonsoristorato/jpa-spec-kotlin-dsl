@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.join
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalJoinApi
 import jakarta.persistence.criteria.From
 import jakarta.persistence.criteria.Join
 import jakarta.persistence.criteria.JoinType
@@ -16,7 +15,7 @@ import kotlin.reflect.KProperty1
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @return A [Join] representing the join.
  */
-@ExperimentalJoinApi
+
 fun <Z, T, R> KProperty1<T, R>.join(
     from: From<Z, T>,
     joinType: JoinType = JoinType.INNER,

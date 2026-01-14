@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.join
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalJoinApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
@@ -13,7 +12,6 @@ import io.kotest.matchers.shouldBe
 import jakarta.persistence.criteria.JoinType
 import org.springframework.data.jpa.domain.Specification
 
-@OptIn(ExperimentalJoinApi::class)
 @SpringBootTestEnhanced
 class JoinTest(
     private val personaRepository: PersonaRepository,

@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.join
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalJoinApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.join.join
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.From
@@ -18,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the join and applies the predicates.
  */
-@ExperimentalJoinApi
+
 fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
@@ -39,7 +38,7 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the join and applies the predicate.
  */
-@ExperimentalJoinApi
+
 fun <T : Any, R> KProperty1<T, R>.joinWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
