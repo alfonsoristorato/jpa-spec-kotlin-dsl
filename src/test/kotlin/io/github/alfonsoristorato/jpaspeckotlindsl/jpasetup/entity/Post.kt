@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity
 
+import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -16,6 +17,8 @@ class Post(
     val persona: Persona,
     val title: String,
     val content: String,
+    @ElementCollection
+    val tags: Set<String>,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_id_sequence")

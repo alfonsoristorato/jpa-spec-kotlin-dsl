@@ -33,3 +33,10 @@ create table comment
 );
 
 CREATE SEQUENCE comment_id_sequence START 1 INCREMENT 1;
+
+CREATE TABLE post_tags
+(
+    post_id BIGINT NOT NULL,
+    tags    TEXT   NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES post (id)
+);

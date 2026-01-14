@@ -35,6 +35,7 @@ object TablesData {
     val tablesToSequences =
         listOf(
             "comment" to "comment_id_sequence",
+            "post_tags" to null,
             "post" to "post_id_sequence",
             "persona" to "persona_id_sequence",
         )
