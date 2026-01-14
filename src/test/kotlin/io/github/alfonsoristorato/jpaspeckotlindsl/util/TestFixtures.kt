@@ -33,10 +33,12 @@ object TestFixtures {
         persona: Persona = createPersona(),
         title: String = DEFAULT_POST_TITLE,
         content: String = DEFAULT_POST_CONTENT,
+        tags: Set<String> = emptySet(),
     ) = Post(
         persona = persona,
         title = title,
         content = content,
+        tags = tags,
     )
 
     fun createComment(

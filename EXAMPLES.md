@@ -12,6 +12,7 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [Nullability](#nullability)
     - [Boolean Operations](#boolean-operations)
     - [Inclusion](#inclusion)
+    - [Collection Operations](#collection-operations)
 - [Combining Specifications](#combining-specifications)
 - [Working with Joins](#working-with-joins-experimental)
     - [Using joinWithPredicate](#using-joinwithpredicate)
@@ -154,6 +155,32 @@ repository.findAll(usersAge25)
 val activeAdminsOrManagers = User::isActive.`in`(true) and User::role.`in`(listOf("ADMIN", "MANAGER"))
 
 repository.findAll(activeAdminsOrManagers)
+```
+
+### Collection Operations
+
+Operations for working with collection properties (e.g., `@ElementCollection` or `@OneToMany`):
+
+```kotlin
+// Check if collection is empty
+val postsWithoutTags = Post::tags.isEmpty()
+
+// Check if collection is not empty
+val postsWithTags = Post::tags.isNotEmpty()
+
+// Check if an element is a member of the collection
+val kotlinPosts = Post::tags.isMember("kotlin")
+val javaPosts = Post::tags.isMember("java")
+
+// Check if an element is not a member of the collection
+val nonKotlinPosts = Post::tags.isNotMember("kotlin")
+
+repository.findAll(kotlinPosts)
+
+// Combining with other operations
+val activeKotlinPosts = Post::isPublished.isTrue() and Post::tags.isMember("kotlin")
+
+repository.findAll(activeKotlinPosts)
 ```
 
 ## Combining Specifications
