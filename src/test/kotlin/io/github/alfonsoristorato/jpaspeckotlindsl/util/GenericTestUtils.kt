@@ -13,6 +13,7 @@ object GenericTestUtils {
 
 
             jdbcTemplate:    JdbcTemplate,
+
             tablesToSequences: List<Pair<String, String?>>,
         ) {
             tablesToSequences.forEach { (tableName, pkSequence) ->
