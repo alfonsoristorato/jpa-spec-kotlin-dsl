@@ -10,7 +10,9 @@ object GenericTestUtils {
          * This is useful for cleaning up test data between spec runs.
          */
         fun cleanData(
-            jdbcTemplate: JdbcTemplate,
+
+
+            jdbcTemplate:    JdbcTemplate,
             tablesToSequences: List<Pair<String, String?>>,
         ) {
             tablesToSequences.forEach { (tableName, pkSequence) ->
