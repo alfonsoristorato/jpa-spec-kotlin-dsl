@@ -46,6 +46,8 @@ interface UserRepository : JpaRepository<User, Long>, JpaSpecificationExecutor<U
 
 ## Basic Operations
 
+**Note:** The DSL intelligently handles nullable properties, i.e. you can use `equal(value)` for both nullable and non-nullable properties. 
+
 ### Equality
 
 The DSL provides type-safe equality operations for all property types:
@@ -64,9 +66,6 @@ val notInactive = User::isActive.notEqual(false)
 
 repository.findAll(notAdmin)
 ```
-
-**Note:** The DSL intelligently handles nullable properties - you can use `equal(value)` for both nullable and
-non-nullable properties.
 
 ### Comparison
 
@@ -227,10 +226,10 @@ val priorityUsers = or(
 repository.findAll(youngOrSenior)
 ```
 
-## Working with Joins (Experimental)
+## Working with Joins 
 
-The DSL supports joins for querying across entity relationships. This feature is marked as experimental as the API may
-evolve. An equivalent of the below functions is available as a fetch-join alternative for eager loading.
+The DSL supports joins for querying across entity relationships.
+An equivalent of the below functions is available as a fetch-join alternative for eager loading.
 
 ### Using joinWithPredicate
 
@@ -300,6 +299,7 @@ val commentsWithUserAgeAtLeastAndUserNameEquals = Comment::user.joinWithPredicat
 
 repository.findAll(commentsWithUserAgedAtLeast)
 ```
+
 **Note:** Multiple predicates are automatically combined with AND logic.
 
 ### Using fetchJoinWithPredicates

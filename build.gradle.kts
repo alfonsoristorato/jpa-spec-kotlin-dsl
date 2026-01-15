@@ -93,10 +93,6 @@ java {
     withJavadocJar()
 }
 
-// tasks.named<Jar>("javadocJar") {
-//    from(tasks.named("dokkaGeneratePublicationHtml"))
-// }
-
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
