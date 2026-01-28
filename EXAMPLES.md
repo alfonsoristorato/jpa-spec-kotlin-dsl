@@ -31,7 +31,7 @@ Define your JPA entities and repositories as usual:
 
 ```kotlin
 @Entity
-data class User(
+class User(
     @Id
     val id: Long,
     val name: String,
