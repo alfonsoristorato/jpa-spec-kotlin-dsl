@@ -41,8 +41,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     systemProperties["kotest.framework.config.fqn"] = "io.github.alfonsoristorato.jpaspeckotlindsl.kotest.KotestProjectConfig"
-    // TODO: remove once kotest gradle plugin exposes this disabler as a config
-    outputs.upToDateWhen { false }
+}
+
+kotest {
+    alwaysRerunTests.set(true)
 }
 
 kotlin {
