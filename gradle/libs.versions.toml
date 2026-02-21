@@ -10,7 +10,7 @@ kotlin                          = "2.3.10"
 kover                           = "0.9.7"
 postgresql                      = "42.7.10"
 postgresql-test-containers      = "1.21.4"
-spring                          = "4.0.2"
+spring                          = "4.0.3"
 
 [libraries]
 # Main
