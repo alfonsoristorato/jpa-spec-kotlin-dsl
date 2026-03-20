@@ -1,9 +1,12 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.fetch
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.CommentRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
@@ -19,8 +22,13 @@ class FetchTest(
     private val personaRepository: PersonaRepository,
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
+            val organisation1 = TestFixtures.createOrganisation(name = "Test Organisation")
+            val organisation2 = TestFixtures.createOrganisation(name = "Test Organisation 2")
+            organisationRepository.saveAll(listOf(organisation1, organisation2))
+
             val persona1 =
                 TestFixtures.createPersona(
                     name = "John Doe",
@@ -35,6 +43,7 @@ class FetchTest(
                 TestFixtures.createPersona(
                     name = "Bob Johnson",
                     age = 35,
+                    organisation = organisation1,
                 )
             personaRepository.saveAll(listOf(persona1, persona2, persona3))
             personaRepository.findAll() shouldHaveSize 3
@@ -129,6 +138,19 @@ class FetchTest(
                         persona.name shouldBe "Jane Smith"
                     }
                 }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicate { personaJoin, criteriaBuilder ->
+                            Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation")
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
+                    }
+                }
             }
             context("left join") {
                 expect("Comment to Post") {
@@ -162,6 +184,19 @@ class FetchTest(
                         persona.age shouldBe 35
                     }
                 }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicate(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
+                            Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation")
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
+                    }
+                }
             }
             context("right join") {
                 expect("Comment to Post") {
@@ -192,6 +227,19 @@ class FetchTest(
                     result[1].apply {
                         content shouldBe "John's comment on his second post"
                         persona.name shouldBe "John Doe"
+                    }
+                }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicate(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
+                            Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation")
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
                     }
                 }
             }
@@ -241,6 +289,21 @@ class FetchTest(
                         content shouldBe "Jane's comment on her post"
                     }
                 }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicates { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation"),
+                            )
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
+                    }
+                }
             }
             context("left join") {
                 expect("Comment to Post") {
@@ -281,6 +344,21 @@ class FetchTest(
                     result shouldHaveSize 1
                     result[0].apply {
                         content shouldBe "Bob's comment on Jane's post"
+                    }
+                }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicates(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation"),
+                            )
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
                     }
                 }
             }
@@ -326,6 +404,21 @@ class FetchTest(
                     }
                     result[1].apply {
                         content shouldBe "John's comment on his second post"
+                    }
+                }
+
+                @OptIn(ExperimentalApi::class)
+                expect("Persona to Organisation - nullable association") {
+                    val spec =
+                        Persona::organisation.fetchJoinNullableWithPredicates(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
+                            listOf(
+                                Organisation::name.equal(personaJoin, criteriaBuilder, "Test Organisation"),
+                            )
+                        }
+                    val result = personaRepository.findAll(spec)
+                    result shouldHaveSize 1
+                    result[0].apply {
+                        name shouldBe "Bob Johnson"
                     }
                 }
             }

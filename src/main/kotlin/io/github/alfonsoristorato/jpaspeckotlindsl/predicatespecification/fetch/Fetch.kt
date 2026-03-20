@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.fetch
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.fetch.fetch
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.join.join
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.From
@@ -18,7 +19,6 @@ import kotlin.reflect.KProperty1
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the fetch-join and applies the predicates.
  */
-
 fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
@@ -26,6 +26,29 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
     PredicateSpecification { from, criteriaBuilder ->
         fetch(from, joinType)
         val joinedPath = join(from, joinType)
+        criteriaBuilder.and(
+            *predicateBuilder(joinedPath, criteriaBuilder).toTypedArray(),
+        )
+    }
+
+/**
+ * Creates a [PredicateSpecification] that performs a fetch-join on a nullable property and applies a list of [Predicate]s by ANDing them to the fetch-joined entity.
+ *
+ * @receiver [T] – the type of the root entity.
+ * @receiver [R] – the type of the fetch-joined entity.
+ * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
+ * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
+ * @return A [PredicateSpecification] that performs the fetch-join and applies the predicates.
+ */
+@Suppress("UNCHECKED_CAST")
+@ExperimentalApi
+fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicates(
+    joinType: JoinType = JoinType.INNER,
+    predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
+): PredicateSpecification<T> =
+    PredicateSpecification { from, criteriaBuilder ->
+        fetch(from, joinType)
+        val joinedPath = join(from, joinType) as From<T, R>
         criteriaBuilder.and(
             *predicateBuilder(joinedPath, criteriaBuilder).toTypedArray(),
         )
@@ -40,11 +63,28 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the fetch-join and applies the predicate.
  */
-
 fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
 ): PredicateSpecification<T> =
     fetchJoinWithPredicates(joinType) { joinedPath, criteriaBuilder ->
+        listOf(predicateBuilder(joinedPath, criteriaBuilder))
+    }
+
+/**
+ * Creates a [PredicateSpecification] that performs a fetch-join on a nullable property and applies a [Predicate] to the fetch-joined entity.
+ *
+ * @receiver [T] – the type of the root entity.
+ * @receiver [R] – the type of the fetch-joined entity.
+ * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
+ * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
+ * @return A [PredicateSpecification] that performs the fetch-join and applies the predicate.
+ */
+@ExperimentalApi
+fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicate(
+    joinType: JoinType = JoinType.INNER,
+    predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
+): PredicateSpecification<T> =
+    fetchJoinNullableWithPredicates(joinType) { joinedPath, criteriaBuilder ->
         listOf(predicateBuilder(joinedPath, criteriaBuilder))
     }
