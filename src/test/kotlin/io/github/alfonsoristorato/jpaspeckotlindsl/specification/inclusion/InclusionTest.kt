@@ -1,10 +1,15 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.inclusion
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -14,6 +19,7 @@ import io.kotest.matchers.shouldBe
 class InclusionTest(
     private val personaRepository: PersonaRepository,
     private val postRepository: PostRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         val persona1 =
             TestFixtures.createPersona(
@@ -59,6 +65,25 @@ class InclusionTest(
                 )
             postRepository.saveAll(listOf(post1, post2, post3, post4))
             postRepository.findAll() shouldHaveSize 4
+
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org A",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Main Street"),
+                        ),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org B",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Oak Road"),
+                        ),
+                )
+            organisationRepository.saveAll(listOf(org1, org2))
+            organisationRepository.findAll() shouldHaveSize 2
         }
 
         context("in for PredicateSpecification checks if property is in the given value") {
@@ -163,6 +188,17 @@ class InclusionTest(
                 result[2].apply {
                     title shouldBe "Post 1 - Persona 2"
                 }
+            }
+        }
+
+        context("in for Specification checks if nested property is in the given value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .`in`("Main Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org A"
             }
         }
     })

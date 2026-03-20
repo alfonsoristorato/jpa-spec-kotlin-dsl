@@ -14,6 +14,11 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [Inclusion](#inclusion)
     - [Collection Operations](#collection-operations)
 - [Combining Specifications](#combining-specifications)
+- [Working with Nested/Embedded Properties](#working-with-nestedembedded-properties)
+    - [The `/` Operator](#the--operator)
+    - [Multi-level Nesting](#multi-level-nesting)
+    - [Nullable Associations](#nullable-associations)
+    - [All DSL Operations on Nested Properties](#all-dsl-operations-on-nested-properties)
 - [Working with Joins](#working-with-joins)
     - [Using joinWithPredicate](#using-joinwithpredicate)
     - [Using fetchJoinWithPredicate](#using-fetchJoinWithPredicate)
@@ -227,6 +232,125 @@ val priorityUsers = or(
 
 repository.findAll(youngOrSenior)
 ```
+
+## Working with Nested/Embedded Properties
+
+Kotlin does not support chained `::` property references.
+The DSL provides a `/` operator to compose property references into a type-safe nested path that works with all
+DSL operations.
+
+### The `/` Operator
+
+Use the `/` operator to compose two property references into a `NestedProperty`:
+
+```kotlin
+@Entity
+class Organisation(
+    val name: String,
+    @Embedded
+    val addressInfo: AddressInfo,
+)
+
+@Embeddable
+class AddressInfo(
+    val street: String,
+    val city: String,
+)
+
+val streetSpec = (Organisation::addressInfo / AddressInfo::street).equal("Main Street")
+
+repository.findAll(streetSpec)
+```
+
+### Multi-level Nesting
+
+The `/` operator is left-associative, so chains of any depth work naturally:
+
+```kotlin
+@Entity
+class Organisation(
+    val name: String,
+    @Embedded
+    val organisationInfo: OrganisationInfo,
+)
+
+@Embeddable
+class OrganisationInfo(
+    @Embedded
+    val addressInfo: AddressInfo,
+)
+
+@Embeddable
+class AddressInfo(
+    val street: String,
+    val city: String,
+)
+
+val deepSpec = (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+    .equal("Main Street")
+
+repository.findAll(deepSpec)
+```
+
+### Nullable Associations
+
+The `/` operator handles nullable associations transparently:
+
+```kotlin
+@Entity
+class Persona(
+    val name: String,
+    @OneToOne(fetch = FetchType.LAZY)
+    val organisation: Organisation?,
+)
+
+val spec = (Persona::organisation / Organisation::name).equal("Acme Corp")
+
+repository.findAll(spec)
+```
+
+### All DSL Operations on Nested Properties
+
+Every DSL operation available on direct properties also works on nested properties:
+
+```kotlin
+// Equality
+val mainStreet = (Organisation::addressInfo / AddressInfo::street).equal("Main Street")
+val notMainStreet = (Organisation::addressInfo / AddressInfo::street).notEqual("Main Street")
+
+// Comparison
+val streetsAfterM = (Organisation::addressInfo / AddressInfo::street).greaterThan("M")
+val streetsBetween = (Organisation::addressInfo / AddressInfo::street).between("A", "M")
+
+// String
+val mainLike = (Organisation::addressInfo / AddressInfo::street).like("Main%")
+val notOak = (Organisation::addressInfo / AddressInfo::street).notLike("Oak%")
+
+// Nullability
+val hasEmail = (Organisation::contactInfo / ContactInfo::email).isNotNull()
+val noEmail = (Organisation::contactInfo / ContactInfo::email).isNull()
+
+// Boolean
+val active = (Organisation::addressInfo / AddressInfo::isActive).isTrue()
+val inactive = (Organisation::addressInfo / AddressInfo::isActive).isFalse()
+
+// Inclusion
+val specificStreet = (Organisation::addressInfo / AddressInfo::street).`in`("Main Street")
+
+// Collection
+val emptyDepartments = (Persona::organisation / Organisation::departments).isEmpty()
+val hasDepartments = (Persona::organisation / Organisation::departments).isNotEmpty()
+val inEngineering = (Persona::organisation / Organisation::departments).isMember("engineering")
+val notInEngineering = (Persona::organisation / Organisation::departments).isNotMember("engineering")
+
+// Combining nested specs with other specs
+val activeOnMainStreet = (Organisation::addressInfo / AddressInfo::isActive).isTrue() and
+        (Organisation::addressInfo / AddressInfo::street).like("Main%")
+
+repository.findAll(activeOnMainStreet)
+```
+
+**Note:** Nested property operations work with both `Specification` and `PredicateSpecification`.
 
 ## Working with Joins
 

@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.comparison
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.comparison.between
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.comparison.greaterThan
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.comparison.greaterThanOrEqualTo
@@ -73,6 +74,75 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.between(
     lower: P,
     upper: P,
 ): PredicateSpecification<T> =
+    PredicateSpecification { from, criteriaBuilder ->
+        between(from, criteriaBuilder, lower, upper)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property is greater than the given value.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property, which must be [Comparable].
+ * @param value the value to compare against.
+ * @return A [PredicateSpecification] that checks if the nested property is greater than the given value.
+ */
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan(value: PROP): PredicateSpecification<ROOT> =
+    PredicateSpecification { from, criteriaBuilder ->
+        greaterThan(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property is greater than or equal to the given value.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property, which must be [Comparable].
+ * @param value – the value to compare against.
+ * @return A [PredicateSpecification] that checks if the nested property is greater than or equal to the given value.
+ */
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
+    PredicateSpecification { from, criteriaBuilder ->
+        greaterThanOrEqualTo(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property is less than the given value.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property, which must be [Comparable].
+ * @param value – the value to compare against.
+ * @return A [PredicateSpecification] that checks if the nested property is less than the given value.
+ */
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThan(value: PROP): PredicateSpecification<ROOT> =
+    PredicateSpecification { from, criteriaBuilder ->
+        lessThan(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property is less than or equal to the given value.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property, which must be [Comparable].
+ * @param value – the value to compare against.
+ * @return A [PredicateSpecification] that checks if the nested property is less than or equal to the given value.
+ */
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
+    PredicateSpecification { from, criteriaBuilder ->
+        lessThanOrEqualTo(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property is between two values (inclusive).
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the properties, which must be [Comparable].
+ * @param lower – the lower bound value (inclusive).
+ * @param upper – the upper bound value (inclusive).
+ * @return A [PredicateSpecification] that checks if the nested property is between the two values.
+ */
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.between(
+    lower: PROP,
+    upper: PROP,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         between(from, criteriaBuilder, lower, upper)
     }

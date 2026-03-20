@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.string
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.string.like
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.string.notLike
 import org.springframework.data.jpa.domain.Specification
@@ -51,6 +52,56 @@ fun <T : Any> KProperty1<T, String>.notLike(pattern: String): Specification<T> =
  */
 @JvmName("notLikeNullable")
 fun <T : Any> KProperty1<T, String?>.notLike(pattern: String): Specification<T> =
+    Specification { root, _, criteriaBuilder ->
+        notLike(root, criteriaBuilder, pattern)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested String property matches the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param pattern – The pattern to match against.
+ * @return A [Specification] that checks if the nested property matches the pattern.
+ */
+fun <ROOT : Any> NestedProperty<ROOT, String>.like(pattern: String): Specification<ROOT> =
+    Specification { root, _, criteriaBuilder ->
+        like(root, criteriaBuilder, pattern)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested nullable String property matches the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param pattern – The pattern to match against.
+ * @return A [Specification] that checks if the nested property matches the pattern.
+ */
+@JvmName("nestedLikeNullable")
+fun <ROOT : Any> NestedProperty<ROOT, String?>.like(pattern: String): Specification<ROOT> =
+    Specification { root, _, criteriaBuilder ->
+        like(root, criteriaBuilder, pattern)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested String property does not match the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param pattern – The pattern to match against.
+ * @return A [Specification] that checks if the nested property does not match the pattern.
+ */
+fun <ROOT : Any> NestedProperty<ROOT, String>.notLike(pattern: String): Specification<ROOT> =
+    Specification { root, _, criteriaBuilder ->
+        notLike(root, criteriaBuilder, pattern)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested nullable String property does not match the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param pattern – The pattern to match against.
+ * @return A [Specification] that checks if the nested property does not match the pattern.
+ */
+@JvmName("nestedNotLikeNullable")
+fun <ROOT : Any> NestedProperty<ROOT, String?>.notLike(pattern: String): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         notLike(root, criteriaBuilder, pattern)
     }

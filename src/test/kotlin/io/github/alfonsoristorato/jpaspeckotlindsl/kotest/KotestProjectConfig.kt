@@ -48,6 +48,7 @@ object TablesData {
             "post_tags" to null,
             "post" to "post_id_sequence",
             "persona" to "persona_id_sequence",
+            "organisation_departments" to null,
             "organisation" to "organisation_id_sequence",
         )
 }

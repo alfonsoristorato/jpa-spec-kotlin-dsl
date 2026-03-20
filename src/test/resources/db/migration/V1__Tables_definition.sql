@@ -1,10 +1,24 @@
 create table organisation
 (
-    id   BIGINT PRIMARY KEY,
-    name TEXT NOT NULL
+    id           BIGINT PRIMARY KEY,
+    street       TEXT NOT NULL,
+    city         TEXT NOT NULL,
+    is_active    BOOLEAN NOT NULL,
+    email        TEXT,
+    phone_number TEXT,
+    nickname     TEXT,
+    is_verified  BOOLEAN,
+    name         TEXT NOT NULL
 );
 
 CREATE SEQUENCE organisation_id_sequence START 1 INCREMENT 1;
+
+CREATE TABLE organisation_departments
+(
+    organisation_id BIGINT NOT NULL,
+    departments     TEXT   NOT NULL,
+    FOREIGN KEY (organisation_id) REFERENCES organisation (id)
+);
 
 create table persona
 (

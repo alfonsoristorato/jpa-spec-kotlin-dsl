@@ -1,8 +1,13 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.comparison
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -11,6 +16,7 @@ import io.kotest.matchers.shouldBe
 @SpringBootTestEnhanced
 class ComparisonTest(
     private val personaRepository: PersonaRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
             val persona1 =
@@ -35,6 +41,33 @@ class ComparisonTest(
                 )
             personaRepository.saveAll(listOf(persona1, persona2, persona3, persona4))
             personaRepository.findAll() shouldHaveSize 4
+
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org A",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Alpha Street"),
+                        ),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org B",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Beta Street"),
+                        ),
+                )
+            val org3 =
+                TestFixtures.createOrganisation(
+                    name = "Org C",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Gamma Street"),
+                        ),
+                )
+            organisationRepository.saveAll(listOf(org1, org2, org3))
+            organisationRepository.findAll() shouldHaveSize 3
         }
 
         context("greaterThan for PredicateSpecification checks if property is greater than value") {
@@ -135,6 +168,64 @@ class ComparisonTest(
                     name shouldBe "Persona 4"
                     age shouldBe 30
                 }
+            }
+        }
+
+        context("greaterThan for PredicateSpecification checks if nested property is greater than value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .greaterThan("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org C"
+            }
+        }
+
+        context("greaterThanOrEqualTo for PredicateSpecification checks if nested property is gte value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .greaterThanOrEqualTo("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org B"
+                result[1].name shouldBe "Org C"
+            }
+        }
+
+        context("lessThan for PredicateSpecification checks if nested property is less than value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .lessThan("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org A"
+            }
+        }
+
+        context("lessThanOrEqualTo for PredicateSpecification checks if nested property is lte value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .lessThanOrEqualTo("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
+        }
+
+        context("between for PredicateSpecification checks if nested property is between two values") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .between("Alpha Street", "Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
             }
         }
     })

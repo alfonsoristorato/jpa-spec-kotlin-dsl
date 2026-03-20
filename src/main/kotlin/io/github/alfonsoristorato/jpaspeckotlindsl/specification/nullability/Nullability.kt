@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.nullability
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.nullability.isNotNull
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.nullability.isNull
 import org.springframework.data.jpa.domain.Specification
@@ -25,6 +26,30 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
  * @return A [Specification] that checks if the property is not null.
  */
 fun <T : Any, P> KProperty1<T, P>.isNotNull(): Specification<T> =
+    Specification { root, _, criteriaBuilder ->
+        isNotNull(root, criteriaBuilder)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested property is null.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @return A [Specification] that checks if the nested property is null.
+ */
+fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.isNull(): Specification<ROOT> =
+    Specification { root, _, criteriaBuilder ->
+        isNull(root, criteriaBuilder)
+    }
+
+/**
+ * Creates a [Specification] that checks if the nested property is not null.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @return A [Specification] that checks if the nested property is not null.
+ */
+fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.isNotNull(): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         isNotNull(root, criteriaBuilder)
     }
