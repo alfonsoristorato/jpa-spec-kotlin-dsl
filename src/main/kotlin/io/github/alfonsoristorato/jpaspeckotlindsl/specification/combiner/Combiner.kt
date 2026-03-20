@@ -15,10 +15,10 @@ infix fun <T : Any> Specification<T>.and(other: Specification<T>): Specification
  * ANDs all the given [Specification]s together.
  *
  * @param T – the type of the entity.
- * @param predicateSpecification – the [Specification]s to combine.
+ * @param specification – the [Specification]s to combine.
  * @return The conjunction of all specifications.
  */
-fun <T : Any> and(vararg predicateSpecification: Specification<T>): Specification<T> = predicateSpecification.reduce(Specification<T>::and)
+fun <T : Any> and(vararg specification: Specification<T>): Specification<T> = specification.reduce(Specification<T>::and)
 
 /**
  * ORs the given [Specification] to the current one.
