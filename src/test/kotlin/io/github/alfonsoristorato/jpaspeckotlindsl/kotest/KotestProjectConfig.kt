@@ -32,7 +32,10 @@ object DatabaseCleanerAfterSpecListener : AfterSpecListener {
         }.onFailure {
             // we skip this if there is no bean definition for JdbcTemplate, as it means we are not running a Spring Test
             if (it !is NoSuchBeanDefinitionException) {
-                throw RuntimeException("There is something wrong, quite likely in the order with which the tables are cleared - please fix it!", it)
+                throw RuntimeException(
+                    "There is something wrong, quite likely in the order with which the tables are cleared - please fix it!",
+                    it,
+                )
             }
         }
     }
