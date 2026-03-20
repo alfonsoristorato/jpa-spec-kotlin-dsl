@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.util
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
 
@@ -12,6 +13,12 @@ object TestFixtures {
     const val DEFAULT_POST_TITLE = "Default Post Title"
     const val DEFAULT_POST_CONTENT = "Default Post Content"
     const val DEFAULT_COMMENT_CONTENT = "Default Comment Content"
+    const val DEFAULT_ORGANISATION_NAME = "Default Organisation Name"
+
+    fun createOrganisation(name: String = DEFAULT_ORGANISATION_NAME) =
+        Organisation(
+            name = name,
+        )
 
     fun createPersona(
         name: String = DEFAULT_PERSONA_NAME,
@@ -20,6 +27,7 @@ object TestFixtures {
         userName: String = DEFAULT_PERSONA_USERNAME,
         firstLogin: Boolean = false,
         isMagic: Boolean? = null,
+        organisation: Organisation? = null,
     ) = Persona(
         name = name,
         lastName = lastName,
@@ -27,6 +35,7 @@ object TestFixtures {
         userName = userName,
         firstLogin = firstLogin,
         isMagic = isMagic,
+        organisation = organisation,
     )
 
     fun createPost(

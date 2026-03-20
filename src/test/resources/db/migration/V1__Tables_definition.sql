@@ -1,12 +1,22 @@
+create table organisation
+(
+    id   BIGINT PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE SEQUENCE organisation_id_sequence START 1 INCREMENT 1;
+
 create table persona
 (
-    id          BIGINT PRIMARY KEY,
-    name        TEXT    NOT NULL,
-    last_name   TEXT,
-    age         INT     NOT NULL,
-    user_name   TEXT    NOT NULL,
-    first_login BOOLEAN NOT NULL,
-    is_magic    BOOLEAN
+    id              BIGINT PRIMARY KEY,
+    name            TEXT    NOT NULL,
+    last_name       TEXT,
+    age             INT     NOT NULL,
+    user_name       TEXT    NOT NULL,
+    first_login     BOOLEAN NOT NULL,
+    is_magic        BOOLEAN,
+    organisation_id BIGINT,
+    FOREIGN KEY (organisation_id) REFERENCES organisation (id)
 );
 
 CREATE SEQUENCE persona_id_sequence START 1 INCREMENT 1;

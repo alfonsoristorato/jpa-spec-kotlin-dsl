@@ -14,16 +14,17 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [Inclusion](#inclusion)
     - [Collection Operations](#collection-operations)
 - [Combining Specifications](#combining-specifications)
-- [Working with Joins](#working-with-joins-experimental)
+- [Working with Joins](#working-with-joins)
     - [Using joinWithPredicate](#using-joinwithpredicate)
     - [Using fetchJoinWithPredicate](#using-fetchJoinWithPredicate)
     - [Using joinWithPredicates](#using-joinwithpredicates)
     - [Using fetchJoinWithPredicates](#using-fetchJoinWithPredicates)
+    - [Using joinNullableWithPredicate](#using-joinnullablewithpredicate)
+    - [Using fetchJoinNullableWithPredicate](#using-fetchjoinnullablewithpredicate)
+    - [Using joinNullableWithPredicates](#using-joinnullablewithpredicates)
+    - [Using fetchJoinNullableWithPredicates](#using-fetchjoinnullablewithpredicates)
     - [Join Types](#join-types)
-- [PredicateSpecification vs Specification](#predicatespecification-vs-specification)
-- [Real-World Use Cases](#real-world-use-cases)
 - [Testing](#testing)
-- [Inspiration](#inspiration)
 
 ## Setup
 
@@ -46,7 +47,8 @@ interface UserRepository : JpaRepository<User, Long>, JpaSpecificationExecutor<U
 
 ## Basic Operations
 
-**Note:** The DSL intelligently handles nullable properties, i.e. you can use `equal(value)` for both nullable and non-nullable properties. 
+**Note:** The DSL intelligently handles nullable properties, i.e. you can use `equal(value)` for both nullable and
+non-nullable properties.
 
 ### Equality
 
@@ -226,7 +228,7 @@ val priorityUsers = or(
 repository.findAll(youngOrSenior)
 ```
 
-## Working with Joins 
+## Working with Joins
 
 The DSL supports joins for querying across entity relationships.
 An equivalent of the below functions is available as a fetch-join alternative for eager loading.
@@ -321,6 +323,74 @@ val commentsWithUserAgeAtLeastAndUserNameEquals = Comment::user.fetchJoinWithPre
 }
 
 repository.findAll(commentsWithUserAgedAtLeast)
+```
+
+**Note:** Multiple predicates are automatically combined with AND logic.
+
+### Using joinNullableWithPredicate
+
+Use `joinNullableWithPredicate` when the relationship property is **nullable** (e.g. `Organisation?`).
+This avoids a type mismatch that would occur with `joinWithPredicate`, since the lambda receives the unwrapped
+non-nullable type.
+
+```kotlin
+// Persona::organisation is Organisation? — use joinNullableWithPredicate
+val personasInOrg = Persona::organisation.joinNullableWithPredicate { orgJoin, cb ->
+    Organisation::name.equal(orgJoin, cb, "Acme Corp")
+}
+
+val personasInOrgNamed = Persona::organisation.joinNullableWithPredicate { orgJoin, cb ->
+    Organisation::name.like(orgJoin, cb, "Acme%")
+}
+
+repository.findAll(personasInOrg)
+```
+
+### Using fetchJoinNullableWithPredicate
+
+Use `fetchJoinNullableWithPredicate` for the same scenario as above but with eager loading:
+
+```kotlin
+// Persona::organisation is Organisation? — use fetchJoinNullableWithPredicate
+val personasInOrg = Persona::organisation.fetchJoinNullableWithPredicate { orgJoin, cb ->
+    Organisation::name.equal(orgJoin, cb, "Acme Corp")
+}
+
+repository.findAll(personasInOrg)
+```
+
+### Using joinNullableWithPredicates
+
+Use `joinNullableWithPredicates` to combine multiple conditions on a nullable relationship:
+
+```kotlin
+// Persona::organisation is Organisation? — use joinNullableWithPredicates
+val personasInOrgWithConditions = Persona::organisation.joinNullableWithPredicates { orgJoin, cb ->
+    listOf(
+        Organisation::name.equal(orgJoin, cb, "Acme Corp"),
+        Organisation::country.equal(orgJoin, cb, "US")
+    )
+}
+
+repository.findAll(personasInOrgWithConditions)
+```
+
+**Note:** Multiple predicates are automatically combined with AND logic.
+
+### Using fetchJoinNullableWithPredicates
+
+Use `fetchJoinNullableWithPredicates` for the same scenario as above but with eager loading:
+
+```kotlin
+// Persona::organisation is Organisation? — use fetchJoinNullableWithPredicates
+val personasInOrgWithConditions = Persona::organisation.fetchJoinNullableWithPredicates { orgJoin, cb ->
+    listOf(
+        Organisation::name.equal(orgJoin, cb, "Acme Corp"),
+        Organisation::country.equal(orgJoin, cb, "US")
+    )
+}
+
+repository.findAll(personasInOrgWithConditions)
 ```
 
 **Note:** Multiple predicates are automatically combined with AND logic.
