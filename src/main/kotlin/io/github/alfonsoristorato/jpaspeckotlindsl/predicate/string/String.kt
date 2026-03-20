@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.string
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -66,3 +67,65 @@ fun <T> KProperty1<T, String?>.notLike(
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
 ): Predicate = criteriaBuilder.notLike(path.get(this.name), pattern)
+
+/**
+ * Creates a [Predicate] that checks if the nested String property matches the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param pattern The pattern to match against.
+ * @return A [Predicate] that checks if the nested property matches the pattern.
+ */
+fun <ROOT> NestedProperty<ROOT, String>.like(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    pattern: String,
+): Predicate = criteriaBuilder.like(resolve(path), pattern)
+
+/**
+ * Creates a [Predicate] that checks if the nested nullable String property matches the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param pattern The pattern to match against.
+ * @return A [Predicate] that checks if the nested property matches the pattern.
+ */
+@JvmName("nestedLikeNullable")
+fun <ROOT> NestedProperty<ROOT, String?>.like(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    pattern: String,
+): Predicate = criteriaBuilder.like(resolve(path), pattern)
+
+/**
+ * Creates a [Predicate] that checks if the nested String property does not match the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param pattern The pattern to match against.
+ * @return A [Predicate] that checks if the nested property does not match the pattern.
+ */
+fun <ROOT> NestedProperty<ROOT, String>.notLike(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    pattern: String,
+): Predicate = criteriaBuilder.notLike(resolve(path), pattern)
+
+/**
+ * Creates a [Predicate] that checks if the nested nullable String property does not match the given pattern.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param pattern The pattern to match against.
+ * @return A [Predicate] that checks if the nested property does not match the pattern.
+ */
+@JvmName("nestedNotLikeNullable")
+fun <ROOT> NestedProperty<ROOT, String?>.notLike(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    pattern: String,
+): Predicate = criteriaBuilder.notLike(resolve(path), pattern)

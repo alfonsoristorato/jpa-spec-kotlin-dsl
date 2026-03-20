@@ -1,10 +1,15 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.equality
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -14,6 +19,7 @@ import io.kotest.matchers.shouldBe
 class EqualityTest(
     private val personaRepository: PersonaRepository,
     private val postRepository: PostRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
             val persona1 =
@@ -53,6 +59,25 @@ class EqualityTest(
                 )
             postRepository.saveAll(listOf(post1Persona1, post2Persona1, post1Persona2, post1Persona3))
             postRepository.findAll() shouldHaveSize 4
+
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org 1",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Street 1"),
+                        ),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org 2",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Street 2"),
+                        ),
+                )
+            organisationRepository.saveAll(listOf(org1, org2))
+            organisationRepository.findAll() shouldHaveSize 2
         }
 
         context("equal for PredicateSpecification checks for equality") {
@@ -91,6 +116,14 @@ class EqualityTest(
                 result[0].name shouldBe "Persona 1"
                 result[1].name shouldBe "Persona 2"
                 result[2].name shouldBe "Persona 3"
+            }
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .equal("Street 1")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org 1"
             }
         }
 
@@ -132,6 +165,14 @@ class EqualityTest(
                 val result =
                     personaRepository.findAll(personasWithSpecificLastName)
                 result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .notEqual("Street 1")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org 2"
             }
         }
     })

@@ -1,9 +1,13 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.collection
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -13,14 +17,34 @@ import io.kotest.matchers.shouldBe
 class CollectionTest(
     private val personaRepository: PersonaRepository,
     private val postRepository: PostRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org With Departments",
+                    departments = setOf("engineering", "marketing"),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org Without Departments",
+                    departments = emptySet(),
+                )
+            organisationRepository.saveAll(listOf(org1, org2))
+            organisationRepository.findAll() shouldHaveSize 2
+
             val persona1 =
                 TestFixtures.createPersona(
                     name = "Persona 1",
+                    organisation = org1,
                 )
-            personaRepository.save(persona1)
-            personaRepository.findAll() shouldHaveSize 1
+            val persona2 =
+                TestFixtures.createPersona(
+                    name = "Persona 2",
+                    organisation = org2,
+                )
+            personaRepository.saveAll(listOf(persona1, persona2))
+            personaRepository.findAll() shouldHaveSize 2
 
             val post1 =
                 TestFixtures.createPost(
@@ -51,6 +75,12 @@ class CollectionTest(
                 result shouldHaveSize 1
                 result[0].title shouldBe "Post 3"
             }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::departments).isEmpty()
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
         }
 
         context("isNotEmpty for Specification tests whether a collection is not empty") {
@@ -59,6 +89,12 @@ class CollectionTest(
                 val result = postRepository.findAll(spec)
                 result shouldHaveSize 2
                 result.map { it.title } shouldBe listOf("Post 1", "Post 2")
+            }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::departments).isNotEmpty()
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
             }
         }
 
@@ -74,6 +110,12 @@ class CollectionTest(
                 val result = postRepository.findAll(spec)
                 result shouldHaveSize 0
             }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::departments).isMember("engineering")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
         }
 
         context("isNotMember for Specification tests whether an element is not a member of a collection") {
@@ -87,6 +129,12 @@ class CollectionTest(
                 val spec = Post::tags.isNotMember("nonexistent")
                 val result = postRepository.findAll(spec)
                 result shouldHaveSize 3
+            }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::departments).isNotMember("engineering")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
             }
         }
     })

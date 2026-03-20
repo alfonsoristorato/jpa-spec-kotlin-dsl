@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -72,3 +73,67 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotMember(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate = criteriaBuilder.isNotMember(value, path.get(this.name))
+
+/**
+ * Creates a [Predicate] that tests whether a nested collection is empty.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [E] - the type of the element in the [Collection].
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @return A [Predicate] that tests whether the nested collection is empty.
+ */
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+): Predicate = criteriaBuilder.isEmpty(resolve(path))
+
+/**
+ * Creates a [Predicate] that tests whether a nested collection is not empty.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [E] - the type of the element in the [Collection].
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @return A [Predicate] that tests whether the nested collection is not empty.
+ */
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+): Predicate = criteriaBuilder.isNotEmpty(resolve(path))
+
+/**
+ * Creates a [Predicate] that tests whether an element is a member of a nested collection.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [E] - the type of the element in the [Collection].
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The element value to check for membership.
+ * @return A [Predicate] that tests whether an element is a member of the nested collection.
+ */
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    value: E,
+): Predicate = criteriaBuilder.isMember(value, resolve(path))
+
+/**
+ * Creates a [Predicate] that tests whether an element is not a member of a nested collection.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [E] - the type of the element in the [Collection].
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The element value to check for non-membership.
+ * @return A [Predicate] that tests whether an element is not a member of the nested collection.
+ */
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    value: E,
+): Predicate = criteriaBuilder.isNotMember(value, resolve(path))

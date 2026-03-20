@@ -1,8 +1,14 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.string
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.ContactInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -11,6 +17,7 @@ import io.kotest.matchers.shouldBe
 @SpringBootTestEnhanced
 class StringTest(
     private val personaRepository: PersonaRepository,
+    private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
             val persona1 =
@@ -39,6 +46,36 @@ class StringTest(
                 )
             personaRepository.saveAll(listOf(persona1, persona2, persona3, persona4))
             personaRepository.findAll() shouldHaveSize 4
+
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org Alpha",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Main Street", city = "London"),
+                            contactInfo = TestFixtures.contactInfo(email = "alpha@test.com", phoneNumber = "111", nickname = "Ally"),
+                        ),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org Beta",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Main Avenue", city = "Paris"),
+                            contactInfo = null,
+                        ),
+                )
+            val org3 =
+                TestFixtures.createOrganisation(
+                    name = "Org Gamma",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Oak Road", city = "London"),
+                            contactInfo = TestFixtures.contactInfo(email = "gamma@test.com", phoneNumber = "333", nickname = "Gam"),
+                        ),
+                )
+            organisationRepository.saveAll(listOf(org1, org2, org3))
+            organisationRepository.findAll() shouldHaveSize 3
         }
 
         context("like for Specification checks if property matches pattern") {
@@ -127,6 +164,54 @@ class StringTest(
                 result[0].apply {
                     lastName shouldBe "Doe"
                 }
+            }
+        }
+
+        context("like for Specification checks if nested property matches pattern") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .like("Main%")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org Alpha"
+                result[1].name shouldBe "Org Beta"
+            }
+            expect("with nested nullable types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::email)
+                        .like("%@test.com")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org Alpha"
+                result[1].name shouldBe "Org Gamma"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .like("A%")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Alpha"
+            }
+        }
+
+        context("notLike for Specification checks if nested property does not match pattern") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .notLike("Main%")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .notLike("A%")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
             }
         }
     })
