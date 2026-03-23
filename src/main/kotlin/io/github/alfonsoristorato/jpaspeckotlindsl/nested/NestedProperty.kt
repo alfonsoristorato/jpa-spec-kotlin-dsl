@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
  * @property parentNames  All intermediate field names, in traversal order.
  * @property child  The leaf [KProperty1], carrying its name and type [PROP].
  */
-data class NestedProperty<ROOT, PROP>(
+data class NestedProperty<ROOT, out PROP>(
     val parentNames: List<String>,
     val child: KProperty1<*, PROP>,
 ) {
@@ -25,7 +25,7 @@ data class NestedProperty<ROOT, PROP>(
      * @return The fully resolved [Path] pointing to the leaf property.
      */
     @Suppress("UNCHECKED_CAST")
-    fun resolve(root: Path<*>): Path<PROP> {
+    fun resolve(root: Path<*>): Path<@UnsafeVariance PROP> {
         val parentPath = parentNames.fold(root as Path<Any>) { path, name -> path.get(name) }
         return parentPath.get(child.name)
     }
