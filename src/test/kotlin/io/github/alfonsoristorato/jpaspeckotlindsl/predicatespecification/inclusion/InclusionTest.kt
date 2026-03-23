@@ -200,5 +200,15 @@ class InclusionTest(
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org Alpha"
             }
+
+            expect("with collection of nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .`in`(listOf("Main Street", "Oak Road"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org Alpha"
+                result[1].name shouldBe "Org Beta"
+            }
         }
     })

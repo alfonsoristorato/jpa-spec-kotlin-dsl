@@ -86,7 +86,7 @@ class InclusionTest(
             organisationRepository.findAll() shouldHaveSize 2
         }
 
-        context("in for PredicateSpecification checks if property is in the given value") {
+        context("in for Specification checks if property is in the given value") {
             expect("with single int") {
                 val spec = Persona::age.`in`(30)
                 val result = personaRepository.findAll(spec)
@@ -199,6 +199,16 @@ class InclusionTest(
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org A"
+            }
+
+            expect("with collection of nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .`in`(listOf("Main Street", "Oak Road"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
             }
         }
     })

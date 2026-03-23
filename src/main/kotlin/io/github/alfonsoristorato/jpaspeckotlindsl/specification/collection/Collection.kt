@@ -41,7 +41,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): Specification
  * @receiver [T] – the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
- * @param value – the element value to check for membership.
+ * @param value the element value to check for membership.
  * @return A [Specification] that tests whether an element is a member of a collection.
  */
 fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Specification<T> =
@@ -56,7 +56,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Specifi
  * @receiver [T] – the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
- * @param value – the element value to check for non-membership.
+ * @param value the element value to check for non-membership.
  * @return A [Specification] that tests whether an element is not a member of a collection.
  */
 fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotMember(value: E): Specification<T> =
@@ -96,7 +96,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(
  * @receiver [ROOT] – the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
- * @param value – the element value to check for membership.
+ * @param value the element value to check for membership.
  * @return A [Specification] that tests whether an element is a member of the nested collection.
  */
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(value: E): Specification<ROOT> =
@@ -110,7 +110,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(va
  * @receiver [ROOT] – the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
- * @param value – the element value to check for non-membership.
+ * @param value the element value to check for non-membership.
  * @return A [Specification] that tests whether an element is not a member of the nested collection.
  */
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember(value: E): Specification<ROOT> =

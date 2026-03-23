@@ -41,7 +41,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): PredicateSpec
  * @receiver [T] – the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
- * @param value – the element value to check for membership.
+ * @param value the element value to check for membership.
  * @return A [PredicateSpecification] that tests whether an element is a member of a collection.
  */
 fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): PredicateSpecification<T> =
