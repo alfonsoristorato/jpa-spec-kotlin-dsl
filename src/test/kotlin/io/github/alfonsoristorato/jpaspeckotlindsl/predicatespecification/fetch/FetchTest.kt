@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.fetch
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
@@ -139,7 +138,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicate { personaJoin, criteriaBuilder ->
@@ -185,7 +183,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicate(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
@@ -230,7 +227,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicate(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->
@@ -290,7 +286,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicates { personaJoin, criteriaBuilder ->
@@ -347,7 +342,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicates(joinType = JoinType.LEFT) { personaJoin, criteriaBuilder ->
@@ -407,7 +401,6 @@ class FetchTest(
                     }
                 }
 
-                @OptIn(ExperimentalApi::class)
                 expect("Persona to Organisation - nullable association") {
                     val spec =
                         Persona::organisation.fetchJoinNullableWithPredicates(joinType = JoinType.RIGHT) { personaJoin, criteriaBuilder ->

@@ -1,6 +1,5 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.join
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.join.join
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.From
@@ -39,7 +38,6 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
  * @return A [PredicateSpecification] that performs the join and applies the predicates.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalApi
 fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
@@ -77,7 +75,6 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicate(
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicate.
  */
-@ExperimentalApi
 fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
