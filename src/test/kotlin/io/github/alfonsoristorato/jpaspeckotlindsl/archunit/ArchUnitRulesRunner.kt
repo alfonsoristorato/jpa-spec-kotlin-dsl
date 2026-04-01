@@ -31,20 +31,19 @@ class ArchUnitRulesRunner :
 
         checkPackageIndependence(
             description = "specification must not depend on predicatespecification",
-            from ="..specification..",
+            from = "..specification..",
             to = listOf("..predicatespecification.."),
-
         )
 
         checkPackageIndependence(
-           description = "predicatespecification must not depend on specification",
-           from ="..predicatespecification..",
+            description = "predicatespecification must not depend on specification",
+            from = "..predicatespecification..",
             to = listOf("..specification.."),
         )
 
         checkPackageIndependence(
-            description ="predicate must not depend on specification or predicatespecification",
-            from ="..predicate..",
+            description = "predicate must not depend on specification or predicatespecification",
+            from = "..predicate..",
             to = listOf("..specification..", "..predicatespecification.."),
         )
     })
