@@ -14,9 +14,9 @@ class ArchUnitRulesRunner :
         }
 
         fun checkPackageIndependence(
-            from: String,
-            to: String,
             description: String,
+            from: String,
+            to: List<String>,
         ) {
             expect(description) {
                 noClasses()
@@ -24,20 +24,27 @@ class ArchUnitRulesRunner :
                     .resideInAnyPackage(from)
                     .should()
                     .dependOnClassesThat()
-                    .resideInAnyPackage(to)
+                    .resideInAnyPackage(*to.toTypedArray())
                     .check(importedClasses)
             }
         }
 
         checkPackageIndependence(
-            "..specification..",
-            "..predicatespecification..",
-            "specification must not depend on predicatespecification",
+            description = "specification must not depend on predicatespecification",
+            from ="..specification..",
+            to = listOf("..predicatespecification.."),
+
         )
 
         checkPackageIndependence(
-            "..predicatespecification..",
-            "..specification..",
-            "predicatespecification must not depend on specification",
+           description = "predicatespecification must not depend on specification",
+           from ="..predicatespecification..",
+            to = listOf("..specification.."),
+        )
+
+        checkPackageIndependence(
+            description ="predicate must not depend on specification or predicatespecification",
+            from ="..predicate..",
+            to = listOf("..specification..", "..predicatespecification.."),
         )
     })
