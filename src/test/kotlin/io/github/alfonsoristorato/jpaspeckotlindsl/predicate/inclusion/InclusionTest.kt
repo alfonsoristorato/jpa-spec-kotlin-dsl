@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.specification.inclusion
+package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.inclusion
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
@@ -15,6 +15,8 @@ import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.datatest.withExpects
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.Root
 
 @SpringBootTestEnhanced
 class InclusionTest(
@@ -87,13 +89,16 @@ class InclusionTest(
             organisationRepository.findAll() shouldHaveSize 2
         }
 
-        context("in and containedIn for Specification checks if property is in the given value") {
+        context("in and containedIn for Predicate checks if property is in the given value") {
             withExpects(
                 nameFn = { "${it.second} with single int" },
-                Persona::age.`in`(30) to "in",
-                Persona::age.containedIn(30) to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.`in`(root, cb, 30) } to "in",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.containedIn(root, cb, 30) } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 1
                 result[0].apply {
                     name shouldBe "Persona 2"
@@ -103,10 +108,13 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with collection of int" },
-                Persona::age.`in`(listOf(30, 40)) to "in",
-                Persona::age.containedIn(listOf(30, 40)) to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.`in`(root, cb, listOf(30, 40)) } to "in",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.containedIn(root, cb, listOf(30, 40)) } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 2
                 result[0].apply {
                     name shouldBe "Persona 2"
@@ -120,10 +128,13 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with single bool" },
-                Persona::firstLogin.`in`(true) to "in",
-                Persona::firstLogin.containedIn(true) to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::firstLogin.`in`(root, cb, true) } to "in",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::firstLogin.containedIn(root, cb, true) } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 1
                 result[0].apply {
                     name shouldBe "Persona 1"
@@ -133,10 +144,18 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with collection of bool" },
-                Persona::firstLogin.`in`(listOf(true, false)) to "in",
-                Persona::firstLogin.containedIn(listOf(true, false)) to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::firstLogin.`in`(root, cb, listOf(true, false)) } to "in",
+                {
+                    root: Root<Persona>,
+                    cb: CriteriaBuilder,
+                    ->
+                    Persona::firstLogin.containedIn(root, cb, listOf(true, false))
+                } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 3
                 result[0].apply {
                     name shouldBe "Persona 1"
@@ -154,10 +173,13 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with single string" },
-                Persona::name.`in`("Persona 1") to "in",
-                Persona::name.containedIn("Persona 1") to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.`in`(root, cb, "Persona 1") } to "in",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.containedIn(root, cb, "Persona 1") } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 1
                 result[0].apply {
                     name shouldBe "Persona 1"
@@ -167,10 +189,14 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with collection of string" },
-                Persona::name.`in`(listOf("Persona 1", "Persona 2")) to "in",
-                Persona::name.containedIn(listOf("Persona 1", "Persona 2")) to "containedIn",
-            ) { (spec, _) ->
-                val result = personaRepository.findAll(spec)
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.`in`(root, cb, listOf("Persona 1", "Persona 2")) } to "in",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.containedIn(root, cb, listOf("Persona 1", "Persona 2")) } to
+                    "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 2
                 result[0].apply {
                     name shouldBe "Persona 1"
@@ -184,10 +210,13 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with single declared type" },
-                Post::persona.`in`(persona1) to "in",
-                Post::persona.containedIn(persona1) to "containedIn",
-            ) { (spec, _) ->
-                val result = postRepository.findAll(spec)
+                { root: Root<Post>, cb: CriteriaBuilder -> Post::persona.`in`(root, cb, persona1) } to "in",
+                { root: Root<Post>, cb: CriteriaBuilder -> Post::persona.containedIn(root, cb, persona1) } to "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 2
                 result[0].apply {
                     title shouldBe "Post 1 - Persona 1"
@@ -199,10 +228,14 @@ class InclusionTest(
 
             withExpects(
                 nameFn = { "${it.second} with collection of declared type" },
-                Post::persona.`in`(listOf(persona1, persona2)) to "in",
-                Post::persona.containedIn(listOf(persona1, persona2)) to "containedIn",
-            ) { (spec, _) ->
-                val result = postRepository.findAll(spec)
+                { root: Root<Post>, cb: CriteriaBuilder -> Post::persona.`in`(root, cb, listOf(persona1, persona2)) } to "in",
+                { root: Root<Post>, cb: CriteriaBuilder -> Post::persona.containedIn(root, cb, listOf(persona1, persona2)) } to
+                    "containedIn",
+            ) { (predicate, _) ->
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 3
                 result[0].apply {
                     title shouldBe "Post 1 - Persona 1"
@@ -216,27 +249,49 @@ class InclusionTest(
             }
         }
 
-        context("in and containedIn for Specification checks if nested property is in the given value") {
+        context("in and containedIn for Predicate checks if nested property is in the given value") {
             withExpects(
                 nameFn = { "${it.second} with nested types" },
-                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                    .`in`("Main Street") to "in",
-                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                    .containedIn("Main Street") to "containedId",
-            ) { (spec, _) ->
-                val result = organisationRepository.findAll(spec)
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).`in`(root, cb, "Main Street")
+                } to "in",
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).containedIn(root, cb, "Main Street")
+                } to "containedId",
+            ) { (predicate, _) ->
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org Alpha"
             }
 
             withExpects(
                 nameFn = { "${it.second} with collection of nested types" },
-                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                    .`in`(listOf("Main Street", "Oak Road")) to "in",
-                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                    .containedIn(listOf("Main Street", "Oak Road")) to "containedId",
-            ) { (spec, _) ->
-                val result = organisationRepository.findAll(spec)
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).`in`(root, cb, listOf("Main Street", "Oak Road"))
+                } to "in",
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).containedIn(root, cb, listOf("Main Street", "Oak Road"))
+                } to "containedId",
+            ) { (predicate, _) ->
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org Alpha"
                 result[1].name shouldBe "Org Beta"

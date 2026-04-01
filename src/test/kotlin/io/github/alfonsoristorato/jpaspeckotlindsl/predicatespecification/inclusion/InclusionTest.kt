@@ -12,6 +12,7 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBoo
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
+import io.kotest.datatest.withExpects
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
@@ -86,9 +87,12 @@ class InclusionTest(
             organisationRepository.findAll() shouldHaveSize 2
         }
 
-        context("in for PredicateSpecification checks if property is in the given value") {
-            expect("with single int") {
-                val spec = Persona::age.`in`(30)
+        context("in and containedIn for PredicateSpecification checks if property is in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with single int" },
+                Persona::age.`in`(30) to "in",
+                Persona::age.containedIn(30) to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].apply {
@@ -97,8 +101,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with collection of int") {
-                val spec = Persona::age.`in`(listOf(30, 40))
+            withExpects(
+                nameFn = { "${it.second} with collection of int" },
+                Persona::age.`in`(listOf(30, 40)) to "in",
+                Persona::age.containedIn(listOf(30, 40)) to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].apply {
@@ -111,8 +118,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with single bool") {
-                val spec = Persona::firstLogin.`in`(true)
+            withExpects(
+                nameFn = { "${it.second} with single bool" },
+                Persona::firstLogin.`in`(true) to "in",
+                Persona::firstLogin.containedIn(true) to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].apply {
@@ -121,8 +131,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with collection of bool") {
-                val spec = Persona::firstLogin.`in`(listOf(true, false))
+            withExpects(
+                nameFn = { "${it.second} with collection of bool" },
+                Persona::firstLogin.`in`(listOf(true, false)) to "in",
+                Persona::firstLogin.containedIn(listOf(true, false)) to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 3
                 result[0].apply {
@@ -139,8 +152,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with single string") {
-                val spec = Persona::name.`in`("Persona 1")
+            withExpects(
+                nameFn = { "${it.second} with single string" },
+                Persona::name.`in`("Persona 1") to "in",
+                Persona::name.containedIn("Persona 1") to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].apply {
@@ -149,8 +165,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with collection of string") {
-                val spec = Persona::name.`in`(listOf("Persona 1", "Persona 2"))
+            withExpects(
+                nameFn = { "${it.second} with collection of string" },
+                Persona::name.`in`(listOf("Persona 1", "Persona 2")) to "in",
+                Persona::name.containedIn(listOf("Persona 1", "Persona 2")) to "containedIn",
+            ) { (spec, _) ->
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].apply {
@@ -163,8 +182,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with single declared type") {
-                val spec = Post::persona.`in`(persona1)
+            withExpects(
+                nameFn = { "${it.second} with single declared type" },
+                Post::persona.`in`(persona1) to "in",
+                Post::persona.containedIn(persona1) to "containedIn",
+            ) { (spec, _) ->
                 val result = postRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].apply {
@@ -175,8 +197,11 @@ class InclusionTest(
                 }
             }
 
-            expect("with collection of declared type") {
-                val spec = Post::persona.`in`(listOf(persona1, persona2))
+            withExpects(
+                nameFn = { "${it.second} with collection of declared type" },
+                Post::persona.`in`(listOf(persona1, persona2)) to "in",
+                Post::persona.containedIn(listOf(persona1, persona2)) to "containedIn",
+            ) { (spec, _) ->
                 val result = postRepository.findAll(spec)
                 result shouldHaveSize 3
                 result[0].apply {
@@ -191,20 +216,26 @@ class InclusionTest(
             }
         }
 
-        context("in for PredicateSpecification checks if nested property is in the given value") {
-            expect("with nested types") {
-                val spec =
-                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                        .`in`("Main Street")
+        context("in and containedIn for PredicateSpecification checks if nested property is in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with nested types" },
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .`in`("Main Street") to "in",
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .containedIn("Main Street") to "containedId",
+            ) { (spec, _) ->
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org Alpha"
             }
 
-            expect("with collection of nested types") {
-                val spec =
-                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
-                        .`in`(listOf("Main Street", "Oak Road"))
+            withExpects(
+                nameFn = { "${it.second} with collection of nested types" },
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .`in`(listOf("Main Street", "Oak Road")) to "in",
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .containedIn(listOf("Main Street", "Oak Road")) to "containedId",
+            ) { (spec, _) ->
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org Alpha"
