@@ -1,6 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Expression
@@ -153,7 +153,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember(
  * @return A [Predicate] that tests whether an element is contained in the native array column.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T, E> KProperty1<T, Collection<E>>.arrayContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
@@ -174,7 +174,7 @@ fun <T, E> KProperty1<T, Collection<E>>.arrayContains(
  * @return A [Predicate] that tests whether an element is not contained in the native array column.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T, E> KProperty1<T, Collection<E>>.arrayNotContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
@@ -197,7 +197,7 @@ fun <T, E> KProperty1<T, Collection<E>>.arrayNotContains(
  * @return A [Predicate] that tests whether an element is contained in the nested native array column.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
@@ -219,7 +219,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(
  * @return A [Predicate] that tests whether an element is not contained in the nested native array column.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayNotContains(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,

@@ -1,6 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.specification.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection.arrayContains
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection.arrayNotContains
@@ -130,7 +130,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember
  * @param value the element value to check for containment.
  * @return A [Specification] that tests whether an element is contained in the native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T : Any, E> KProperty1<T, Collection<E>>.arrayContains(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         arrayContains(root, criteriaBuilder, value)
@@ -145,7 +145,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.arrayContains(value: E): Specifica
  * @param value the element value to check for non-containment.
  * @return A [Specification] that tests whether an element is not contained in the native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T : Any, E> KProperty1<T, Collection<E>>.arrayNotContains(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         arrayNotContains(root, criteriaBuilder, value)
@@ -161,7 +161,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.arrayNotContains(value: E): Specif
  * @param value the element value to check for containment.
  * @return A [Specification] that tests whether an element is contained in the nested native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(value: E): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         arrayContains(root, criteriaBuilder, value)
@@ -177,7 +177,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContai
  * @param value the element value to check for non-containment.
  * @return A [Specification] that tests whether an element is not contained in the nested native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayNotContains(value: E): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         arrayNotContains(root, criteriaBuilder, value)

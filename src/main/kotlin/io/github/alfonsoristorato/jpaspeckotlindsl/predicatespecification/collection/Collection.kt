@@ -1,6 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection.arrayContains
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection.arrayNotContains
@@ -130,7 +130,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether an element is contained in the native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T : Any, E> KProperty1<T, Collection<E>>.arrayContains(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayContains(from, criteriaBuilder, value)
@@ -145,7 +145,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.arrayContains(value: E): Predicate
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether an element is not contained in the native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <T : Any, E> KProperty1<T, Collection<E>>.arrayNotContains(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayNotContains(from, criteriaBuilder, value)
@@ -161,7 +161,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.arrayNotContains(value: E): Predic
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether an element is contained in the nested native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(value: E): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayContains(from, criteriaBuilder, value)
@@ -177,7 +177,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContai
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether an element is not contained in the nested native array column.
  */
-@ExperimentalApi
+@ExperimentalHibernateApi
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayNotContains(value: E): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayNotContains(from, criteriaBuilder, value)

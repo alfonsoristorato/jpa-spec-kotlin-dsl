@@ -1,8 +1,8 @@
-@file:OptIn(ExperimentalApi::class)
+@file:OptIn(ExperimentalHibernateApi::class)
 
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalApi
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
