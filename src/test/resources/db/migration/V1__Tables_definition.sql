@@ -1,14 +1,15 @@
 create table organisation
 (
     id           BIGINT PRIMARY KEY,
-    street       TEXT NOT NULL,
-    city         TEXT NOT NULL,
+    street       TEXT    NOT NULL,
+    city         TEXT    NOT NULL,
     is_active    BOOLEAN NOT NULL,
     email        TEXT,
     phone_number TEXT,
     nickname     TEXT,
     is_verified  BOOLEAN,
-    name         TEXT NOT NULL
+    name         TEXT    NOT NULL,
+    identifiers  VARCHAR[] DEFAULT '{}'
 );
 
 CREATE SEQUENCE organisation_id_sequence START 1 INCREMENT 1;

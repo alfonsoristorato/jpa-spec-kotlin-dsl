@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalHibernateApi::class)
+
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
 import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
@@ -24,6 +27,7 @@ class CollectionTest(
                 TestFixtures.createOrganisation(
                     name = "Org With Departments",
                     departments = setOf("engineering", "marketing"),
+                    identifiers = setOf("identifier1", "identifier2"),
                 )
             val org2 =
                 TestFixtures.createOrganisation(
@@ -129,6 +133,58 @@ class CollectionTest(
                     }
                 result shouldHaveSize 1
                 result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context("arrayContains for Predicate tests whether an element is contained in a native array column") {
+            expect("returns organisations where the identifier is contained") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.arrayContains(root, cb, "identifier1")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org With Departments"
+            }
+            expect("returns empty when identifier is not contained in any array") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.arrayContains(root, cb, "nonexistent")
+                    }
+                result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::identifiers).arrayContains(root, cb, "identifier1")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context("arrayNotContains for Predicate tests whether an element is not contained in a native array column") {
+            expect("returns organisations where the identifier is not contained") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.arrayNotContains(root, cb, "identifier1")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Without Departments"
+            }
+            expect("returns all organisations when identifier doesn't exist in any array") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.arrayNotContains(root, cb, "nonexistent")
+                    }
+                result shouldHaveSize 2
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::identifiers).arrayNotContains(root, cb, "identifier1")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
             }
         }
 
