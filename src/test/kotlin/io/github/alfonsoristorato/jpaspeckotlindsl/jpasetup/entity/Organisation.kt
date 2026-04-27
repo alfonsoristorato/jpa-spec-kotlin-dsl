@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 
 @Entity
 @Table
@@ -17,7 +19,9 @@ class Organisation(
     @Embedded
     val organisationInfo: OrganisationInfo,
     @ElementCollection
-    val departments: Set<String> = emptySet(),
+    val departments: Set<String>,
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    val identifiers: Set<String>,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organisation_id_sequence")

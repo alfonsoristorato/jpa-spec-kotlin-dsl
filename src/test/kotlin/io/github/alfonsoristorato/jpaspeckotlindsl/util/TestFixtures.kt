@@ -26,10 +26,12 @@ object TestFixtures {
         name: String = DEFAULT_ORGANISATION_NAME,
         organisationInfo: OrganisationInfo = createOrganisationInfo(),
         departments: Set<String> = emptySet(),
+        identifiers: Set<String> = emptySet(),
     ) = Organisation(
         name = name,
         organisationInfo = organisationInfo,
         departments = departments,
+        identifiers = identifiers,
     )
 
     fun createOrganisationInfo(
