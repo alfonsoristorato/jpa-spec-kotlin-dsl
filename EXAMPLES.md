@@ -13,6 +13,7 @@ This document provides comprehensive examples of using the JPA Specification Kot
     - [Boolean Operations](#boolean-operations)
     - [Inclusion](#inclusion)
     - [Collection Operations](#collection-operations)
+    - [Native Array Operations](#native-array-operations)
 - [Combining Specifications](#combining-specifications)
 - [Working with Nested/Embedded Properties](#working-with-nestedembedded-properties)
     - [The `/` Operator](#the--operator)
@@ -189,6 +190,21 @@ val activeKotlinPosts = Post::isPublished.isTrue() and Post::tags.isMember("kotl
 repository.findAll(activeKotlinPosts)
 ```
 
+### Native Array Operations
+
+Operations for working with native database array columns mapped with `@JdbcTypeCode(SqlTypes.ARRAY)`.
+Unlike `@ElementCollection` (which creates a join table), these target columns stored as actual array types (e.g. `VARCHAR[]` in PostgreSQL).
+
+```kotlin
+// Check if a native array column contains an element
+val withIdentifier = Organisation::identifiers.arrayContains("id-123")
+
+// Check if a native array column does not contain an element
+val withoutIdentifier = Organisation::identifiers.arrayNotContains("id-123")
+
+repository.findAll(withIdentifier)
+```
+
 ## Combining Specifications
 
 ### Using `and`
@@ -342,6 +358,10 @@ val emptyDepartments = (Persona::organisation / Organisation::departments).isEmp
 val hasDepartments = (Persona::organisation / Organisation::departments).isNotEmpty()
 val inEngineering = (Persona::organisation / Organisation::departments).isMember("engineering")
 val notInEngineering = (Persona::organisation / Organisation::departments).isNotMember("engineering")
+
+// Native array columns
+val hasIdentifier = (Persona::organisation / Organisation::identifiers).arrayContains("id-123")
+val lacksIdentifier = (Persona::organisation / Organisation::identifiers).arrayNotContains("id-123")
 
 // Combining nested specs with other specs
 val activeOnMainStreet = (Organisation::addressInfo / AddressInfo::isActive).isTrue() and
