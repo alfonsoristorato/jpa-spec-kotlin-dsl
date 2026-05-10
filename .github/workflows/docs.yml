@@ -28,10 +28,24 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Build documentation with Dokka
+      - name: Build API reference with Dokka
         run: ./gradlew :dokkaGenerateHtml
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs Material
+        run: pip install -r requirements.txt
+
+      - name: Build MkDocs site
+        run: mkdocs build --strict
+
+      - name: Copy API reference into site
+        run: cp -r build/docs site/api
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
@@ -39,7 +53,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: 'build/docs'
+          path: 'site'
 
   deploy:
     environment:
@@ -51,4 +65,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-

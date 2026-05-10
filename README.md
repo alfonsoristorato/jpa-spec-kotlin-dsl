@@ -128,20 +128,12 @@ dependencies {
 </dependency>
 ```
 
-## Examples
+## Documentation
 
-**[See comprehensive examples](EXAMPLES.md)**
+Full documentation including examples, installation instructions, and API reference:
+**https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
 
-## API Reference
-
-Full API Reference documentation is available at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/**
-
-The documentation includes:
-
-- Complete API reference for all packages (`predicate`, `specification`, `predicatespecification`)
-- Detailed KDoc for each function and extension
-- Type information
-- Source code links
+The API reference (KDoc) is at: **https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/api/**
 
 ## License
 

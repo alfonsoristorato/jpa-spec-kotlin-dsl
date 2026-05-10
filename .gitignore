@@ -41,5 +41,9 @@ bin/
 ### Mac OS ###
 .DS_Store
 
+### Python ###
+.venv/
+site/
+
 ### Local Dev ###
 local-dev
