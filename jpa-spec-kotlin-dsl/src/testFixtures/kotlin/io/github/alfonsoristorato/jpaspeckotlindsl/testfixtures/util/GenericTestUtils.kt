@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.util
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util
 
 import org.springframework.jdbc.core.JdbcTemplate
 import kotlin.collections.forEach

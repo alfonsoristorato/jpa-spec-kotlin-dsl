@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.archunit
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.archunit
 
 import com.tngtech.archunit.core.importer.ClassFileImporter
 import com.tngtech.archunit.core.importer.ImportOption

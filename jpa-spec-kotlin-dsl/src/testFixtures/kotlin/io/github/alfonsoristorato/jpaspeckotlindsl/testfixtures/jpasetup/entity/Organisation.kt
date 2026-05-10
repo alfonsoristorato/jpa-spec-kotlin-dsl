@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity
 
 import jakarta.persistence.ElementCollection
 import jakarta.persistence.Embeddable

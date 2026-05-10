@@ -1,6 +1,6 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.kotest
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.kotest
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.util.GenericTestUtils
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.GenericTestUtils
 import io.kotest.core.config.AbstractProjectConfig
 import io.kotest.core.extensions.Extension
 import io.kotest.core.listeners.AfterSpecListener

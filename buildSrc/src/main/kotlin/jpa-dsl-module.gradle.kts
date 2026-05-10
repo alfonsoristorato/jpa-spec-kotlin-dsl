@@ -35,7 +35,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     systemProperties["kotest.framework.config.fqn"] =
-        "io.github.alfonsoristorato.jpaspeckotlindsl.kotest.KotestProjectConfig"
+        "io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.kotest.KotestProjectConfig"
 }
 
 kotest {

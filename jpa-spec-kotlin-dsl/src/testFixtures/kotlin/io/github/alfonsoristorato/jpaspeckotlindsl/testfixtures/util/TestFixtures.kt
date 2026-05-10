@@ -1,12 +1,12 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.util
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.AddressInfo
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Comment
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.ContactInfo
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.OrganisationInfo
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Comment
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.ContactInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Post
 
 object TestFixtures {
     const val DEFAULT_PERSONA_NAME = "Name"

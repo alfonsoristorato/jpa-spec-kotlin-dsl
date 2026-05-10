@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

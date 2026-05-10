@@ -3,13 +3,13 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
-import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.OrganisationRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.PersonaRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe

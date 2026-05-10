@@ -1,10 +1,10 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.fetch
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
-import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
-import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.PersonaRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.PostRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.datatest.withExpects
 import io.kotest.matchers.collections.shouldHaveSize
