@@ -12,7 +12,8 @@ class User(
     val age: Int,
     val email: String?,
     val role: String,
-    val isActive: Boolean
+    val isActive: Boolean,
+    val isPremium: Boolean,
 )
 ```
 

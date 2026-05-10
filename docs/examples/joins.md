@@ -22,7 +22,14 @@ class Post(
 @Entity
 class Persona(
     val name: String,
+    val age: Int,
     @OneToOne val organisation: Organisation?,
+)
+
+@Entity
+class Organisation(
+    val name: String,
+    val country: String,
 )
 ```
 
