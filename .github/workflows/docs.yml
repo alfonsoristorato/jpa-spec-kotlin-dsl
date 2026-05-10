@@ -29,7 +29,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
 
       - name: Build documentation with Dokka
-        run: ./gradlew dokkaGenerateHtml
+        run: ./gradlew :dokkaGenerateHtml
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
 

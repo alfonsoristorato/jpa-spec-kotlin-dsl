@@ -1,5 +1,22 @@
 plugins {
     alias(libs.plugins.gradle.nexus.publish.plugin)
+    id("org.jetbrains.dokka")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dokka {
+    moduleName.set("JPA Specification Kotlin DSL")
+    dokkaPublications.html {
+        outputDirectory.set(layout.buildDirectory.dir("docs"))
+    }
+}
+
+dependencies {
+    dokka(project(":jpa-spec-kotlin-dsl"))
+    dokka(project(":jpa-spec-kotlin-dsl-hibernate"))
 }
 
 nexusPublishing {
