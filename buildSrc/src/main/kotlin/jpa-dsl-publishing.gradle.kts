@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     signing
     id("java")
+    id("org.jetbrains.dokka")
     //endregion
 }
 

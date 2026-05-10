@@ -22,6 +22,8 @@ dokka {
 publishing {
     publications {
         named<MavenPublication>("mavenJava") {
+            suppressPomMetadataWarningsFor("testFixturesApiElements")
+            suppressPomMetadataWarningsFor("testFixturesRuntimeElements")
             pom {
                 name.set("JPA Specification Kotlin DSL")
                 description.set("A Kotlin DSL for building JPA Specifications with idiomatic syntax")
