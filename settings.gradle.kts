@@ -6,3 +6,6 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+include(":jpa-spec-kotlin-dsl")
+include(":jpa-spec-kotlin-dsl-hibernate")

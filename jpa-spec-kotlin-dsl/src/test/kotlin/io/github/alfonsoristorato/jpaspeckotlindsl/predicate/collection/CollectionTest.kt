@@ -1,0 +1,160 @@
+package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
+
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.entity.Post
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.OrganisationRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PersonaRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.repository.PostRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
+import io.github.alfonsoristorato.jpaspeckotlindsl.util.TestFixtures
+import io.kotest.core.spec.style.ExpectSpec
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
+
+@SpringBootTestEnhanced
+class CollectionTest(
+    private val personaRepository: PersonaRepository,
+    private val postRepository: PostRepository,
+    private val organisationRepository: OrganisationRepository,
+) : ExpectSpec({
+        beforeSpec {
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org With Departments",
+                    departments = setOf("engineering", "marketing"),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org Without Departments",
+                    departments = emptySet(),
+                )
+            organisationRepository.saveAll(listOf(org1, org2))
+            organisationRepository.findAll() shouldHaveSize 2
+
+            val persona1 =
+                TestFixtures.createPersona(
+                    name = "Persona 1",
+                    organisation = org1,
+                )
+            val persona2 =
+                TestFixtures.createPersona(
+                    name = "Persona 2",
+                    organisation = org2,
+                )
+            personaRepository.saveAll(listOf(persona1, persona2))
+            personaRepository.findAll() shouldHaveSize 2
+
+            val post1 =
+                TestFixtures.createPost(
+                    title = "Post 1",
+                    persona = persona1,
+                    tags = setOf("kotlin", "jpa"),
+                )
+            val post2 =
+                TestFixtures.createPost(
+                    title = "Post 2",
+                    persona = persona1,
+                    tags = setOf("java", "spring"),
+                )
+            val post3 =
+                TestFixtures.createPost(
+                    title = "Post 3",
+                    persona = persona1,
+                    tags = emptySet(),
+                )
+            postRepository.saveAll(listOf(post1, post2, post3))
+            postRepository.findAll() shouldHaveSize 3
+        }
+
+        context("isEmpty for Predicate tests whether a collection is empty") {
+            expect("returns posts with empty tags") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isEmpty(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].title shouldBe "Post 3"
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::departments).isEmpty(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
+        }
+
+        context("isNotEmpty for Predicate tests whether a collection is not empty") {
+            expect("returns posts with non-empty tags") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isNotEmpty(root, cb)
+                    }
+                result shouldHaveSize 2
+                result.map { it.title } shouldBe listOf("Post 1", "Post 2")
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::departments).isNotEmpty(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context("isMember for Predicate tests whether an element is a member of a collection") {
+            expect("returns posts where the tag is a member") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isMember(root, cb, "kotlin")
+                    }
+                result shouldHaveSize 1
+                result[0].title shouldBe "Post 1"
+            }
+            expect("returns empty when tag is not a member of any collection") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isMember(root, cb, "nonexistent")
+                    }
+                result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::departments).isMember(root, cb, "engineering")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context("isNotMember for Predicate tests whether an element is not a member of a collection") {
+            expect("returns posts where the tag is not a member") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isNotMember(root, cb, "kotlin")
+                    }
+                result shouldHaveSize 2
+                result.map { it.title } shouldBe listOf("Post 2", "Post 3")
+            }
+            expect("returns all posts when tag doesn't exist in any collection") {
+                val result =
+                    postRepository.findAll { root, _, cb ->
+                        Post::tags.isNotMember(root, cb, "nonexistent")
+                    }
+                result shouldHaveSize 3
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::departments).isNotMember(root, cb, "engineering")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
+        }
+    })
