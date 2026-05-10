@@ -51,9 +51,23 @@ With the DSL:
 repository.findAll(User::name.equal("Alice") and User::age.greaterThan(18))
 ```
 
+## Modules
+
+### Core (`jpa-spec-kotlin-dsl`)
+
+The standard DSL - works with any JPA provider. Provides all predicate, specification, and predicate-specification
+extensions for equality, comparison, inclusion, nullability, string, collection, join, fetch, and bool operations.
+
+### Hibernate extensions (`jpa-spec-kotlin-dsl-hibernate`)
+
+Hibernate-specific extensions that build on the core DSL.
+Requires the core module to also be declared as a dependency.
+
 ## Installation
 
-### Gradle (Kotlin DSL)
+### Core module only
+
+#### Gradle (Kotlin DSL)
 
 ```kotlin
 dependencies {
@@ -61,7 +75,7 @@ dependencies {
 }
 ```
 
-### Gradle (Groovy)
+#### Gradle (Groovy)
 
 ```groovy
 dependencies {
@@ -69,13 +83,47 @@ dependencies {
 }
 ```
 
-### Maven
+#### Maven
 
 ```xml
-
 <dependency>
     <groupId>io.github.alfonsoristorato</groupId>
     <artifactId>jpa-spec-kotlin-dsl</artifactId>
+    <version>version</version>
+</dependency>
+```
+
+### Core + Hibernate extensions
+
+#### Gradle (Kotlin DSL)
+
+```kotlin
+dependencies {
+    implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>")
+    implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:<version>")
+}
+```
+
+#### Gradle (Groovy)
+
+```groovy
+dependencies {
+    implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>'
+    implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:<version>'
+}
+```
+
+#### Maven
+
+```xml
+<dependency>
+    <groupId>io.github.alfonsoristorato</groupId>
+    <artifactId>jpa-spec-kotlin-dsl</artifactId>
+    <version>version</version>
+</dependency>
+<dependency>
+    <groupId>io.github.alfonsoristorato</groupId>
+    <artifactId>jpa-spec-kotlin-dsl-hibernate</artifactId>
     <version>version</version>
 </dependency>
 ```
