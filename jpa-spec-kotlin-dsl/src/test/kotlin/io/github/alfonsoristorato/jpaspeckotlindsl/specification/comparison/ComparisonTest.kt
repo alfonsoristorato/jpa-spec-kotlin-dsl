@@ -1,0 +1,231 @@
+package io.github.alfonsoristorato.jpaspeckotlindsl.specification.comparison
+
+import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.OrganisationRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.PersonaRepository
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.testconfig.SpringBootTestEnhanced
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixtures
+import io.kotest.core.spec.style.ExpectSpec
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
+
+@SpringBootTestEnhanced
+class ComparisonTest(
+    private val personaRepository: PersonaRepository,
+    private val organisationRepository: OrganisationRepository,
+) : ExpectSpec({
+        beforeSpec {
+            val persona1 =
+                TestFixtures.createPersona(
+                    name = "Persona 1",
+                    age = 20,
+                )
+            val persona2 =
+                TestFixtures.createPersona(
+                    name = "Persona 2",
+                    age = 30,
+                )
+            val persona3 =
+                TestFixtures.createPersona(
+                    name = "Persona 3",
+                    age = 40,
+                )
+            val persona4 =
+                TestFixtures.createPersona(
+                    name = "Persona 4",
+                    age = 30,
+                )
+            personaRepository.saveAll(listOf(persona1, persona2, persona3, persona4))
+            personaRepository.findAll() shouldHaveSize 4
+
+            val org1 =
+                TestFixtures.createOrganisation(
+                    name = "Org A",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Alpha Street", city = "A City"),
+                        ),
+                )
+            val org2 =
+                TestFixtures.createOrganisation(
+                    name = "Org B",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Beta Street", city = "B City"),
+                        ),
+                )
+            val org3 =
+                TestFixtures.createOrganisation(
+                    name = "Org C",
+                    organisationInfo =
+                        TestFixtures.createOrganisationInfo(
+                            addressInfo = TestFixtures.createAddressInfo(street = "Gamma Street", city = "C City"),
+                        ),
+                )
+            organisationRepository.saveAll(listOf(org1, org2, org3))
+            organisationRepository.findAll() shouldHaveSize 3
+        }
+
+        context("greaterThan for Specification checks if property is greater than value") {
+            expect("with comparable types") {
+                val personasOlderThan30 = Persona::age.greaterThan(30)
+                val result = personaRepository.findAll(personasOlderThan30)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+            }
+        }
+
+        context("greaterThanOrEqualTo for Specification checks if property is greater than or equal to value") {
+            expect("with comparable types") {
+                val personas30OrOlder = Persona::age.greaterThanOrEqualTo(30)
+                val result = personaRepository.findAll(personas30OrOlder)
+                result shouldHaveSize 3
+                result[0].apply {
+                    name shouldBe "Persona 2"
+                    age shouldBe 30
+                }
+                result[1].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+                result[2].apply {
+                    name shouldBe "Persona 4"
+                    age shouldBe 30
+                }
+            }
+        }
+
+        context("lessThan for Specification checks if property is less than value") {
+            expect("with comparable types") {
+                val personasYoungerThan30 = Persona::age.lessThan(30)
+                val result = personaRepository.findAll(personasYoungerThan30)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+            }
+        }
+
+        context("lessThanOrEqualTo for Specification checks if property is less than or equal to value") {
+            expect("with comparable types") {
+                val personas30OrYounger = Persona::age.lessThanOrEqualTo(30)
+                val result = personaRepository.findAll(personas30OrYounger)
+                result shouldHaveSize 3
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+                result[1].apply {
+                    name shouldBe "Persona 2"
+                    age shouldBe 30
+                }
+                result[2].apply {
+                    name shouldBe "Persona 4"
+                    age shouldBe 30
+                }
+            }
+        }
+
+        context("between for Specification checks if property is between two values (inclusive)") {
+            expect("with comparable types") {
+                val personasBetween25And35 = Persona::age.between(25, 35)
+                val result = personaRepository.findAll(personasBetween25And35)
+                result shouldHaveSize 2
+                result[0].apply {
+                    name shouldBe "Persona 2"
+                    age shouldBe 30
+                }
+                result[1].apply {
+                    name shouldBe "Persona 4"
+                    age shouldBe 30
+                }
+            }
+            expect("with inclusive boundaries") {
+                val personasBetween20And40 = Persona::age.between(20, 40)
+                val result = personaRepository.findAll(personasBetween20And40)
+                result shouldHaveSize 4
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+                result[1].apply {
+                    name shouldBe "Persona 2"
+                    age shouldBe 30
+                }
+                result[2].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+                result[3].apply {
+                    name shouldBe "Persona 4"
+                    age shouldBe 30
+                }
+            }
+        }
+
+        context("greaterThan for Specification checks if nested property is greater than value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .greaterThan("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org C"
+            }
+        }
+
+        context("greaterThanOrEqualTo for Specification checks if nested property is greater than or equal to value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .greaterThanOrEqualTo("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org B"
+                result[1].name shouldBe "Org C"
+            }
+        }
+
+        context("lessThan for Specification checks if nested property is less than value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .lessThan("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org A"
+            }
+        }
+
+        context("lessThanOrEqualTo for Specification checks if nested property is less than or equal to value") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .lessThanOrEqualTo("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
+        }
+
+        context("between for Specification checks if nested property is between two values (inclusive)") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .between("Alpha Street", "Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
+        }
+    })

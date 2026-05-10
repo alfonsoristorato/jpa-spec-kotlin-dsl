@@ -1,0 +1,28 @@
+package io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity
+
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToOne
+import jakarta.persistence.SequenceGenerator
+import jakarta.persistence.Table
+
+@Entity
+@Table
+class Persona(
+    val name: String,
+    val lastName: String?,
+    val age: Int,
+    val userName: String,
+    val firstLogin: Boolean,
+    val isMagic: Boolean?,
+    @OneToOne(fetch = FetchType.LAZY)
+    val organisation: Organisation?,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_id_sequence")
+    @SequenceGenerator(name = "persona_id_sequence", allocationSize = 1)
+    var id: Long? = null
+}
