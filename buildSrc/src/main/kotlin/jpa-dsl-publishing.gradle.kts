@@ -7,6 +7,9 @@ plugins {
     //endregion
 }
 
+group = "io.github.alfonsoristorato"
+version = System.getenv("RELEASE_VERSION") ?: "LOCAL-SNAPSHOT"
+
 java {
     withSourcesJar()
     withJavadocJar()
