@@ -42,6 +42,31 @@ val priorityUsers = or(
 )
 ```
 
+## Mixing `and` and `or`
+
+Wrap conditions in parentheses to control precedence:
+
+```kotlin
+// Active users who are either admins or adults
+val spec = User::isActive.isTrue() and
+        (User::role.equal("ADMIN") or User::age.greaterThanOrEqualTo(18))
+
+// Users who are either premium, or active adults with an email
+val spec = User::isPremium.isTrue() or
+        (User::isActive.isTrue() and User::age.greaterThanOrEqualTo(18) and User::email.isNotNull())
+```
+
+The top-level functions also compose naturally:
+
+```kotlin
+val adminsOrAdults = or(
+    User::role.equal("ADMIN"),
+    User::age.greaterThanOrEqualTo(18),
+)
+
+val activeAdminsOrAdults = User::isActive.isTrue() and adminsOrAdults
+```
+
 ## Reusable specs
 
 Because specifications are just values, you can compose them freely:

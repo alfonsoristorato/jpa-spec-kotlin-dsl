@@ -7,15 +7,20 @@ The DSL supports joins for querying across entity relationships. Every join func
 ```kotlin
 @Entity
 class Comment(
-    @Id val id: Long,
-    val content: String,
-    @ManyToOne val user: User,
     @ManyToOne val post: Post,
+    @OneToOne val persona: Persona,
+    val content: String,
+)
+
+@Entity
+class Post(
+    @ManyToOne val persona: Persona,
+    val title: String,
+    val content: String,
 )
 
 @Entity
 class Persona(
-    @Id val id: Long,
     val name: String,
     @OneToOne val organisation: Organisation?,
 )
@@ -24,13 +29,17 @@ class Persona(
 ## Single predicate: `joinWithPredicate` / `fetchJoinWithPredicate`
 
 ```kotlin
-val commentsFromAlice = Comment::user.joinWithPredicate { userJoin, cb ->
-    User::name.equal(userJoin, cb, "Alice")
+val commentsFromAlice = Comment::persona.joinWithPredicate { personaJoin, cb ->
+    Persona::name.equal(personaJoin, cb, "Alice")
+}
+
+val commentsOnPost = Comment::post.joinWithPredicate { postJoin, cb ->
+    Post::title.equal(postJoin, cb, "Hello World")
 }
 
 // Eager load the joined entity at the same time
-val commentsFromAliceEager = Comment::user.fetchJoinWithPredicate { userJoin, cb ->
-    User::name.equal(userJoin, cb, "Alice")
+val commentsFromAliceEager = Comment::persona.fetchJoinWithPredicate { personaJoin, cb ->
+    Persona::name.equal(personaJoin, cb, "Alice")
 }
 ```
 
@@ -39,10 +48,17 @@ val commentsFromAliceEager = Comment::user.fetchJoinWithPredicate { userJoin, cb
 Multiple predicates are automatically combined with AND logic.
 
 ```kotlin
-val commentsFromAliceOnTitledPost = Comment::post.joinWithPredicates { postJoin, cb ->
+val commentsOnMatchingPost = Comment::post.joinWithPredicates { postJoin, cb ->
     listOf(
         Post::title.equal(postJoin, cb, "Hello World"),
         Post::content.equal(postJoin, cb, "Some content"),
+    )
+}
+
+val postsByAlice = Post::persona.joinWithPredicates { personaJoin, cb ->
+    listOf(
+        Persona::name.equal(personaJoin, cb, "Alice"),
+        Persona::age.greaterThan(personaJoin, cb, 18),
     )
 }
 ```
@@ -59,14 +75,14 @@ val personasInAcme = Persona::organisation.joinNullableWithPredicate { orgJoin, 
 }
 
 // Multiple predicates on a nullable relationship
-val personasInAcmeUS = Persona::organisation.joinNullableWithPredicates { orgJoin, cb ->
+val personasInAcmeUK = Persona::organisation.joinNullableWithPredicates { orgJoin, cb ->
     listOf(
         Organisation::name.equal(orgJoin, cb, "Acme Corp"),
-        Organisation::country.equal(orgJoin, cb, "US"),
+        Organisation::country.equal(orgJoin, cb, "UK"),
     )
 }
 
-// Fetch variants available too
+// Fetch variant
 val personasInAcmeEager = Persona::organisation.fetchJoinNullableWithPredicate { orgJoin, cb ->
     Organisation::name.equal(orgJoin, cb, "Acme Corp")
 }
@@ -77,7 +93,7 @@ val personasInAcmeEager = Persona::organisation.fetchJoinNullableWithPredicate {
 All join functions accept an optional `JoinType` parameter (defaults to `INNER`):
 
 ```kotlin
-val commentsOrNoUser = Comment::user.joinWithPredicate(JoinType.LEFT) { userJoin, cb ->
-    User::name.equal(userJoin, cb, "Alice")
+val commentsWithOrWithoutPost = Comment::post.joinWithPredicate(JoinType.LEFT) { postJoin, cb ->
+    Post::title.equal(postJoin, cb, "Hello World")
 }
 ```

@@ -24,13 +24,11 @@ No additional configuration is needed. The DSL is available as soon as the depen
 
 The library provides the same operations across three layers depending on what you want to return:
 
-| DSL | Returns | Use when |
-|---|---|---|
-| **Specification DSL** | `Specification<T>` | You use `JpaSpecificationExecutor` |
+| DSL                            | Returns                     | Use when                                                              |
+|--------------------------------|-----------------------------|-----------------------------------------------------------------------|
+| **Specification DSL**          | `Specification<T>`          | You use `JpaSpecificationExecutor`                                    |
 | **PredicateSpecification DSL** | `PredicateSpecification<T>` | You use `QuerydslPredicateExecutor` / Spring Data's predicate support |
-| **Predicate DSL** | `Predicate` | You need a raw predicate inside a custom `Specification {}` block |
-
-In practice the Specification DSL is what most people use. All three support the same set of operations.
+| **Predicate DSL**              | `Predicate`                 | You need a raw predicate inside a custom `Specification {}` block     |
 
 ## Your first query
 

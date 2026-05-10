@@ -69,8 +69,3 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
         <version>VERSION</version>
     </dependency>
     ```
-
-!!! info "Why declare both?"
-    The hibernate module intentionally uses `implementation` (not `api`) for its dependency on the core module.
-    This means the core module is **not transitive** - it will not appear on your classpath automatically.
-    Declaring both explicitly makes your build's dependencies clear and avoids accidental transitive coupling.

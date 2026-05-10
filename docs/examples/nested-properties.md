@@ -29,6 +29,26 @@ repository.findAll(mainStreet)
 The `/` operator is left-associative, so chains of any depth work naturally:
 
 ```kotlin
+@Entity
+class Organisation(
+    @Id val id: Long,
+    val name: String,
+    @Embedded val organisationInfo: OrganisationInfo,
+)
+
+@Embeddable
+class OrganisationInfo(
+    @Embedded val addressInfo: AddressInfo,
+)
+
+@Embeddable
+class AddressInfo(
+    val street: String,
+    val city: String,
+)
+```
+
+```kotlin
 val deepSpec = (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
     .equal("Main Street")
 ```
@@ -70,19 +90,15 @@ Every operation available on direct properties also works on nested properties:
 (Organisation::addressInfo / AddressInfo::street).notLike("Oak%")
 
 // Nullability
-(Organisation::contactInfo / ContactInfo::email).isNotNull()
-(Organisation::contactInfo / ContactInfo::email).isNull()
-
-// Boolean
-(Organisation::addressInfo / AddressInfo::isActive).isTrue()
-(Organisation::addressInfo / AddressInfo::isActive).isFalse()
+(Organisation::addressInfo / AddressInfo::city).isNotNull()
+(Organisation::addressInfo / AddressInfo::city).isNull()
 
 // Inclusion
 (Organisation::addressInfo / AddressInfo::street).`in`("Main Street")
 
-// Collection
-(Persona::organisation / Organisation::departments).isEmpty()
-(Persona::organisation / Organisation::departments).isMember("engineering")
+// Combining nested specs
+val spec = (Organisation::addressInfo / AddressInfo::street).like("Main%") and
+        (Organisation::addressInfo / AddressInfo::city).isNotNull()
 ```
 
 Nested property operations work with both `Specification` and `PredicateSpecification`.

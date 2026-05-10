@@ -11,7 +11,7 @@
     fine - the error only surfaces at runtime when a query is executed.
 
 !!! danger "Core module must be declared separately"
-    The hibernate module depends on the core module with `implementation` (not `api`), so the core module
+    The hibernate module depends on the core module, hence the core module
     is **not transitive**. You must declare both dependencies explicitly in your build. If the core module
     is missing, you will get a `NoClassDefFoundError` at runtime.
 
@@ -87,12 +87,3 @@ val spec = (Persona::organisation / Organisation::identifiers).arrayContains("id
 ```
 
 Both functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.
-
-## Summary
-
-| Condition | Effect |
-|---|---|
-| Different JPA provider | `ClassCastException` at query execution time |
-| Core module not declared | `NoClassDefFoundError` at startup / first use |
-| Missing `@OptIn` | Compiler warning on each call site |
-| Underlying Hibernate API changes | These functions may be updated or removed |
