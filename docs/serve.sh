@@ -9,4 +9,4 @@ fi
 
 . "$ROOT/.venv/bin/activate"
 pip install -q -r "$ROOT/requirements.txt"
-mkdocs serve --config-file "$ROOT/mkdocs.yml"
+RELEASE_VERSION="${RELEASE_VERSION:-LOCAL-SNAPSHOT}" mkdocs serve --config-file "$ROOT/mkdocs.yml"

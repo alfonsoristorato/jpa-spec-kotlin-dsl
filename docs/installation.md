@@ -8,7 +8,7 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
 
     ```kotlin
     dependencies {
-        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>")
+        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:{{ release_version }}")
     }
     ```
 
@@ -16,7 +16,7 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
 
     ```groovy
     dependencies {
-        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>'
+        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:{{ release_version }}'
     }
     ```
 
@@ -26,11 +26,11 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
     <dependency>
         <groupId>io.github.alfonsoristorato</groupId>
         <artifactId>jpa-spec-kotlin-dsl</artifactId>
-        <version>VERSION</version>
+        <version>{{ release_version }}</version>
     </dependency>
     ```
 
-## Core + Hibernate extensions
+## Core and Hibernate extensions
 
 !!! warning "Hibernate required"
     The hibernate module only works when **Hibernate is your JPA provider**. It will not work with EclipseLink or any other provider.
@@ -41,8 +41,8 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
 
     ```kotlin
     dependencies {
-        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>")
-        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:<version>")
+        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl:{{ release_version }}")
+        implementation("io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:{{ release_version }}")
     }
     ```
 
@@ -50,8 +50,8 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
 
     ```groovy
     dependencies {
-        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:<version>'
-        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:<version>'
+        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl:{{ release_version }}'
+        implementation 'io.github.alfonsoristorato:jpa-spec-kotlin-dsl-hibernate:{{ release_version }}'
     }
     ```
 
@@ -61,11 +61,11 @@ The core module works with any standard JPA provider (Hibernate, EclipseLink, et
     <dependency>
         <groupId>io.github.alfonsoristorato</groupId>
         <artifactId>jpa-spec-kotlin-dsl</artifactId>
-        <version>VERSION</version>
+        <version>{{ release_version }}</version>
     </dependency>
     <dependency>
         <groupId>io.github.alfonsoristorato</groupId>
         <artifactId>jpa-spec-kotlin-dsl-hibernate</artifactId>
-        <version>VERSION</version>
+        <version>{{ release_version }}</version>
     </dependency>
     ```
