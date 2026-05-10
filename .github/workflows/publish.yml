@@ -2,6 +2,17 @@ name: Publish to Maven Central
 
 on:
   workflow_call:
+    inputs:
+      version:
+        description: 'Release version (e.g. 1.2.3). Defaults to the git tag name.'
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 1.2.3)'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -29,4 +40,4 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          RELEASE_VERSION: ${{ github.ref_name }}
+          RELEASE_VERSION: ${{ inputs.version || github.ref_name }}
