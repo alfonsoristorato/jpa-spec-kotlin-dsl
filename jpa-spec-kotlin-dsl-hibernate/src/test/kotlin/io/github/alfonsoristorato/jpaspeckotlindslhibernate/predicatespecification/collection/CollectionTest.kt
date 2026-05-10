@@ -2,7 +2,6 @@
 
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicatespecification.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
@@ -10,6 +9,7 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.reposit
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.repository.PersonaRepository
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.testconfig.SpringBootTestEnhanced
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixtures
+import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe

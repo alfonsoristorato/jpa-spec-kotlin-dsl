@@ -1,7 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Expression
 import jakarta.persistence.criteria.Path

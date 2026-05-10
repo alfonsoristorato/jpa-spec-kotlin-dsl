@@ -1,4 +1,4 @@
-package io.github.alfonsoristorato.jpaspeckotlindsl.internal
+package io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal
 
 @RequiresOptIn(
     message =

@@ -1,7 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.specification.collection
 
-import io.github.alfonsoristorato.jpaspeckotlindsl.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection.arrayContains
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection.arrayNotContains
 import org.springframework.data.jpa.domain.Specification
