@@ -30,6 +30,6 @@ publishing {
 }
 
 dependencies {
-    api(project(":jpa-spec-kotlin-dsl"))
+    implementation(project(":jpa-spec-kotlin-dsl"))
     testImplementation(testFixtures(project(":jpa-spec-kotlin-dsl")))
 }
