@@ -19,6 +19,9 @@ dependencies {
     dokka(project(":jpa-spec-kotlin-dsl-hibernate"))
 }
 
+group = "io.github.alfonsoristorato"
+version = System.getenv("RELEASE_VERSION") ?: "LOCAL-SNAPSHOT"
+
 nexusPublishing {
     repositories {
         sonatype {
