@@ -2,6 +2,12 @@ name: Deploy Documentation
 
 on:
   workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to display in docs (e.g. 1.2.3)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -15,6 +21,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version || github.ref_name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -30,8 +38,6 @@ jobs:
 
       - name: Build API reference with Dokka
         run: ./gradlew :dokkaGenerateHtml
-        env:
-          RELEASE_VERSION: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v6

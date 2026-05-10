@@ -35,6 +35,7 @@ theme:
 
 plugins:
   - search
+  - macros
 
 markdown_extensions:
   - admonition
@@ -48,6 +49,9 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+
+extra:
+  release_version: !ENV [RELEASE_VERSION, 'latest']
 
 nav:
   - Home: index.md

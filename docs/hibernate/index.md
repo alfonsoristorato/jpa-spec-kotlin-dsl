@@ -15,7 +15,7 @@
     is **not transitive**. You must declare both dependencies explicitly in your build. If the core module
     is missing, you will get a `NoClassDefFoundError` at runtime.
 
-    See [Installation](../installation.md#core-hibernate-extensions) for the correct dependency declarations.
+    See [Installation](../installation.md#core-and-hibernate-extensions) for the correct dependency declarations.
 
 ## Opt-in annotation
 

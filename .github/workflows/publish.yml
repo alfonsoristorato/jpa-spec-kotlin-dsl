@@ -2,11 +2,6 @@ name: Publish to Maven Central
 
 on:
   workflow_call:
-    inputs:
-      version:
-        description: 'Release version (e.g. 1.2.3). Defaults to the git tag name.'
-        required: false
-        type: string
   workflow_dispatch:
     inputs:
       version:
