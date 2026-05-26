@@ -2,6 +2,7 @@ package io.github.alfonsoristorato.jpaspeckotlindsl.specification.comparison
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.ContactInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
@@ -48,6 +49,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Alpha Street", city = "A City"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "alpha"),
                         ),
                 )
             val org2 =
@@ -56,6 +58,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Beta Street", city = "B City"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "beta"),
                         ),
                 )
             val org3 =
@@ -64,6 +67,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Gamma Street", city = "C City"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "gamma"),
                         ),
                 )
             organisationRepository.saveAll(listOf(org1, org2, org3))
@@ -180,6 +184,14 @@ class ComparisonTest(
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org C"
             }
+            expect("with nullable nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .greaterThan("beta")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org C"
+            }
         }
 
         context("greaterThanOrEqualTo for Specification checks if nested property is greater than or equal to value") {
@@ -187,6 +199,15 @@ class ComparisonTest(
                 val spec =
                     (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
                         .greaterThanOrEqualTo("Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org B"
+                result[1].name shouldBe "Org C"
+            }
+            expect("with nullable nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .greaterThanOrEqualTo("beta")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org B"
@@ -203,6 +224,14 @@ class ComparisonTest(
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org A"
             }
+            expect("with nullable nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .lessThan("beta")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org A"
+            }
         }
 
         context("lessThanOrEqualTo for Specification checks if nested property is less than or equal to value") {
@@ -215,6 +244,15 @@ class ComparisonTest(
                 result[0].name shouldBe "Org A"
                 result[1].name shouldBe "Org B"
             }
+            expect("with nullable nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .lessThanOrEqualTo("beta")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
         }
 
         context("between for Specification checks if nested property is between two values (inclusive)") {
@@ -222,6 +260,15 @@ class ComparisonTest(
                 val spec =
                     (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
                         .between("Alpha Street", "Beta Street")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
+            expect("with nullable nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .between("alpha", "beta")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org A"

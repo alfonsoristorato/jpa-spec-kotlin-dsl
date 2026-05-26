@@ -2,6 +2,7 @@ package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.comparison
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.ContactInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
@@ -48,6 +49,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Alpha Street"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "alpha"),
                         ),
                 )
             val org2 =
@@ -56,6 +58,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Beta Street"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "beta"),
                         ),
                 )
             val org3 =
@@ -64,6 +67,7 @@ class ComparisonTest(
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
                             addressInfo = TestFixtures.createAddressInfo(street = "Gamma Street"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "gamma"),
                         ),
                 )
             organisationRepository.saveAll(listOf(org1, org2, org3))
@@ -193,6 +197,15 @@ class ComparisonTest(
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org C"
             }
+            expect("with nullable nested types") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .greaterThan(root, cb, "beta")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org C"
+            }
         }
 
         context("greaterThanOrEqualTo for Predicate checks if nested property is gte value") {
@@ -201,6 +214,16 @@ class ComparisonTest(
                     organisationRepository.findAll { root, _, cb ->
                         (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
                             .greaterThanOrEqualTo(root, cb, "Beta Street")
+                    }
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org B"
+                result[1].name shouldBe "Org C"
+            }
+            expect("with nullable nested types") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .greaterThanOrEqualTo(root, cb, "beta")
                     }
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org B"
@@ -218,6 +241,15 @@ class ComparisonTest(
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org A"
             }
+            expect("with nullable nested types") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .lessThan(root, cb, "beta")
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org A"
+            }
         }
 
         context("lessThanOrEqualTo for Predicate checks if nested property is lte value") {
@@ -231,6 +263,16 @@ class ComparisonTest(
                 result[0].name shouldBe "Org A"
                 result[1].name shouldBe "Org B"
             }
+            expect("with nullable nested types") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .lessThanOrEqualTo(root, cb, "beta")
+                    }
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
         }
 
         context("between for Predicate checks if nested property is between two values") {
@@ -239,6 +281,16 @@ class ComparisonTest(
                     organisationRepository.findAll { root, _, cb ->
                         (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
                             .between(root, cb, "Alpha Street", "Beta Street")
+                    }
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org A"
+                result[1].name shouldBe "Org B"
+            }
+            expect("with nullable nested types") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .between(root, cb, "alpha", "beta")
                     }
                 result shouldHaveSize 2
                 result[0].name shouldBe "Org A"

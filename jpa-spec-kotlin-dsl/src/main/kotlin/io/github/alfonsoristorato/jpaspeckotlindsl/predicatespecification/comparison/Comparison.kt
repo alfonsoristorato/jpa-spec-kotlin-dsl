@@ -86,7 +86,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.between(
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is greater than the given value.
  */
-fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan(value: PROP): PredicateSpecification<ROOT> =
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThan(value: PROP): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         greaterThan(from, criteriaBuilder, value)
     }
@@ -99,7 +99,7 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan
  * @param value – the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is greater than or equal to the given value.
  */
-fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         greaterThanOrEqualTo(from, criteriaBuilder, value)
     }
@@ -112,7 +112,7 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan
  * @param value – the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is less than the given value.
  */
-fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThan(value: PROP): PredicateSpecification<ROOT> =
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThan(value: PROP): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         lessThan(from, criteriaBuilder, value)
     }
@@ -125,7 +125,7 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThan(va
  * @param value – the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is less than or equal to the given value.
  */
-fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         lessThanOrEqualTo(from, criteriaBuilder, value)
     }
@@ -139,7 +139,7 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThanOrE
  * @param upper – the upper bound value (inclusive).
  * @return A [PredicateSpecification] that checks if the nested property is between the two values.
  */
-fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.between(
+fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.between(
     lower: PROP,
     upper: PROP,
 ): PredicateSpecification<ROOT> =
