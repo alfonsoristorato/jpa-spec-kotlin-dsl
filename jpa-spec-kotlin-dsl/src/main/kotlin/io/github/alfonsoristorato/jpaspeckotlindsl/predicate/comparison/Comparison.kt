@@ -88,6 +88,10 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.between(
     upper: P,
 ): Predicate = criteriaBuilder.between(path.get(this.name), lower, upper)
 
+@Suppress("UNCHECKED_CAST")
+private fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.resolveComparable(path: Path<ROOT>): Path<PROP> =
+    resolve(path) as Path<PROP>
+
 /**
  * Creates a [Predicate] that checks if the nested property is greater than the given value.
  *
@@ -98,11 +102,11 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.between(
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the nested property is greater than the given value.
  */
-fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan(
+fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThan(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.greaterThan(resolve(path), value)
+): Predicate = criteriaBuilder.greaterThan(resolveComparable(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is greater than or equal to the given value.
@@ -114,11 +118,11 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThan(
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the nested property is greater than or equal to the given value.
  */
-fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThanOrEqualTo(
+fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThanOrEqualTo(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.greaterThanOrEqualTo(resolve(path), value)
+): Predicate = criteriaBuilder.greaterThanOrEqualTo(resolveComparable(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is less than the given value.
@@ -130,11 +134,11 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.greaterThanOrEqua
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the nested property is less than the given value.
  */
-fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThan(
+fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThan(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.lessThan(resolve(path), value)
+): Predicate = criteriaBuilder.lessThan(resolveComparable(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is less than or equal to the given value.
@@ -146,11 +150,11 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThan(
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the nested property is less than or equal to the given value.
  */
-fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThanOrEqualTo(
+fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThanOrEqualTo(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.lessThanOrEqualTo(resolve(path), value)
+): Predicate = criteriaBuilder.lessThanOrEqualTo(resolveComparable(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is between two values (inclusive).
@@ -163,9 +167,9 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.lessThanOrEqualTo
  * @param upper The upper bound value (inclusive).
  * @return A [Predicate] that checks if the nested property is between the two values.
  */
-fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP>.between(
+fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.between(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     lower: PROP,
     upper: PROP,
-): Predicate = criteriaBuilder.between(resolve(path), lower, upper)
+): Predicate = criteriaBuilder.between(resolveComparable(path), lower, upper)
