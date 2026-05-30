@@ -2,11 +2,11 @@ package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collectio
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
+import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.resolveHibernateCriteriaBuilder
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Expression
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
-import org.hibernate.query.criteria.HibernateCriteriaBuilder
 import kotlin.reflect.KProperty1
 
 /**
@@ -27,7 +27,8 @@ fun <T, E> KProperty1<T, Collection<E>>.arrayContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    (criteriaBuilder as HibernateCriteriaBuilder)
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
         .arrayContains(path.get<T>(this.name) as Expression<Array<E>>, value)
 
 /**
@@ -48,7 +49,7 @@ fun <T, E> KProperty1<T, Collection<E>>.arrayNotContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    (criteriaBuilder as HibernateCriteriaBuilder).run {
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
         not(arrayContains(path.get<T>(this@arrayNotContains.name) as Expression<Array<E>>, value))
     }
 
@@ -71,7 +72,8 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    (criteriaBuilder as HibernateCriteriaBuilder)
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
         .arrayContains(resolve(path) as Expression<Array<E>>, value)
 
 /**
@@ -93,6 +95,6 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayNotContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    (criteriaBuilder as HibernateCriteriaBuilder).run {
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
         not(arrayContains(resolve(path) as Expression<Array<E>>, value))
     }

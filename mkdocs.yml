@@ -64,5 +64,8 @@ nav:
       - Nested Properties: examples/nested-properties.md
       - Joins: examples/joins.md
       - Combining Specifications: examples/combining.md
-  - Hibernate Module: hibernate/index.md
+  - Hibernate Module:
+      - Overview: hibernate/index.md
+      - Case-insensitive string matching: hibernate/string-operations.md
+      - Native array operations: hibernate/collection-operations.md
   - API Reference: https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/api/
