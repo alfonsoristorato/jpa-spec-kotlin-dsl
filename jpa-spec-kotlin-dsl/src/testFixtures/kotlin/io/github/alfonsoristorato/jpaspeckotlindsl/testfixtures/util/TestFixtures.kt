@@ -27,11 +27,13 @@ object TestFixtures {
         organisationInfo: OrganisationInfo = createOrganisationInfo(),
         departments: Set<String> = emptySet(),
         identifiers: Set<String> = emptySet(),
+        tags: Array<String> = emptyArray(),
     ) = Organisation(
         name = name,
         organisationInfo = organisationInfo,
         departments = departments,
         identifiers = identifiers,
+        tags = tags,
     )
 
     fun createOrganisationInfo(
