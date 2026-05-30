@@ -94,7 +94,7 @@ fun <ROOT> NestedProperty<ROOT, String>.ilike(
  * @return A [Predicate] that checks if the nested property matches the pattern.
  */
 @JvmName("nestedIlikeNullable")
-fun <ROOT> NestedProperty<ROOT, String?>.like(
+fun <ROOT> NestedProperty<ROOT, String?>.ilike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -109,7 +109,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.like(
  * @param pattern The pattern to match against.
  * @return A [Predicate] that checks if the nested property does not match the pattern.
  */
-fun <ROOT> NestedProperty<ROOT, String>.notLike(
+fun <ROOT> NestedProperty<ROOT, String>.notIlike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -124,8 +124,8 @@ fun <ROOT> NestedProperty<ROOT, String>.notLike(
  * @param pattern The pattern to match against.
  * @return A [Predicate] that checks if the nested property does not match the pattern.
  */
-@JvmName("nestedNotLikeNullable")
-fun <ROOT> NestedProperty<ROOT, String?>.notLike(
+@JvmName("nestedNotIlikeNullable")
+fun <ROOT> NestedProperty<ROOT, String?>.notIlike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,

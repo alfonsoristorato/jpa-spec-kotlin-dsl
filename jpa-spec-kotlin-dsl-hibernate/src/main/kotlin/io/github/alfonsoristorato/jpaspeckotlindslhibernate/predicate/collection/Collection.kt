@@ -27,7 +27,8 @@ fun <T, E> KProperty1<T, Collection<E>>.arrayContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    criteriaBuilder.resolveHibernateCriteriaBuilder()
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
         .arrayContains(path.get<T>(this.name) as Expression<Array<E>>, value)
 
 /**
@@ -71,7 +72,8 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.arrayContains(
     criteriaBuilder: CriteriaBuilder,
     value: E,
 ): Predicate =
-    criteriaBuilder.resolveHibernateCriteriaBuilder()
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
         .arrayContains(resolve(path) as Expression<Array<E>>, value)
 
 /**
