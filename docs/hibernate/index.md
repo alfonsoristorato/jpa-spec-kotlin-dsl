@@ -37,8 +37,8 @@ Each operation page indicates whether opt-in is required.
 
 ## Operations
 
-| Page                                                     | Functions                                                                                    | Opt-in required |
-|----------------------------------------------------------|----------------------------------------------------------------------------------------------|-----------------|
-| [Case-insensitive string matching](string-operations.md) | `ilike`, `notIlike`                                                                          | No              |
-| [Native array operations](array-operations.md)           | `arrayContains`, `arrayNotContains`, `arrayIncludes`, `arrayNotIncludes`, `arrayIntersects`, `arrayNotIntersects`                     | Yes             |
+| Page                                                     | Functions                                                                                                                                       | Opt-in required |
+|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| [String matching](string-operations.md)                  | `ilike`, `notIlike`, `likeRegexp`, `notLikeRegexp`, `ilikeRegexp`, `notIlikeRegexp`                                                             | No              |
+| [Native array operations](array-operations.md)           | `arrayContains`, `arrayNotContains`, `arrayIncludes`, `arrayNotIncludes`, `arrayIntersects`, `arrayNotIntersects`                               | Yes             |
 | [Native collection operations](collection-operations.md) | `collectionContains`, `collectionNotContains`, `collectionIncludes`, `collectionNotIncludes`, `collectionIntersects`, `collectionNotIntersects` | Yes             |
