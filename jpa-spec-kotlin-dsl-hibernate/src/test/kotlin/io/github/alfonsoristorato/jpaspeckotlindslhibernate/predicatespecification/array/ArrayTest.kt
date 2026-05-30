@@ -85,4 +85,46 @@ class ArrayTest(
                 result[0].name shouldBe "Persona 2"
             }
         }
+
+        context("arrayIncludes for PredicateSpecification tests whether a native array column contains all elements of a sub-array") {
+            expect("returns organisations whose array contains all given elements") {
+                val spec = Organisation::tags.arrayIncludes(arrayOf("tag1", "tag2"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org With Tags"
+            }
+            expect("returns empty when not all elements are present") {
+                val spec = Organisation::tags.arrayIncludes(arrayOf("tag1", "nonexistent"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::tags).arrayIncludes(arrayOf("tag1", "tag2"))
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context(
+            "arrayNotIncludes for PredicateSpecification tests whether a native array column does not contain all elements of a sub-array",
+        ) {
+            expect("returns organisations whose array does not contain all given elements") {
+                val spec = Organisation::tags.arrayNotIncludes(arrayOf("tag1", "tag2"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Without Tags"
+            }
+            expect("returns all organisations when no array fully contains all given elements") {
+                val spec = Organisation::tags.arrayNotIncludes(arrayOf("tag1", "nonexistent"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+            }
+            expect("with nested types") {
+                val spec = (Persona::organisation / Organisation::tags).arrayNotIncludes(arrayOf("tag1", "tag2"))
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
+        }
     })

@@ -87,4 +87,54 @@ class CollectionTest(
                 result[0].name shouldBe "Persona 2"
             }
         }
+
+        context(
+            "collectionIncludes for PredicateSpecification tests whether a native collection column contains all elements of a sub-collection",
+        ) {
+            expect("returns organisations whose collection contains all given elements") {
+                val spec = Organisation::identifiers.collectionIncludes(setOf("identifier1", "identifier2"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org With Identifiers"
+            }
+            expect("returns empty when not all elements are present") {
+                val spec = Organisation::identifiers.collectionIncludes(setOf("identifier1", "nonexistent"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val spec =
+                    (Persona::organisation / Organisation::identifiers).collectionIncludes(
+                        setOf("identifier1", "identifier2"),
+                    )
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context(
+            "collectionNotIncludes for PredicateSpecification tests whether a native collection column does not contain all elements of a sub-collection",
+        ) {
+            expect("returns organisations whose collection does not contain all given elements") {
+                val spec = Organisation::identifiers.collectionNotIncludes(setOf("identifier1", "identifier2"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Without Identifiers"
+            }
+            expect("returns all organisations when no collection fully contains all given elements") {
+                val spec = Organisation::identifiers.collectionNotIncludes(setOf("identifier1", "nonexistent"))
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+            }
+            expect("with nested types") {
+                val spec =
+                    (Persona::organisation / Organisation::identifiers).collectionNotIncludes(
+                        setOf("identifier1", "identifier2"),
+                    )
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
+        }
     })
