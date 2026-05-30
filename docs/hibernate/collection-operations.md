@@ -75,6 +75,28 @@ val withoutAllIdentifiers = Organisation::identifiers.collectionNotIncludes(setO
 repository.findAll(withoutAllIdentifiers)
 ```
 
+## `collectionIntersects`
+
+Checks whether a native collection column shares at least one element with a given sub-collection ("any of"):
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withAnyIdentifier = Organisation::identifiers.collectionIntersects(setOf("id-123", "id-456"))
+
+repository.findAll(withAnyIdentifier)
+```
+
+## `collectionNotIntersects`
+
+Checks whether a native collection column shares no element with a given sub-collection:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withNoneOfIdentifiers = Organisation::identifiers.collectionNotIntersects(setOf("id-123", "id-456"))
+
+repository.findAll(withNoneOfIdentifiers)
+```
+
 ## Nested properties
 
 All functions work on nested properties via the `/` operator:
@@ -82,8 +104,11 @@ All functions work on nested properties via the `/` operator:
 ```kotlin
 @OptIn(ExperimentalHibernateApi::class)
 val spec = (Persona::organisation / Organisation::identifiers).collectionContains("id-123")
+val spec = (Persona::organisation / Organisation::identifiers).collectionNotContains("id-456")
 val spec = (Persona::organisation / Organisation::identifiers).collectionIncludes(setOf("id-123", "id-456"))
 val spec = (Persona::organisation / Organisation::identifiers).collectionNotIncludes(setOf("id-123", "id-456"))
+val spec = (Persona::organisation / Organisation::identifiers).collectionIntersects(setOf("id-123", "id-456"))
+val spec = (Persona::organisation / Organisation::identifiers).collectionNotIntersects(setOf("id-123", "id-456"))
 ```
 
 ## DSL layers

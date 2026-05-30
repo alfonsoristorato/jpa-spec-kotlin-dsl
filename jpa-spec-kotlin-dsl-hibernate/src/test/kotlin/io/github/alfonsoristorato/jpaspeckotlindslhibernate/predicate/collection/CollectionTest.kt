@@ -167,4 +167,70 @@ class CollectionTest(
                 result[0].name shouldBe "Persona 2"
             }
         }
+
+        context(
+            "collectionIntersects for Predicate tests whether a native collection column shares at least one element with a sub-collection",
+        ) {
+            expect("returns organisations whose collection shares at least one element") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.collectionIntersects(root, cb, setOf("identifier1", "nonexistent"))
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org With Identifiers"
+            }
+            expect("returns empty when no elements are shared") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.collectionIntersects(root, cb, setOf("nonexistent"))
+                    }
+                result shouldHaveSize 0
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::identifiers).collectionIntersects(
+                            root,
+                            cb,
+                            setOf("identifier1", "nonexistent"),
+                        )
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 1"
+            }
+        }
+
+        context("collectionNotIntersects for Predicate tests whether a native collection column shares no element with a sub-collection") {
+            expect("returns organisations whose collection shares no element") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.collectionNotIntersects(
+                            root,
+                            cb,
+                            setOf("identifier1", "identifier2"),
+                        )
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Without Identifiers"
+            }
+            expect("returns all organisations when no collection shares any element") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        Organisation::identifiers.collectionNotIntersects(root, cb, setOf("nonexistent"))
+                    }
+                result shouldHaveSize 2
+            }
+            expect("with nested types") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        (Persona::organisation / Organisation::identifiers).collectionNotIntersects(
+                            root,
+                            cb,
+                            setOf("identifier1", "nonexistent"),
+                        )
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Persona 2"
+            }
+        }
     })

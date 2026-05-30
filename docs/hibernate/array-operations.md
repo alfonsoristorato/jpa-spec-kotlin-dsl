@@ -70,6 +70,28 @@ val withoutAllTags = Organisation::tags.arrayNotIncludes(arrayOf("important", "u
 repository.findAll(withoutAllTags)
 ```
 
+## `arrayIntersects`
+
+Checks whether a native array column shares at least one element with a given sub-array ("any of"):
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withAnyTag = Organisation::tags.arrayIntersects(arrayOf("important", "urgent"))
+
+repository.findAll(withAnyTag)
+```
+
+## `arrayNotIntersects`
+
+Checks whether a native array column shares no element with a given sub-array:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withNoneOfTags = Organisation::tags.arrayNotIntersects(arrayOf("important", "urgent"))
+
+repository.findAll(withNoneOfTags)
+```
+
 ## Nested properties
 
 All functions work on nested properties via the `/` operator:
@@ -77,8 +99,11 @@ All functions work on nested properties via the `/` operator:
 ```kotlin
 @OptIn(ExperimentalHibernateApi::class)
 val spec = (Persona::organisation / Organisation::tags).arrayContains("important")
+val spec = (Persona::organisation / Organisation::tags).arrayNotContains("urgent")
 val spec = (Persona::organisation / Organisation::tags).arrayIncludes(arrayOf("important", "urgent"))
 val spec = (Persona::organisation / Organisation::tags).arrayNotIncludes(arrayOf("important", "urgent"))
+val spec = (Persona::organisation / Organisation::tags).arrayIntersects(arrayOf("important", "urgent"))
+val spec = (Persona::organisation / Organisation::tags).arrayNotIntersects(arrayOf("important", "urgent"))
 ```
 
 ## DSL layers

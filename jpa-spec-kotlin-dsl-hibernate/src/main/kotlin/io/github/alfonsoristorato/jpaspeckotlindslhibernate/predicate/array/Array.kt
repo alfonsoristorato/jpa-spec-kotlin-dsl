@@ -183,3 +183,91 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
         not(arrayIncludes(resolve(path), subArray))
     }
+
+/**
+ * Creates a [Predicate] that tests whether a native array column shares at least one element with the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array to check for overlap.
+ * @return A [Predicate] that tests whether the native array column intersects with the given sub-array.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Array<E>>.arrayIntersects(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .arrayIntersects(path.get(this.name), subArray)
+
+/**
+ * Creates a [Predicate] that tests whether a native array column does not share any element with the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array to check for overlap.
+ * @return A [Predicate] that tests whether the native array column does not intersect with the given sub-array.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Array<E>>.arrayNotIntersects(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(arrayIntersects(path.get(this@arrayNotIntersects.name), subArray))
+    }
+
+/**
+ * Creates a [Predicate] that tests whether a nested native array column shares at least one element with the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array to check for overlap.
+ * @return A [Predicate] that tests whether the nested native array column intersects with the given sub-array.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIntersects(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .arrayIntersects(resolve(path), subArray)
+
+/**
+ * Creates a [Predicate] that tests whether a nested native array column does not share any element with the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array to check for overlap.
+ * @return A [Predicate] that tests whether the nested native array column does not intersect with the given sub-array.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIntersects(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(arrayIntersects(resolve(path), subArray))
+    }
