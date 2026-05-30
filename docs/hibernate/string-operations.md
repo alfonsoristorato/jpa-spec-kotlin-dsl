@@ -1,6 +1,6 @@
-# Case-insensitive string matching
+# String matching
 
-`ilike` and `notIlike` perform pattern matching ignoring case, using Hibernate's `HibernateCriteriaBuilder.ilike()`.
+These functions perform pattern matching on string properties using Hibernate's `HibernateCriteriaBuilder`.
 
 !!! note "No opt-in required"
     These functions are stable and do not require `@OptIn(ExperimentalHibernateApi::class)`.
@@ -16,36 +16,52 @@ class User(
 )
 ```
 
-## `ilike`
+## `ilike` / `notIlike`
 
-Checks whether a string property matches a pattern, ignoring case:
+Case-insensitive `LIKE` pattern matching. Patterns use SQL wildcards: `%` matches any sequence of characters, `_` matches any single character.
 
 ```kotlin
 val smiths = User::name.ilike("%smith%")
+val notSmiths = User::name.notIlike("%smith%")
 
 repository.findAll(smiths)
 ```
 
-## `notIlike`
+## `likeRegexp` / `notLikeRegexp`
 
-Checks whether a string property does not match a pattern, ignoring case:
+Case-sensitive POSIX regex matching. Uses the PostgreSQL `~` operator under the hood.
 
 ```kotlin
-val notSmiths = User::name.notIlike("%smith%")
+val smiths = User::name.likeRegexp("^Smith\\b")
+val notSmiths = User::name.notLikeRegexp("^Smith\\b")
 
-repository.findAll(notSmiths)
+repository.findAll(smiths)
+```
+
+Unlike `ilike`, the pattern `.*smith.*` would **not** match `"John Smith"` because the match is case-sensitive.
+
+## `ilikeRegexp` / `notIlikeRegexp`
+
+Case-insensitive POSIX regex matching. Uses the PostgreSQL `~*` operator under the hood.
+
+```kotlin
+val smiths = User::name.ilikeRegexp(".*smith.*")
+val notSmiths = User::name.notIlikeRegexp(".*smith.*")
+
+repository.findAll(smiths)
 ```
 
 ## Nested properties
 
-Both functions work on nested properties via the `/` operator:
+All functions work on nested properties via the `/` operator:
 
 ```kotlin
 val spec = (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street).ilike("main%")
+val specRegex = (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street).ilikeRegexp("^main")
 
 repository.findAll(spec)
 ```
 
 ## DSL layers
 
-Both functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.
+All functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.

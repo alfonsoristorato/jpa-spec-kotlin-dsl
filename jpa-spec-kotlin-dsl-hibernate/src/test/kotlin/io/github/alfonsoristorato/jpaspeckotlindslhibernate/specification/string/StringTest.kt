@@ -204,4 +204,192 @@ class StringTest(
                 result[0].name shouldBe "Org Gamma"
             }
         }
+
+        context("likeRegexp for Specification checks if property matches POSIX regex pattern case-sensitively") {
+            expect("with anchored prefix pattern") {
+                val spec = Persona::name.likeRegexp("^John.*")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "John Smith"
+                }
+            }
+            expect("with lowercase suffix pattern returns no results (case-sensitive)") {
+                val spec = Persona::name.likeRegexp(".*smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 0
+            }
+            expect("with nullable property") {
+                val spec = Persona::lastName.likeRegexp("^Smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].apply {
+                    lastName shouldBe "Smith"
+                }
+                result[1].apply {
+                    lastName shouldBe "Smith"
+                }
+            }
+        }
+
+        context("notLikeRegexp for Specification checks if property does not match POSIX regex pattern case-sensitively") {
+            expect("with anchored prefix pattern") {
+                val spec = Persona::name.notLikeRegexp("^John.*")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 3
+                result[0].apply {
+                    name shouldBe "Jane Doe"
+                }
+                result[1].apply {
+                    name shouldBe "Bob Johnson"
+                }
+                result[2].apply {
+                    name shouldBe "Alice Smith"
+                }
+            }
+            expect("with nullable property") {
+                val spec = Persona::lastName.notLikeRegexp("^Smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    lastName shouldBe "Doe"
+                }
+            }
+        }
+
+        context("likeRegexp for Specification checks if nested property matches POSIX regex pattern case-sensitively") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .likeRegexp("^Main.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org Alpha"
+                result[1].name shouldBe "Org Beta"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .likeRegexp("^A.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Alpha"
+            }
+        }
+
+        context("notLikeRegexp for Specification checks if nested property does not match POSIX regex pattern case-sensitively") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .notLikeRegexp("^Main.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .notLikeRegexp("^A.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
+            }
+        }
+
+        context("ilikeRegexp for Specification checks if property matches POSIX regex pattern ignoring case") {
+            expect("with anchored prefix pattern") {
+                val spec = Persona::name.ilikeRegexp("^john.*")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "John Smith"
+                }
+            }
+            expect("with lowercase suffix pattern returns results (case-insensitive)") {
+                val spec = Persona::name.ilikeRegexp(".*smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].apply {
+                    name shouldBe "John Smith"
+                }
+                result[1].apply {
+                    name shouldBe "Alice Smith"
+                }
+            }
+            expect("with nullable property") {
+                val spec = Persona::lastName.ilikeRegexp("^smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].apply {
+                    lastName shouldBe "Smith"
+                }
+                result[1].apply {
+                    lastName shouldBe "Smith"
+                }
+            }
+        }
+
+        context("notIlikeRegexp for Specification checks if property does not match POSIX regex pattern ignoring case") {
+            expect("with anchored prefix pattern") {
+                val spec = Persona::name.notIlikeRegexp("^john.*")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 3
+                result[0].apply {
+                    name shouldBe "Jane Doe"
+                }
+                result[1].apply {
+                    name shouldBe "Bob Johnson"
+                }
+                result[2].apply {
+                    name shouldBe "Alice Smith"
+                }
+            }
+            expect("with nullable property") {
+                val spec = Persona::lastName.notIlikeRegexp("^smith$")
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    lastName shouldBe "Doe"
+                }
+            }
+        }
+
+        context("ilikeRegexp for Specification checks if nested property matches POSIX regex pattern ignoring case") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .ilikeRegexp("^main.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].name shouldBe "Org Alpha"
+                result[1].name shouldBe "Org Beta"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .ilikeRegexp("^a.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Alpha"
+            }
+        }
+
+        context("notIlikeRegexp for Specification checks if nested property does not match POSIX regex pattern ignoring case") {
+            expect("with nested types") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                        .notIlikeRegexp("^main.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
+            }
+            expect("with nested nullable leaf property") {
+                val spec =
+                    (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                        .notIlikeRegexp("^a.*")
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Gamma"
+            }
+        }
     })
