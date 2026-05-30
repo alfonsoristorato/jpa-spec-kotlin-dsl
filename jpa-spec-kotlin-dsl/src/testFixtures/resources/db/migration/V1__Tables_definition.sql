@@ -9,7 +9,8 @@ create table organisation
     nickname     TEXT,
     is_verified  BOOLEAN,
     name         TEXT    NOT NULL,
-    identifiers  VARCHAR[] DEFAULT '{}'
+    identifiers  VARCHAR[] DEFAULT '{}',
+    tags         VARCHAR[] DEFAULT '{}'
 );
 
 CREATE SEQUENCE organisation_id_sequence START 1 INCREMENT 1;

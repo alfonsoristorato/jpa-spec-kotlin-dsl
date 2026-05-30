@@ -23,7 +23,7 @@ Some functions in this module are annotated with `@ExperimentalHibernateApi`. Yo
 
 ```kotlin
 @OptIn(ExperimentalHibernateApi::class)
-val spec = Organisation::identifiers.arrayContains("id-123")
+val spec = Organisation::identifiers.collectionContains("id-123")
 ```
 
 Or opt in at the file level:
@@ -40,4 +40,5 @@ Each operation page indicates whether opt-in is required.
 | Page | Functions | Opt-in required |
 |---|---|---|
 | [Case-insensitive string matching](string-operations.md) | `ilike`, `notIlike` | No |
-| [Native array operations](collection-operations.md) | `arrayContains`, `arrayNotContains` | Yes |
+| [Native array operations](array-operations.md) | `arrayContains`, `arrayNotContains` | Yes |
+| [Native collection operations](collection-operations.md) | `collectionContains`, `collectionNotContains` | Yes |

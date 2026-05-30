@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalHibernateApi::class)
 
-package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection
+package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicatespecification.array
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
@@ -15,19 +15,19 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 @SpringBootTestEnhanced
-class CollectionTest(
+class ArrayTest(
     private val personaRepository: PersonaRepository,
     private val organisationRepository: OrganisationRepository,
 ) : ExpectSpec({
         beforeSpec {
             val org1 =
                 TestFixtures.createOrganisation(
-                    name = "Org With Identifiers",
-                    identifiers = setOf("identifier1", "identifier2"),
+                    name = "Org With Tags",
+                    tags = arrayOf("tag1", "tag2"),
                 )
             val org2 =
                 TestFixtures.createOrganisation(
-                    name = "Org Without Identifiers",
+                    name = "Org Without Tags",
                 )
             organisationRepository.saveAll(listOf(org1, org2))
             organisationRepository.findAll() shouldHaveSize 2
@@ -46,53 +46,41 @@ class CollectionTest(
             personaRepository.findAll() shouldHaveSize 2
         }
 
-        context("collectionContains for Predicate tests whether an element is contained in a native collection column") {
-            expect("returns organisations where the identifier is contained") {
-                val result =
-                    organisationRepository.findAll { root, _, cb ->
-                        Organisation::identifiers.collectionContains(root, cb, "identifier1")
-                    }
+        context("arrayContains for PredicateSpecification tests whether an element is contained in a native array column") {
+            expect("returns organisations where the tag is contained") {
+                val spec = Organisation::tags.arrayContains("tag1")
+                val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
-                result[0].name shouldBe "Org With Identifiers"
+                result[0].name shouldBe "Org With Tags"
             }
-            expect("returns empty when identifier is not contained in any collection") {
-                val result =
-                    organisationRepository.findAll { root, _, cb ->
-                        Organisation::identifiers.collectionContains(root, cb, "nonexistent")
-                    }
+            expect("returns empty when tag is not contained in any array") {
+                val spec = Organisation::tags.arrayContains("nonexistent")
+                val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 0
             }
             expect("with nested types") {
-                val result =
-                    personaRepository.findAll { root, _, cb ->
-                        (Persona::organisation / Organisation::identifiers).collectionContains(root, cb, "identifier1")
-                    }
+                val spec = (Persona::organisation / Organisation::tags).arrayContains("tag1")
+                val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Persona 1"
             }
         }
 
-        context("collectionNotContains for Predicate tests whether an element is not contained in a native collection column") {
-            expect("returns organisations where the identifier is not contained") {
-                val result =
-                    organisationRepository.findAll { root, _, cb ->
-                        Organisation::identifiers.collectionNotContains(root, cb, "identifier1")
-                    }
+        context("arrayNotContains for PredicateSpecification tests whether an element is not contained in a native array column") {
+            expect("returns organisations where the tag is not contained") {
+                val spec = Organisation::tags.arrayNotContains("tag1")
+                val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
-                result[0].name shouldBe "Org Without Identifiers"
+                result[0].name shouldBe "Org Without Tags"
             }
-            expect("returns all organisations when identifier doesn't exist in any collection") {
-                val result =
-                    organisationRepository.findAll { root, _, cb ->
-                        Organisation::identifiers.collectionNotContains(root, cb, "nonexistent")
-                    }
+            expect("returns all organisations when tag doesn't exist in any array") {
+                val spec = Organisation::tags.arrayNotContains("nonexistent")
+                val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 2
             }
             expect("with nested types") {
-                val result =
-                    personaRepository.findAll { root, _, cb ->
-                        (Persona::organisation / Organisation::identifiers).collectionNotContains(root, cb, "identifier1")
-                    }
+                val spec = (Persona::organisation / Organisation::tags).arrayNotContains("tag1")
+                val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Persona 2"
             }

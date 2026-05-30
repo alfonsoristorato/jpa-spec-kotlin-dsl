@@ -22,6 +22,8 @@ class Organisation(
     val departments: Set<String>,
     @JdbcTypeCode(SqlTypes.ARRAY)
     val identifiers: Set<String>,
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    val tags: Array<String>,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organisation_id_sequence")

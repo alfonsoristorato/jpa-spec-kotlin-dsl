@@ -22,14 +22,12 @@ class CollectionTest(
         beforeSpec {
             val org1 =
                 TestFixtures.createOrganisation(
-                    name = "Org With Departments",
-                    departments = setOf("engineering", "marketing"),
+                    name = "Org With Identifiers",
                     identifiers = setOf("identifier1", "identifier2"),
                 )
             val org2 =
                 TestFixtures.createOrganisation(
-                    name = "Org Without Departments",
-                    departments = emptySet(),
+                    name = "Org Without Identifiers",
                 )
             organisationRepository.saveAll(listOf(org1, org2))
             organisationRepository.findAll() shouldHaveSize 2
@@ -48,40 +46,40 @@ class CollectionTest(
             personaRepository.findAll() shouldHaveSize 2
         }
 
-        context("arrayContains for Specification tests whether an element is contained in a native array column") {
+        context("collectionContains for Specification tests whether an element is contained in a native collection column") {
             expect("returns organisations where the identifier is contained") {
-                val spec = Organisation::identifiers.arrayContains("identifier1")
+                val spec = Organisation::identifiers.collectionContains("identifier1")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
-                result[0].name shouldBe "Org With Departments"
+                result[0].name shouldBe "Org With Identifiers"
             }
-            expect("returns empty when identifier is not contained in any array") {
-                val spec = Organisation::identifiers.arrayContains("nonexistent")
+            expect("returns empty when identifier is not contained in any collection") {
+                val spec = Organisation::identifiers.collectionContains("nonexistent")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 0
             }
             expect("with nested types") {
-                val spec = (Persona::organisation / Organisation::identifiers).arrayContains("identifier1")
+                val spec = (Persona::organisation / Organisation::identifiers).collectionContains("identifier1")
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Persona 1"
             }
         }
 
-        context("arrayNotContains for Specification tests whether an element is not contained in a native array column") {
+        context("collectionNotContains for Specification tests whether an element is not contained in a native collection column") {
             expect("returns organisations where the identifier is not contained") {
-                val spec = Organisation::identifiers.arrayNotContains("identifier1")
+                val spec = Organisation::identifiers.collectionNotContains("identifier1")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
-                result[0].name shouldBe "Org Without Departments"
+                result[0].name shouldBe "Org Without Identifiers"
             }
-            expect("returns all organisations when identifier doesn't exist in any array") {
-                val spec = Organisation::identifiers.arrayNotContains("nonexistent")
+            expect("returns all organisations when identifier doesn't exist in any collection") {
+                val spec = Organisation::identifiers.collectionNotContains("nonexistent")
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 2
             }
             expect("with nested types") {
-                val spec = (Persona::organisation / Organisation::identifiers).arrayNotContains("identifier1")
+                val spec = (Persona::organisation / Organisation::identifiers).collectionNotContains("identifier1")
                 val result = personaRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Persona 2"
