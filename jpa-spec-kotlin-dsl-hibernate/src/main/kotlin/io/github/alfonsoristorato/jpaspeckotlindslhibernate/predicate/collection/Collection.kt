@@ -187,3 +187,93 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncl
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
         not(collectionIncludes(resolve(path), subCollection))
     }
+
+/**
+ * Creates a [Predicate] that tests whether a native collection column shares at least one element with the given sub-collection.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Collection].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the collection.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subCollection The sub-collection to check for overlap.
+ * @return A [Predicate] that tests whether the native collection column intersects with the given sub-collection.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Collection<E>>.collectionIntersects(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subCollection: Collection<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .collectionIntersects(path.get(this.name), subCollection)
+
+/**
+ * Creates a [Predicate] that tests whether a native collection column does not share any element with the given sub-collection.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Collection].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the collection.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subCollection The sub-collection to check for overlap.
+ * @return A [Predicate] that tests whether the native collection column does not intersect with the given sub-collection.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Collection<E>>.collectionNotIntersects(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subCollection: Collection<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(collectionIntersects(path.get(this@collectionNotIntersects.name), subCollection))
+    }
+
+/**
+ * Creates a [Predicate] that tests whether a nested native collection column shares at least one element with the given sub-collection.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Collection].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the collection.
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subCollection The sub-collection to check for overlap.
+ * @return A [Predicate] that tests whether the nested native collection column intersects with the given sub-collection.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionIntersects(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subCollection: Collection<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .collectionIntersects(resolve(path), subCollection)
+
+/**
+ * Creates a [Predicate] that tests whether a nested native collection column does not share any element with the given sub-collection.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Collection].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the collection.
+ * @receiver [PROP] - the type of the [Collection] property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subCollection The sub-collection to check for overlap.
+ * @return A [Predicate] that tests whether the nested native collection column does not intersect with the given sub-collection.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIntersects(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subCollection: Collection<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(collectionIntersects(resolve(path), subCollection))
+    }
