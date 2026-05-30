@@ -1,6 +1,6 @@
 # Native collection operations
 
-`collectionContains` and `collectionNotContains` work on columns stored as database array types
+`collectionContains`, `collectionNotContains`, and `collectionIncludes` work on columns stored as database array types
 (e.g. `VARCHAR[]`, `INT[]` in PostgreSQL), mapped with `@JdbcTypeCode(SqlTypes.ARRAY)`
 and typed as `Collection<E>` (e.g. `List<E>`, `Set<E>`) in Kotlin.
 
@@ -53,15 +53,39 @@ val withoutIdentifier = Organisation::identifiers.collectionNotContains("id-123"
 repository.findAll(withoutIdentifier)
 ```
 
+## `collectionIncludes`
+
+Checks whether a native collection column contains all elements of a given sub-collection:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withAllIdentifiers = Organisation::identifiers.collectionIncludes(setOf("id-123", "id-456"))
+
+repository.findAll(withAllIdentifiers)
+```
+
+## `collectionNotIncludes`
+
+Checks whether a native collection column does not contain all elements of a given sub-collection:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withoutAllIdentifiers = Organisation::identifiers.collectionNotIncludes(setOf("id-123", "id-456"))
+
+repository.findAll(withoutAllIdentifiers)
+```
+
 ## Nested properties
 
-Both functions work on nested properties via the `/` operator:
+All functions work on nested properties via the `/` operator:
 
 ```kotlin
 @OptIn(ExperimentalHibernateApi::class)
 val spec = (Persona::organisation / Organisation::identifiers).collectionContains("id-123")
+val spec = (Persona::organisation / Organisation::identifiers).collectionIncludes(setOf("id-123", "id-456"))
+val spec = (Persona::organisation / Organisation::identifiers).collectionNotIncludes(setOf("id-123", "id-456"))
 ```
 
 ## DSL layers
 
-Both functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.
+All functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.

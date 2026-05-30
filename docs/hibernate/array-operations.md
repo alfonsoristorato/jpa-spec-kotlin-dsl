@@ -1,6 +1,6 @@
 # Native array operations
 
-`arrayContains` and `arrayNotContains` work on columns stored as database array types
+`arrayContains`, `arrayNotContains`, and `arrayIncludes` work on columns stored as database array types
 (e.g. `VARCHAR[]`, `INT[]` in PostgreSQL), mapped with `@JdbcTypeCode(SqlTypes.ARRAY)`
 and typed as `Array<E>` in Kotlin.
 
@@ -48,15 +48,39 @@ val withoutTag = Organisation::tags.arrayNotContains("important")
 repository.findAll(withoutTag)
 ```
 
+## `arrayIncludes`
+
+Checks whether a native array column contains all elements of a given sub-array:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withAllTags = Organisation::tags.arrayIncludes(arrayOf("important", "urgent"))
+
+repository.findAll(withAllTags)
+```
+
+## `arrayNotIncludes`
+
+Checks whether a native array column does not contain all elements of a given sub-array:
+
+```kotlin
+@OptIn(ExperimentalHibernateApi::class)
+val withoutAllTags = Organisation::tags.arrayNotIncludes(arrayOf("important", "urgent"))
+
+repository.findAll(withoutAllTags)
+```
+
 ## Nested properties
 
-Both functions work on nested properties via the `/` operator:
+All functions work on nested properties via the `/` operator:
 
 ```kotlin
 @OptIn(ExperimentalHibernateApi::class)
 val spec = (Persona::organisation / Organisation::tags).arrayContains("important")
+val spec = (Persona::organisation / Organisation::tags).arrayIncludes(arrayOf("important", "urgent"))
+val spec = (Persona::organisation / Organisation::tags).arrayNotIncludes(arrayOf("important", "urgent"))
 ```
 
 ## DSL layers
 
-Both functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.
+All functions are available in all three DSL layers: `Specification`, `PredicateSpecification`, and raw `Predicate`.

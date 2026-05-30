@@ -95,3 +95,91 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
         not(arrayContains(resolve(path), value))
     }
+
+/**
+ * Creates a [Predicate] that tests whether a native array column contains all elements of the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array whose elements must all be present in the column.
+ * @return A [Predicate] that tests whether all elements of the sub-array are contained in the native array column.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Array<E>>.arrayIncludes(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .arrayIncludes(path.get(this.name), subArray)
+
+/**
+ * Creates a [Predicate] that tests whether a native array column does not contain all elements of the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [T] - the type of the entity.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array whose elements must not all be present in the column.
+ * @return A [Predicate] that tests whether not all elements of the sub-array are contained in the native array column.
+ */
+@ExperimentalHibernateApi
+fun <T, E> KProperty1<T, Array<E>>.arrayNotIncludes(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(arrayIncludes(path.get(this@arrayNotIncludes.name), subArray))
+    }
+
+/**
+ * Creates a [Predicate] that tests whether a nested native array column contains all elements of the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array whose elements must all be present in the column.
+ * @return A [Predicate] that tests whether all elements of the sub-array are contained in the nested native array column.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIncludes(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder
+        .resolveHibernateCriteriaBuilder()
+        .arrayIncludes(resolve(path), subArray)
+
+/**
+ * Creates a [Predicate] that tests whether a nested native array column does not contain all elements of the given sub-array.
+ * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
+ * and typed as [Array].
+ *
+ * @receiver [ROOT] - the root entity type.
+ * @receiver [E] - the type of the element in the array.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param subArray The sub-array whose elements must not all be present in the column.
+ * @return A [Predicate] that tests whether not all elements of the sub-array are contained in the nested native array column.
+ */
+@ExperimentalHibernateApi
+fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    subArray: Array<E>,
+): Predicate =
+    criteriaBuilder.resolveHibernateCriteriaBuilder().run {
+        not(arrayIncludes(resolve(path), subArray))
+    }
