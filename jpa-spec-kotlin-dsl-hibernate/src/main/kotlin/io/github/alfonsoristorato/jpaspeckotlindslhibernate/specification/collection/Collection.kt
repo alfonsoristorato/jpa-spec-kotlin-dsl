@@ -136,7 +136,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionI
  * @return A [Specification] that tests whether not all elements of the sub-collection are contained in the nested native collection column.
  */
 @ExperimentalHibernateApi
-fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncludes(subCollection: Collection<E>): Specification<ROOT> =
+fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncludes(
+    subCollection: Collection<E>,
+): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         collectionNotIncludes(root, criteriaBuilder, subCollection)
     }

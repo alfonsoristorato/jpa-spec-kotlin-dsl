@@ -119,7 +119,9 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotIncludes(subCollectio
  * @return A [PredicateSpecification] that tests whether all elements of the sub-collection are contained in the nested native collection column.
  */
 @ExperimentalHibernateApi
-fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionIncludes(subCollection: Collection<E>): PredicateSpecification<ROOT> =
+fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionIncludes(
+    subCollection: Collection<E>,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         collectionIncludes(from, criteriaBuilder, subCollection)
     }
@@ -136,7 +138,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionI
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-collection are contained in the nested native collection column.
  */
 @ExperimentalHibernateApi
-fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncludes(subCollection: Collection<E>): PredicateSpecification<ROOT> =
+fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncludes(
+    subCollection: Collection<E>,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
         collectionNotIncludes(from, criteriaBuilder, subCollection)
     }

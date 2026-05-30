@@ -128,7 +128,9 @@ class CollectionTest(
             }
         }
 
-        context("collectionNotIncludes for Predicate tests whether a native collection column does not contain all elements of a sub-collection") {
+        context(
+            "collectionNotIncludes for Predicate tests whether a native collection column does not contain all elements of a sub-collection",
+        ) {
             expect("returns organisations whose collection does not contain all given elements") {
                 val result =
                     organisationRepository.findAll { root, _, cb ->
