@@ -109,7 +109,9 @@ class CollectionTest(
             }
         }
 
-        context("collectionNotIncludes for Specification tests whether a native collection column does not contain all elements of a sub-collection") {
+        context(
+            "collectionNotIncludes for Specification tests whether a native collection column does not contain all elements of a sub-collection",
+        ) {
             expect("returns organisations whose collection does not contain all given elements") {
                 val spec = Organisation::identifiers.collectionNotIncludes(setOf("identifier1", "identifier2"))
                 val result = organisationRepository.findAll(spec)

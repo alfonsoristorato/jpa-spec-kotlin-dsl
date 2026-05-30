@@ -106,7 +106,9 @@ class ArrayTest(
             }
         }
 
-        context("arrayNotIncludes for PredicateSpecification tests whether a native array column does not contain all elements of a sub-array") {
+        context(
+            "arrayNotIncludes for PredicateSpecification tests whether a native array column does not contain all elements of a sub-array",
+        ) {
             expect("returns organisations whose array does not contain all given elements") {
                 val spec = Organisation::tags.arrayNotIncludes(arrayOf("tag1", "tag2"))
                 val result = organisationRepository.findAll(spec)
