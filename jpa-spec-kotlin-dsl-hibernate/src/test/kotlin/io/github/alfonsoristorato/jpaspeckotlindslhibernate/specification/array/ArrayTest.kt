@@ -125,44 +125,4 @@ class ArrayTest(
                 result[0].name shouldBe "Persona 2"
             }
         }
-
-        context("arrayIntersects for Specification tests whether a native array column shares at least one element with a sub-array") {
-            expect("returns organisations whose array shares at least one element") {
-                val spec = Organisation::tags.arrayIntersects(arrayOf("tag1", "nonexistent"))
-                val result = organisationRepository.findAll(spec)
-                result shouldHaveSize 1
-                result[0].name shouldBe "Org With Tags"
-            }
-            expect("returns empty when no elements are shared") {
-                val spec = Organisation::tags.arrayIntersects(arrayOf("nonexistent"))
-                val result = organisationRepository.findAll(spec)
-                result shouldHaveSize 0
-            }
-            expect("with nested types") {
-                val spec = (Persona::organisation / Organisation::tags).arrayIntersects(arrayOf("tag1", "nonexistent"))
-                val result = personaRepository.findAll(spec)
-                result shouldHaveSize 1
-                result[0].name shouldBe "Persona 1"
-            }
-        }
-
-        context("arrayNotIntersects for Specification tests whether a native array column shares no element with a sub-array") {
-            expect("returns organisations whose array shares no element") {
-                val spec = Organisation::tags.arrayNotIntersects(arrayOf("tag1", "tag2"))
-                val result = organisationRepository.findAll(spec)
-                result shouldHaveSize 1
-                result[0].name shouldBe "Org Without Tags"
-            }
-            expect("returns all organisations when no array shares any element") {
-                val spec = Organisation::tags.arrayNotIntersects(arrayOf("nonexistent"))
-                val result = organisationRepository.findAll(spec)
-                result shouldHaveSize 2
-            }
-            expect("with nested types") {
-                val spec = (Persona::organisation / Organisation::tags).arrayNotIntersects(arrayOf("tag1", "nonexistent"))
-                val result = personaRepository.findAll(spec)
-                result shouldHaveSize 1
-                result[0].name shouldBe "Persona 2"
-            }
-        }
     })

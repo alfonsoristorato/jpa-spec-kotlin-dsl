@@ -4,10 +4,8 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayContains
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayIncludes
-import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayIntersects
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayNotContains
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayNotIncludes
-import io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array.arrayNotIntersects
 import org.springframework.data.jpa.domain.Specification
 import kotlin.reflect.KProperty1
 
@@ -137,68 +135,4 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayIncludes(subArray: Array
 fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(subArray: Array<E>): Specification<ROOT> =
     Specification { root, _, criteriaBuilder ->
         arrayNotIncludes(root, criteriaBuilder, subArray)
-    }
-
-/**
- * Creates a [Specification] that tests whether a native array column shares at least one element with the given sub-array.
- * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
- * and typed as [Array].
- *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
- * @param subArray the sub-array to check for overlap.
- * @return A [Specification] that tests whether the native array column intersects with the given sub-array.
- */
-@ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayIntersects(subArray: Array<E>): Specification<T> =
-    Specification { root, _, criteriaBuilder ->
-        arrayIntersects(root, criteriaBuilder, subArray)
-    }
-
-/**
- * Creates a [Specification] that tests whether a native array column does not share any element with the given sub-array.
- * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
- * and typed as [Array].
- *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
- * @param subArray the sub-array to check for overlap.
- * @return A [Specification] that tests whether the native array column does not intersect with the given sub-array.
- */
-@ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotIntersects(subArray: Array<E>): Specification<T> =
-    Specification { root, _, criteriaBuilder ->
-        arrayNotIntersects(root, criteriaBuilder, subArray)
-    }
-
-/**
- * Creates a [Specification] that tests whether a nested native array column shares at least one element with the given sub-array.
- * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
- * and typed as [Array].
- *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
- * @param subArray the sub-array to check for overlap.
- * @return A [Specification] that tests whether the nested native array column intersects with the given sub-array.
- */
-@ExperimentalHibernateApi
-fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayIntersects(subArray: Array<E>): Specification<ROOT> =
-    Specification { root, _, criteriaBuilder ->
-        arrayIntersects(root, criteriaBuilder, subArray)
-    }
-
-/**
- * Creates a [Specification] that tests whether a nested native array column does not share any element with the given sub-array.
- * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
- * and typed as [Array].
- *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
- * @param subArray the sub-array to check for overlap.
- * @return A [Specification] that tests whether the nested native array column does not intersect with the given sub-array.
- */
-@ExperimentalHibernateApi
-fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotIntersects(subArray: Array<E>): Specification<ROOT> =
-    Specification { root, _, criteriaBuilder ->
-        arrayNotIntersects(root, criteriaBuilder, subArray)
     }
