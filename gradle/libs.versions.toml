@@ -8,7 +8,7 @@ gradle-nexus-publish-plugin     = "2.0.0"
 kotest                          = "6.2.1"
 kotlin                          = "2.4.0"
 kover                           = "0.9.8"
-postgresql                      = "42.7.11"
+postgresql                      = "42.7.12"
 postgresql-test-containers      = "1.21.4"
 spring                          = "4.1.0"
 
