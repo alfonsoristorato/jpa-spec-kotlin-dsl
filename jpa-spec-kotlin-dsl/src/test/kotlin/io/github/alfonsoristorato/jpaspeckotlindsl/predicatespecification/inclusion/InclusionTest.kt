@@ -242,4 +242,74 @@ class InclusionTest(
                 result[1].name shouldBe "Org Beta"
             }
         }
+
+        context("notIn and notContainedIn for PredicateSpecification checks if property is not in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with single int" },
+                Persona::age.notIn(30) to "notIn",
+                Persona::age.notContainedIn(30) to "notContainedIn",
+            ) { (spec, _) ->
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 2
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+                result[1].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of int" },
+                Persona::age.notIn(listOf(30, 40)) to "notIn",
+                Persona::age.notContainedIn(listOf(30, 40)) to "notContainedIn",
+            ) { (spec, _) ->
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of string" },
+                Persona::name.notIn(listOf("Persona 1", "Persona 2")) to "notIn",
+                Persona::name.notContainedIn(listOf("Persona 1", "Persona 2")) to "notContainedIn",
+            ) { (spec, _) ->
+                val result = personaRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+            }
+        }
+
+        context("notIn and notContainedIn for PredicateSpecification checks if nested property is not in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with nested types" },
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .notIn("Main Street") to "notIn",
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .notContainedIn("Main Street") to "notContainedIn",
+            ) { (spec, _) ->
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Beta"
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of nested types" },
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .notIn(listOf("Main Street", "Oak Road")) to "notIn",
+                (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                    .notContainedIn(listOf("Main Street", "Oak Road")) to "notContainedIn",
+            ) { (spec, _) ->
+                val result = organisationRepository.findAll(spec)
+                result shouldHaveSize 0
+            }
+        }
     })
