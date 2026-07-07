@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that checks if the property is greater than the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
@@ -25,7 +25,7 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.greaterThan(
 /**
  * Creates a [Predicate] that checks if the property is greater than or equal to the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
@@ -41,7 +41,7 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.greaterThanOrEqualTo(
 /**
  * Creates a [Predicate] that checks if the property is less than the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
@@ -57,7 +57,7 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.lessThan(
 /**
  * Creates a [Predicate] that checks if the property is less than or equal to the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
@@ -73,7 +73,7 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.lessThanOrEqualTo(
 /**
  * Creates a [Predicate] that checks if the property is between two values (inclusive).
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
@@ -95,7 +95,7 @@ private fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.resolveC
 /**
  * Creates a [Predicate] that checks if the nested property is greater than the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
@@ -111,7 +111,7 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThan(
 /**
  * Creates a [Predicate] that checks if the nested property is greater than or equal to the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
@@ -127,7 +127,7 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThanOrEqu
 /**
  * Creates a [Predicate] that checks if the nested property is less than the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
@@ -143,7 +143,7 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThan(
 /**
  * Creates a [Predicate] that checks if the nested property is less than or equal to the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
@@ -159,7 +159,7 @@ fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThanOrEqualT
 /**
  * Creates a [Predicate] that checks if the nested property is between two values (inclusive).
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.

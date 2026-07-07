@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.PredicateSpecification
 /**
  * ANDs the given [PredicateSpecification] to the current one.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @param other the other [PredicateSpecification].
  * @return The conjunction of the specifications.
  */
@@ -14,8 +14,8 @@ infix fun <T : Any> PredicateSpecification<T>.and(other: PredicateSpecification<
 /**
  * ANDs all the given [PredicateSpecification]s together.
  *
- * @param T – the type of the entity.
- * @param predicateSpecification – the [PredicateSpecification]s to combine.
+ * @param T the type of the entity.
+ * @param predicateSpecification the [PredicateSpecification]s to combine.
  * @return The conjunction of all specifications.
  */
 fun <T : Any> and(vararg predicateSpecification: PredicateSpecification<T>): PredicateSpecification<T> =
@@ -24,8 +24,8 @@ fun <T : Any> and(vararg predicateSpecification: PredicateSpecification<T>): Pre
 /**
  * ORs the given [PredicateSpecification] to the current one.
  *
- * @receiver [T] – the type of the entity.
- * @param other – the other [PredicateSpecification].
+ * @receiver [T] - the type of the entity.
+ * @param other the other [PredicateSpecification].
  * @return The disjunction of the specifications.
  */
 infix fun <T : Any> PredicateSpecification<T>.or(other: PredicateSpecification<T>): PredicateSpecification<T> = or(other)
@@ -33,8 +33,8 @@ infix fun <T : Any> PredicateSpecification<T>.or(other: PredicateSpecification<T
 /**
  * ORs all the given [PredicateSpecification]s together.
  *
- * @param T – the type of the entity.
- * @param predicateSpecification – the [PredicateSpecification]s to combine.
+ * @param T the type of the entity.
+ * @param predicateSpecification the [PredicateSpecification]s to combine.
  * @return The disjunction of all specifications.
  */
 fun <T : Any> or(vararg predicateSpecification: PredicateSpecification<T>): PredicateSpecification<T> =

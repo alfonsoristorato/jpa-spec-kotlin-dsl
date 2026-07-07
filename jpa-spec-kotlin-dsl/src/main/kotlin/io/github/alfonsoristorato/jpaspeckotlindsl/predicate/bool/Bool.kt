@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that checks if the Boolean property is true.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is true.
@@ -22,7 +22,7 @@ fun <T> KProperty1<T, Boolean>.isTrue(
 /**
  * Creates a [Predicate] that checks if the nullable Boolean property is true.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is true.
@@ -36,7 +36,7 @@ fun <T> KProperty1<T, Boolean?>.isTrue(
 /**
  * Creates a [Predicate] that checks if the Boolean property is false.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is false.
@@ -49,7 +49,7 @@ fun <T> KProperty1<T, Boolean>.isFalse(
 /**
  * Creates a [Predicate] that checks if the nullable Boolean property is false.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is false.
@@ -63,7 +63,7 @@ fun <T> KProperty1<T, Boolean?>.isFalse(
 /**
  * Creates a [Predicate] that checks if the nested Boolean property is true.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the nested property is true.
@@ -76,7 +76,7 @@ fun <ROOT> NestedProperty<ROOT, Boolean>.isTrue(
 /**
  * Creates a [Predicate] that checks if the nested nullable Boolean property is true.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the nested property is true.
@@ -90,7 +90,7 @@ fun <ROOT> NestedProperty<ROOT, Boolean?>.isTrue(
 /**
  * Creates a [Predicate] that checks if the nested Boolean property is false.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the nested property is false.
@@ -103,7 +103,7 @@ fun <ROOT> NestedProperty<ROOT, Boolean>.isFalse(
 /**
  * Creates a [Predicate] that checks if the nested nullable Boolean property is false.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the nested property is false.

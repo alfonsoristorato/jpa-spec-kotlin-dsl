@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that tests whether a collection is empty.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
  * @param path The path of the entity.
@@ -24,7 +24,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isEmpty(
 /**
  * Creates a [Predicate] that tests whether a collection is not empty.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
  * @param path The path of the entity.
@@ -40,7 +40,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(
  * Creates a [Predicate] that tests whether an element is a member of a collection.
  * If the collection is empty, the predicate will be false.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
  * @param path The path of the entity.
@@ -59,7 +59,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isMember(
  * Creates a [Predicate] that tests whether an element is not a member of a collection.
  * If the collection is empty, the predicate will be true.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [P] - the type of the [Collection] property.
  * @param path The path of the entity.
@@ -77,7 +77,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotMember(
 /**
  * Creates a [Predicate] that tests whether a nested collection is empty.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
  * @param path The path of the root entity.
@@ -92,7 +92,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(
 /**
  * Creates a [Predicate] that tests whether a nested collection is not empty.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
  * @param path The path of the root entity.
@@ -107,7 +107,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(
 /**
  * Creates a [Predicate] that tests whether an element is a member of a nested collection.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
  * @param path The path of the root entity.
@@ -124,7 +124,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(
 /**
  * Creates a [Predicate] that tests whether an element is not a member of a nested collection.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [E] - the type of the element in the [Collection].
  * @receiver [PROP] - the type of the [Collection] property.
  * @param path The path of the root entity.

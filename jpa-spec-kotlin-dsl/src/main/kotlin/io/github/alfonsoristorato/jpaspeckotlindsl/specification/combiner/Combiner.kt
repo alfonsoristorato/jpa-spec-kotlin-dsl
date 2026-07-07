@@ -5,8 +5,8 @@ import org.springframework.data.jpa.domain.Specification
 /**
  * ANDs the given [Specification] to the current one.
  *
- * @receiver [T] – the type of the entity.
- * @param other – the other [Specification].
+ * @receiver [T] - the type of the entity.
+ * @param other the other [Specification].
  * @return The conjunction of the specifications.
  */
 infix fun <T : Any> Specification<T>.and(other: Specification<T>): Specification<T> = and(other)
@@ -14,8 +14,8 @@ infix fun <T : Any> Specification<T>.and(other: Specification<T>): Specification
 /**
  * ANDs all the given [Specification]s together.
  *
- * @param T – the type of the entity.
- * @param specification – the [Specification]s to combine.
+ * @param T the type of the entity.
+ * @param specification the [Specification]s to combine.
  * @return The conjunction of all specifications.
  */
 fun <T : Any> and(vararg specification: Specification<T>): Specification<T> = specification.reduce(Specification<T>::and)
@@ -23,8 +23,8 @@ fun <T : Any> and(vararg specification: Specification<T>): Specification<T> = sp
 /**
  * ORs the given [Specification] to the current one.
  *
- * @receiver [T] – the type of the entity.
- * @param other – the other [Specification].
+ * @receiver [T] - the type of the entity.
+ * @param other the other [Specification].
  * @return The disjunction of the specifications.
  */
 infix fun <T : Any> Specification<T>.or(other: Specification<T>): Specification<T> = or(other)
@@ -32,8 +32,8 @@ infix fun <T : Any> Specification<T>.or(other: Specification<T>): Specification<
 /**
  * ORs all the given [Specification]s together.
  *
- * @param T – the type of the entity.
- * @param specification – the [Specification]s to combine.
+ * @param T the type of the entity.
+ * @param specification the [Specification]s to combine.
  * @return The disjunction of all specifications.
  */
 fun <T : Any> or(vararg specification: Specification<T>): Specification<T> = specification.reduce(Specification<T>::or)
