@@ -8,8 +8,8 @@ import kotlin.reflect.KProperty1
  *
  * [ROOT] is always preserved as the root entity type regardless of chain depth.
  *
- * @receiver [ROOT]  The root entity type.
- * @receiver [PROP]  The final leaf property type.
+ * @param ROOT  The root entity type.
+ * @param PROP  The final leaf property type.
  * @property parentNames  All intermediate field names, in traversal order.
  * @property child  The leaf [KProperty1], carrying its name and type [PROP].
  */

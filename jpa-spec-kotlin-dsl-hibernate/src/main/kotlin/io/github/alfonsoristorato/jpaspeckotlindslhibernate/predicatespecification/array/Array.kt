@@ -16,8 +16,8 @@ import kotlin.reflect.KProperty1
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether the element is contained in the native array column.
  */
@@ -32,8 +32,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayContains(value: E): PredicateSpeci
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether the element is not contained in the native array column.
  */
@@ -48,8 +48,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotContains(value: E): PredicateSp
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether the element is contained in the nested native array column.
  */
@@ -64,8 +64,8 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayContains(value: E): Pred
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether the element is not contained in the nested native array column.
  */
@@ -80,8 +80,8 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(value: E): P
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array whose elements must all be present in the column.
  * @return A [PredicateSpecification] that tests whether all elements of the sub-array are contained in the native array column.
  */
@@ -96,8 +96,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayIncludes(subArray: Array<E>): Pred
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array whose elements must not all be present in the column.
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-array are contained in the native array column.
  */
@@ -112,8 +112,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotIncludes(subArray: Array<E>): P
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array whose elements must all be present in the column.
  * @return A [PredicateSpecification] that tests whether all elements of the sub-array are contained in the nested native array column.
  */
@@ -128,8 +128,8 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayIncludes(subArray: Array
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array whose elements must not all be present in the column.
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-array are contained in the nested native array column.
  */
@@ -144,8 +144,8 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(subArray: Ar
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array to check for overlap.
  * @return A [PredicateSpecification] that tests whether the native array column intersects with the given sub-array.
  */
@@ -160,8 +160,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayIntersects(subArray: Array<E>): Pr
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array to check for overlap.
  * @return A [PredicateSpecification] that tests whether the native array column does not intersect with the given sub-array.
  */
@@ -176,8 +176,8 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotIntersects(subArray: Array<E>):
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array to check for overlap.
  * @return A [PredicateSpecification] that tests whether the nested native array column intersects with the given sub-array.
  */
@@ -192,8 +192,8 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayIntersects(subArray: Arr
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param subArray the sub-array to check for overlap.
  * @return A [PredicateSpecification] that tests whether the nested native array column does not intersect with the given sub-array.
  */

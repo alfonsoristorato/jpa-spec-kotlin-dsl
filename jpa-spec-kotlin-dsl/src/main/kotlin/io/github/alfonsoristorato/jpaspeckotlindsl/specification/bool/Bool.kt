@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Specification] that checks if the Boolean property is true.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @return A [Specification] that checks if the property is true.
  */
 fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
@@ -20,7 +20,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the nullable Boolean property is true.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @return A [Specification] that checks if the property is true.
  */
 @JvmName("isTrueNullable")
@@ -32,7 +32,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the Boolean property is false.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @return A [Specification] that checks if the property is false.
  */
 fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
@@ -43,7 +43,7 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the nullable Boolean property is false.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @return A [Specification] that checks if the property is false.
  */
 @JvmName("isFalseNullable")
@@ -55,7 +55,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isFalse(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the nested Boolean property is true.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @return A [Specification] that checks if the nested property is true.
  */
 fun <ROOT : Any> NestedProperty<ROOT, Boolean>.isTrue(): Specification<ROOT> =
@@ -66,7 +66,7 @@ fun <ROOT : Any> NestedProperty<ROOT, Boolean>.isTrue(): Specification<ROOT> =
 /**
  * Creates a [Specification] that checks if the nested nullable Boolean property is true.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @return A [Specification] that checks if the nested property is true.
  */
 @JvmName("nestedIsTrueNullable")
@@ -78,7 +78,7 @@ fun <ROOT : Any> NestedProperty<ROOT, Boolean?>.isTrue(): Specification<ROOT> =
 /**
  * Creates a [Specification] that checks if the nested Boolean property is false.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @return A [Specification] that checks if the nested property is false.
  */
 fun <ROOT : Any> NestedProperty<ROOT, Boolean>.isFalse(): Specification<ROOT> =
@@ -89,7 +89,7 @@ fun <ROOT : Any> NestedProperty<ROOT, Boolean>.isFalse(): Specification<ROOT> =
 /**
  * Creates a [Specification] that checks if the nested nullable Boolean property is false.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @return A [Specification] that checks if the nested property is false.
  */
 @JvmName("nestedIsFalseNullable")

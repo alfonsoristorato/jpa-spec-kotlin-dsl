@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.PredicateSpecification
 /**
  * ANDs the given [PredicateSpecification] to the current one.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param other the other [PredicateSpecification].
  * @return The conjunction of the specifications.
  */
@@ -24,7 +24,7 @@ fun <T : Any> and(vararg predicateSpecification: PredicateSpecification<T>): Pre
 /**
  * ORs the given [PredicateSpecification] to the current one.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param other the other [PredicateSpecification].
  * @return The disjunction of the specifications.
  */

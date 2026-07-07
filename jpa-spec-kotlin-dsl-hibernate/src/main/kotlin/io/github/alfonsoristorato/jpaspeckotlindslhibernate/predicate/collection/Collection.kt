@@ -13,8 +13,8 @@ import kotlin.reflect.KProperty1
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for containment.
@@ -35,8 +35,8 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for non-containment.
@@ -57,9 +57,9 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for containment.
@@ -80,9 +80,9 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionContain
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for non-containment.
@@ -103,8 +103,8 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotCont
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection whose elements must all be present in the column.
@@ -125,8 +125,8 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection whose elements must not all be present in the column.
@@ -147,9 +147,9 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection whose elements must all be present in the column.
@@ -170,9 +170,9 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionInclude
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection whose elements must not all be present in the column.
@@ -193,8 +193,8 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncl
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection to check for overlap.
@@ -215,8 +215,8 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIntersects(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection to check for overlap.
@@ -237,9 +237,9 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotIntersects(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection to check for overlap.
@@ -260,9 +260,9 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionInterse
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subCollection The sub-collection to check for overlap.

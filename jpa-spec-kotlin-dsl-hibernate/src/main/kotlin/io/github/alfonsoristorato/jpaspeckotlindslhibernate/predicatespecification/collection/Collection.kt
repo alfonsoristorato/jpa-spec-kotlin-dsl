@@ -16,8 +16,8 @@ import kotlin.reflect.KProperty1
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether the element is contained in the native collection column.
  */
@@ -32,8 +32,8 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionContains(value: E): Pred
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether the element is not contained in the native collection column.
  */
@@ -48,9 +48,9 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotContains(value: E): P
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param value the element value to check for containment.
  * @return A [PredicateSpecification] that tests whether the element is contained in the nested native collection column.
  */
@@ -65,9 +65,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionC
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param value the element value to check for non-containment.
  * @return A [PredicateSpecification] that tests whether the element is not contained in the nested native collection column.
  */
@@ -82,8 +82,8 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionN
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param subCollection the sub-collection whose elements must all be present in the column.
  * @return A [PredicateSpecification] that tests whether all elements of the sub-collection are contained in the native collection column.
  */
@@ -98,8 +98,8 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIncludes(subCollection: 
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param subCollection the sub-collection whose elements must not all be present in the column.
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-collection are contained in the native collection column.
  */
@@ -114,9 +114,9 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotIncludes(subCollectio
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param subCollection the sub-collection whose elements must all be present in the column.
  * @return A [PredicateSpecification] that tests whether all elements of the sub-collection are contained in the nested native collection column.
  */
@@ -133,9 +133,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionI
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param subCollection the sub-collection whose elements must not all be present in the column.
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-collection are contained in the nested native collection column.
  */
@@ -152,8 +152,8 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionN
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param subCollection the sub-collection to check for overlap.
  * @return A [PredicateSpecification] that tests whether the native collection column intersects with the given sub-collection.
  */
@@ -168,8 +168,8 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIntersects(subCollection
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the collection.
+ * @param T the type of the entity.
+ * @param E the type of the element in the collection.
  * @param subCollection the sub-collection to check for overlap.
  * @return A [PredicateSpecification] that tests whether the native collection column does not intersect with the given sub-collection.
  */
@@ -184,9 +184,9 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotIntersects(subCollect
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param subCollection the sub-collection to check for overlap.
  * @return A [PredicateSpecification] that tests whether the nested native collection column intersects with the given sub-collection.
  */
@@ -203,9 +203,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionI
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Collection].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the collection.
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the collection.
+ * @param PROP the type of the [Collection] property.
  * @param subCollection the sub-collection to check for overlap.
  * @return A [PredicateSpecification] that tests whether the nested native collection column does not intersect with the given sub-collection.
  */

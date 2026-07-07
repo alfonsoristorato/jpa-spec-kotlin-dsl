@@ -11,9 +11,9 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [PredicateSpecification] that tests whether a collection is empty.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [P] - the type of the [Collection] property.
+ * @param T the type of the entity.
+ * @param E the type of the element in the [Collection].
+ * @param P the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether a collection is empty.
  */
 fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): PredicateSpecification<T> =
@@ -24,9 +24,9 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): PredicateSpecifi
 /**
  * Creates a [PredicateSpecification] that tests whether a collection is not empty.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [P] - the type of the [Collection] property.
+ * @param T the type of the entity.
+ * @param E the type of the element in the [Collection].
+ * @param P the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether a collection is not empty.
  */
 fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): PredicateSpecification<T> =
@@ -38,9 +38,9 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): PredicateSpec
  * Creates a [PredicateSpecification] that tests whether an element is a member of a collection.
  * If the collection is empty, the predicate will be false.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [P] - the type of the [Collection] property.
+ * @param T the type of the entity.
+ * @param E the type of the element in the [Collection].
+ * @param P the type of the [Collection] property.
  * @param value the element value to check for membership.
  * @return A [PredicateSpecification] that tests whether an element is a member of a collection.
  */
@@ -53,9 +53,9 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Predica
  * Creates a [PredicateSpecification] that tests whether an element is not a member of a collection.
  * If the collection is empty, the predicate will be true.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [P] - the type of the [Collection] property.
+ * @param T the type of the entity.
+ * @param E the type of the element in the [Collection].
+ * @param P the type of the [Collection] property.
  * @param value the element value to check for non-membership.
  * @return A [PredicateSpecification] that tests whether an element is not a member of a collection.
  */
@@ -67,9 +67,9 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotMember(value: E): Pred
 /**
  * Creates a [PredicateSpecification] that tests whether a nested collection is empty.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the [Collection].
+ * @param PROP the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether the nested collection is empty.
  */
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(): PredicateSpecification<ROOT> =
@@ -80,9 +80,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(): 
 /**
  * Creates a [PredicateSpecification] that tests whether a nested collection is not empty.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the [Collection].
+ * @param PROP the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether the nested collection is not empty.
  */
 fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(): PredicateSpecification<ROOT> =
@@ -93,9 +93,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(
 /**
  * Creates a [PredicateSpecification] that tests whether an element is a member of a nested collection.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the [Collection].
+ * @param PROP the type of the [Collection] property.
  * @param value the element value to check for membership.
  * @return A [PredicateSpecification] that tests whether an element is a member of the nested collection.
  */
@@ -107,9 +107,9 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(va
 /**
  * Creates a [PredicateSpecification] that tests whether an element is not a member of a nested collection.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the [Collection].
- * @receiver [PROP] - the type of the [Collection] property.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the [Collection].
+ * @param PROP the type of the [Collection] property.
  * @param value the element value to check for non-membership.
  * @return A [PredicateSpecification] that tests whether an element is not a member of the nested collection.
  */
