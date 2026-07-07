@@ -72,4 +72,11 @@ val age25 = User::age.`in`(25)
 
 // Multiple values via list
 val adminOrManager = User::role.`in`(listOf("ADMIN", "MANAGER"))
+
+// `containedIn` is an alias for `in` that avoids the backtick-escaped keyword
+val admins = User::role.containedIn("ADMIN")
+
+// Negation (NOT IN) - `notIn` and its `notContainedIn` alias are equivalent
+val notAdminOrManager = User::role.notIn(listOf("ADMIN", "MANAGER"))
+val stillNotAdminOrManager = User::role.notContainedIn(listOf("ADMIN", "MANAGER"))
 ```

@@ -71,3 +71,71 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.containedIn(
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
 ): Predicate = `in`(path, criteriaBuilder, value)
+
+/**
+ * Creates a [Predicate] that checks if the property's value is not in the given value.
+ * This negates the [`in`] method.
+ *
+ * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The value to check for exclusion (can be a [Collection]).
+ * @return A [Predicate] that checks if the property is not in the value.
+ */
+fun <T, P> KProperty1<T, P>.notIn(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    value: P,
+): Predicate = `in`(path, criteriaBuilder, value).not()
+
+/**
+ * Creates a [Predicate] that checks if the property's value is not in the given value.
+ * This delegates to the [notIn] method.
+ *
+ * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
+ * @param path The path of the entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The value to check for exclusion (can be a [Collection]).
+ * @return A [Predicate] that checks if the property is not in the value.
+ */
+fun <T, P> KProperty1<T, P>.notContainedIn(
+    path: Path<T>,
+    criteriaBuilder: CriteriaBuilder,
+    value: P,
+): Predicate = notIn(path, criteriaBuilder, value)
+
+/**
+ * Creates a [Predicate] that checks if the nested property's value is not in the given value.
+ * This negates the [`in`] method.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The value to check for exclusion (can be a [Collection]).
+ * @return A [Predicate] that checks if the nested property is not in the value.
+ */
+fun <ROOT, PROP> NestedProperty<ROOT, PROP>.notIn(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    value: PROP,
+): Predicate = `in`(path, criteriaBuilder, value).not()
+
+/**
+ * Creates a [Predicate] that checks if the nested property's value is not in the given value.
+ * This delegates to the [notIn] method.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @param path The path of the root entity.
+ * @param criteriaBuilder The criteria builder.
+ * @param value The value to check for exclusion (can be a [Collection]).
+ * @return A [Predicate] that checks if the nested property is not in the value.
+ */
+fun <ROOT, PROP> NestedProperty<ROOT, PROP>.notContainedIn(
+    path: Path<ROOT>,
+    criteriaBuilder: CriteriaBuilder,
+    value: PROP,
+): Predicate = notIn(path, criteriaBuilder, value)

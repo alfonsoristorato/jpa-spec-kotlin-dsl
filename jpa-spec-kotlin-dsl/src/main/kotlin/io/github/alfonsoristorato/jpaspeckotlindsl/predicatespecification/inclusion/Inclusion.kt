@@ -2,6 +2,7 @@ package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.inclu
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
 import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.inclusion.`in`
+import io.github.alfonsoristorato.jpaspeckotlindsl.predicate.inclusion.notIn
 import org.springframework.data.jpa.domain.PredicateSpecification
 import kotlin.reflect.KProperty1
 
@@ -52,3 +53,51 @@ fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.`in`(value: PROP): PredicateSp
  * @return A [PredicateSpecification] that checks if the nested property is in the value.
  */
 fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.containedIn(value: PROP): PredicateSpecification<ROOT> = `in`(value)
+
+/**
+ * Creates a [PredicateSpecification] that checks if the property's value is not in the given value.
+ *
+ * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
+ * @param value – the value to check for exclusion (can be a [Collection]).
+ * @return A [PredicateSpecification] that checks if the property is not in the value.
+ */
+fun <T : Any, P> KProperty1<T, P>.notIn(value: P): PredicateSpecification<T> =
+    PredicateSpecification { from, criteriaBuilder ->
+        notIn(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the property's value is not in the given value.
+ * This delegates to the [notIn] method.
+ *
+ * @receiver [T] – the type of the entity.
+ * @receiver [P] - the type of the property.
+ * @param value – the value to check for exclusion (can be a [Collection]).
+ * @return A [PredicateSpecification] that checks if the property is not in the value.
+ */
+fun <T : Any, P> KProperty1<T, P>.notContainedIn(value: P): PredicateSpecification<T> = notIn(value)
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property's value is not in the given value.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @param value – the value to check for exclusion (can be a [Collection]).
+ * @return A [PredicateSpecification] that checks if the nested property is not in the value.
+ */
+fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.notIn(value: PROP): PredicateSpecification<ROOT> =
+    PredicateSpecification { from, criteriaBuilder ->
+        notIn(from, criteriaBuilder, value)
+    }
+
+/**
+ * Creates a [PredicateSpecification] that checks if the nested property's value is not in the given value.
+ * This delegates to the [notIn] method.
+ *
+ * @receiver [ROOT] – the root entity type.
+ * @receiver [PROP] - the type of the property.
+ * @param value – the value to check for exclusion (can be a [Collection]).
+ * @return A [PredicateSpecification] that checks if the nested property is not in the value.
+ */
+fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.notContainedIn(value: PROP): PredicateSpecification<ROOT> = notIn(value)

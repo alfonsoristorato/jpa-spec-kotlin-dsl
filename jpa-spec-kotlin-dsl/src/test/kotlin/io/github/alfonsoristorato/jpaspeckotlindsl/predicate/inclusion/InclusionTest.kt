@@ -297,4 +297,106 @@ class InclusionTest(
                 result[1].name shouldBe "Org Beta"
             }
         }
+
+        context("notIn and notContainedIn for Predicate checks if property is not in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with single int" },
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.notIn(root, cb, 30) } to "notIn",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.notContainedIn(root, cb, 30) } to "notContainedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
+                result shouldHaveSize 2
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+                result[1].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of int" },
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.notIn(root, cb, listOf(30, 40)) } to "notIn",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::age.notContainedIn(root, cb, listOf(30, 40)) } to "notContainedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 1"
+                    age shouldBe 20
+                }
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of string" },
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.notIn(root, cb, listOf("Persona 1", "Persona 2")) } to "notIn",
+                { root: Root<Persona>, cb: CriteriaBuilder -> Persona::name.notContainedIn(root, cb, listOf("Persona 1", "Persona 2")) } to
+                    "notContainedIn",
+            ) { (predicate, _) ->
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].apply {
+                    name shouldBe "Persona 3"
+                    age shouldBe 40
+                }
+            }
+        }
+
+        context("notIn and notContainedIn for Predicate checks if nested property is not in the given value") {
+            withExpects(
+                nameFn = { "${it.second} with nested types" },
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).notIn(root, cb, "Main Street")
+                } to "notIn",
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).notContainedIn(root, cb, "Main Street")
+                } to "notContainedIn",
+            ) { (predicate, _) ->
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
+                result shouldHaveSize 1
+                result[0].name shouldBe "Org Beta"
+            }
+
+            withExpects(
+                nameFn = { "${it.second} with collection of nested types" },
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).notIn(root, cb, listOf("Main Street", "Oak Road"))
+                } to "notIn",
+                { root: Root<Organisation>, cb: CriteriaBuilder ->
+                    (
+                        Organisation::organisationInfo / OrganisationInfo::addressInfo /
+                            AddressInfo::street
+                    ).notContainedIn(root, cb, listOf("Main Street", "Oak Road"))
+                } to "notContainedIn",
+            ) { (predicate, _) ->
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        predicate(root, cb)
+                    }
+                result shouldHaveSize 0
+            }
+        }
     })
