@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Specification] that checks if the property is null.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property.
  * @return A [Specification] that checks if the property is null.
  */
@@ -21,7 +21,7 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property is not null.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property.
  * @return A [Specification] that checks if the property is not null.
  */
@@ -33,7 +33,7 @@ fun <T : Any, P> KProperty1<T, P>.isNotNull(): Specification<T> =
 /**
  * Creates a [Specification] that checks if the nested property is null.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property.
  * @return A [Specification] that checks if the nested property is null.
  */
@@ -45,7 +45,7 @@ fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.isNull(): Specification<ROOT> 
 /**
  * Creates a [Specification] that checks if the nested property is not null.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property.
  * @return A [Specification] that checks if the nested property is not null.
  */

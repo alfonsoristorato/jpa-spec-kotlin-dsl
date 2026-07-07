@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [PredicateSpecification] that checks if the property is greater than the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the property is greater than the given value.
@@ -25,7 +25,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.greaterThan(value: P): Predic
 /**
  * Creates a [PredicateSpecification] that checks if the property is greater than or equal to the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the property is greater than or equal to the given value.
@@ -38,7 +38,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.greaterThanOrEqualTo(value: P
 /**
  * Creates a [PredicateSpecification] that checks if the property is less than the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the property is less than the given value.
@@ -51,7 +51,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.lessThan(value: P): Predicate
 /**
  * Creates a [PredicateSpecification] that checks if the property is less than or equal to the given value.
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the property, which must be [Comparable].
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the property is less than or equal to the given value.
@@ -64,7 +64,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.lessThanOrEqualTo(value: P): 
 /**
  * Creates a [PredicateSpecification] that checks if the property is between two values (inclusive).
  *
- * @receiver [T] – the type of the entity.
+ * @receiver [T] - the type of the entity.
  * @receiver [P] - the type of the properties, which must be [Comparable].
  * @param lower the lower bound value (inclusive).
  * @param upper the upper bound value (inclusive).
@@ -81,7 +81,7 @@ fun <T : Any, P : Comparable<P>> KProperty1<T, P?>.between(
 /**
  * Creates a [PredicateSpecification] that checks if the nested property is greater than the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is greater than the given value.
@@ -94,9 +94,9 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterTha
 /**
  * Creates a [PredicateSpecification] that checks if the nested property is greater than or equal to the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
- * @param value – the value to compare against.
+ * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is greater than or equal to the given value.
  */
 fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
@@ -107,9 +107,9 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.greaterTha
 /**
  * Creates a [PredicateSpecification] that checks if the nested property is less than the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
- * @param value – the value to compare against.
+ * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is less than the given value.
  */
 fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThan(value: PROP): PredicateSpecification<ROOT> =
@@ -120,9 +120,9 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThan(v
 /**
  * Creates a [PredicateSpecification] that checks if the nested property is less than or equal to the given value.
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the property, which must be [Comparable].
- * @param value – the value to compare against.
+ * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks if the nested property is less than or equal to the given value.
  */
 fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThanOrEqualTo(value: PROP): PredicateSpecification<ROOT> =
@@ -133,10 +133,10 @@ fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.lessThanOr
 /**
  * Creates a [PredicateSpecification] that checks if the nested property is between two values (inclusive).
  *
- * @receiver [ROOT] – the root entity type.
+ * @receiver [ROOT] - the root entity type.
  * @receiver [PROP] - the type of the properties, which must be [Comparable].
- * @param lower – the lower bound value (inclusive).
- * @param upper – the upper bound value (inclusive).
+ * @param lower the lower bound value (inclusive).
+ * @param upper the upper bound value (inclusive).
  * @return A [PredicateSpecification] that checks if the nested property is between the two values.
  */
 fun <ROOT : Any, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.between(

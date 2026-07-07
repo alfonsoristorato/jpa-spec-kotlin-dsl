@@ -8,9 +8,9 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Join] for this property on the given [From].
  *
- * @receiver [Z] – the type of the root entity.
- * @receiver [T] – the type of the current entity.
- * @receiver [R] – the type of the joined property.
+ * @receiver [Z] - the type of the root entity.
+ * @receiver [T] - the type of the current entity.
+ * @receiver [R] - the type of the joined property.
  * @param from The JPA [From] to join from.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @return A [Join] representing the join.

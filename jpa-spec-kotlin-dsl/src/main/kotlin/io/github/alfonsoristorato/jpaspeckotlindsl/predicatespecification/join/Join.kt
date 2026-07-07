@@ -11,8 +11,8 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [PredicateSpecification] that performs a join and applies a list of [Predicate]s by ANDing them to the joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicates.
@@ -31,8 +31,8 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
 /**
  * Creates a [PredicateSpecification] that performs a join on a nullable property and applies a list of [Predicate]s by ANDing them to the joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicates.
@@ -52,8 +52,8 @@ fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicates(
 /**
  * Creates a [PredicateSpecification] that performs a join and applies a [Predicate] to the joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicate.
@@ -69,8 +69,8 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicate(
 /**
  * Creates a [PredicateSpecification] that performs a join on a nullable property and applies a [Predicate] to the joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicate.

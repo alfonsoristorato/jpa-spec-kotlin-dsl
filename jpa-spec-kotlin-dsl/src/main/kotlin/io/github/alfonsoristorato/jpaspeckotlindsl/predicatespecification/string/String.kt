@@ -9,8 +9,8 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [PredicateSpecification] that checks if the property matches the given pattern.
  *
- * @receiver [T] – the type of the entity.
- * @param pattern – The pattern to match against.
+ * @receiver [T] - the type of the entity.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the property matches the pattern.
  */
 fun <T : Any> KProperty1<T, String>.like(pattern: String): PredicateSpecification<T> =
@@ -21,8 +21,8 @@ fun <T : Any> KProperty1<T, String>.like(pattern: String): PredicateSpecificatio
 /**
  * Creates a [PredicateSpecification] that checks if the property matches the given pattern (nullable version).
  *
- * @receiver [T] – the type of the entity.
- * @param pattern – The pattern to match against.
+ * @receiver [T] - the type of the entity.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the property matches the pattern.
  */
 @JvmName("likeNullable")
@@ -34,8 +34,8 @@ fun <T : Any> KProperty1<T, String?>.like(pattern: String): PredicateSpecificati
 /**
  * Creates a [PredicateSpecification] that checks if the property does not match the given pattern.
  *
- * @receiver [T] – the type of the entity.
- * @param pattern – The pattern to match against.
+ * @receiver [T] - the type of the entity.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the property does not match the pattern.
  */
 fun <T : Any> KProperty1<T, String>.notLike(pattern: String): PredicateSpecification<T> =
@@ -46,8 +46,8 @@ fun <T : Any> KProperty1<T, String>.notLike(pattern: String): PredicateSpecifica
 /**
  * Creates a [PredicateSpecification] that checks if the property does not match the given pattern (nullable version).
  *
- * @receiver [T] – the type of the entity.
- * @param pattern – The pattern to match against.
+ * @receiver [T] - the type of the entity.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the property does not match the pattern.
  */
 @JvmName("notLikeNullable")
@@ -59,8 +59,8 @@ fun <T : Any> KProperty1<T, String?>.notLike(pattern: String): PredicateSpecific
 /**
  * Creates a [PredicateSpecification] that checks if the nested String property matches the given pattern.
  *
- * @receiver [ROOT] – the root entity type.
- * @param pattern – The pattern to match against.
+ * @receiver [ROOT] - the root entity type.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the nested property matches the pattern.
  */
 fun <ROOT : Any> NestedProperty<ROOT, String>.like(pattern: String): PredicateSpecification<ROOT> =
@@ -71,8 +71,8 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.like(pattern: String): PredicateSp
 /**
  * Creates a [PredicateSpecification] that checks if the nested nullable String property matches the given pattern.
  *
- * @receiver [ROOT] – the root entity type.
- * @param pattern – The pattern to match against.
+ * @receiver [ROOT] - the root entity type.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the nested property matches the pattern.
  */
 @JvmName("nestedLikeNullable")
@@ -84,8 +84,8 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.like(pattern: String): PredicateS
 /**
  * Creates a [PredicateSpecification] that checks if the nested String property does not match the given pattern.
  *
- * @receiver [ROOT] – the root entity type.
- * @param pattern – The pattern to match against.
+ * @receiver [ROOT] - the root entity type.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the nested property does not match the pattern.
  */
 fun <ROOT : Any> NestedProperty<ROOT, String>.notLike(pattern: String): PredicateSpecification<ROOT> =
@@ -96,8 +96,8 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notLike(pattern: String): Predicat
 /**
  * Creates a [PredicateSpecification] that checks if the nested nullable String property does not match the given pattern.
  *
- * @receiver [ROOT] – the root entity type.
- * @param pattern – The pattern to match against.
+ * @receiver [ROOT] - the root entity type.
+ * @param pattern The pattern to match against.
  * @return A [PredicateSpecification] that checks if the nested property does not match the pattern.
  */
 @JvmName("nestedNotLikeNullable")

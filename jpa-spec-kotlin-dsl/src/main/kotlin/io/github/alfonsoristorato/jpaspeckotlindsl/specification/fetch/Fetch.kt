@@ -12,8 +12,8 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Specification] that performs a fetch and applies a list of [Predicate]s by ANDing them to the fetch-joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the fetch-joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the fetch-joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicates.
@@ -33,8 +33,8 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
 /**
  * Creates a [Specification] that performs a fetch-join on a nullable property and applies a list of [Predicate]s by ANDing them to the fetch-joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the fetch-joined entity (non-nullable).
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the fetch-joined entity (non-nullable).
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicates.
@@ -55,8 +55,8 @@ fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicates(
 /**
  * Creates a [Specification] that performs a fetch-join and applies a [Predicate] to the fetch-joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the fetch-joined entity.
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the fetch-joined entity.
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicate.
@@ -72,8 +72,8 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicate(
 /**
  * Creates a [Specification] that performs a fetch-join on a nullable property and applies a [Predicate] to the fetch-joined entity.
  *
- * @receiver [T] – the type of the root entity.
- * @receiver [R] – the type of the fetch-joined entity (non-nullable).
+ * @receiver [T] - the type of the root entity.
+ * @receiver [R] - the type of the fetch-joined entity (non-nullable).
  * @param joinType The type of join to perform (defaults to [JoinType.INNER]).
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicate.
