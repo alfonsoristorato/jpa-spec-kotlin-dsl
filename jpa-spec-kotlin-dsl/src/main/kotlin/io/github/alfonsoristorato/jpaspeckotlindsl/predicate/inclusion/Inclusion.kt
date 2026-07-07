@@ -9,8 +9,8 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that checks if the property's value is in the given value.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for inclusion (can be a [Collection]).
@@ -26,8 +26,8 @@ fun <T, P> KProperty1<T, P>.`in`(
  * Creates a [Predicate] that checks if the property's value is in the given value.
  * This delegates to the [`in`] method.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for inclusion (can be a [Collection]).
@@ -42,8 +42,8 @@ fun <T, P> KProperty1<T, P>.containedIn(
 /**
  * Creates a [Predicate] that checks if the nested property's value is in the given value.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for inclusion (can be a [Collection]).
@@ -59,8 +59,8 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.`in`(
  * Creates a [Predicate] that checks if the nested property's value is in the given value.
  * This delegates to the [`in`] method.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for inclusion (can be a [Collection]).
@@ -76,8 +76,8 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.containedIn(
  * Creates a [Predicate] that checks if the property's value is not in the given value.
  * This negates the [`in`] method.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for exclusion (can be a [Collection]).
@@ -93,8 +93,8 @@ fun <T, P> KProperty1<T, P>.notIn(
  * Creates a [Predicate] that checks if the property's value is not in the given value.
  * This delegates to the [notIn] method.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for exclusion (can be a [Collection]).
@@ -110,8 +110,8 @@ fun <T, P> KProperty1<T, P>.notContainedIn(
  * Creates a [Predicate] that checks if the nested property's value is not in the given value.
  * This negates the [`in`] method.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for exclusion (can be a [Collection]).
@@ -127,8 +127,8 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.notIn(
  * Creates a [Predicate] that checks if the nested property's value is not in the given value.
  * This delegates to the [notIn] method.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to check for exclusion (can be a [Collection]).

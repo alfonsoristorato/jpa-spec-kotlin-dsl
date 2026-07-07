@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that checks if the property matches the given pattern.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -24,7 +24,7 @@ fun <T> KProperty1<T, String>.like(
 /**
  * Creates a [Predicate] that checks if the property matches the given pattern (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -40,7 +40,7 @@ fun <T> KProperty1<T, String?>.like(
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -55,7 +55,7 @@ fun <T> KProperty1<T, String>.notLike(
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -71,7 +71,7 @@ fun <T> KProperty1<T, String?>.notLike(
 /**
  * Creates a [Predicate] that checks if the nested String property matches the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -86,7 +86,7 @@ fun <ROOT> NestedProperty<ROOT, String>.like(
 /**
  * Creates a [Predicate] that checks if the nested nullable String property matches the given pattern (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -102,7 +102,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.like(
 /**
  * Creates a [Predicate] that checks if the nested String property does not match the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.
@@ -117,7 +117,7 @@ fun <ROOT> NestedProperty<ROOT, String>.notLike(
 /**
  * Creates a [Predicate] that checks if the nested nullable String property does not match the given pattern (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param pattern The pattern to match against.

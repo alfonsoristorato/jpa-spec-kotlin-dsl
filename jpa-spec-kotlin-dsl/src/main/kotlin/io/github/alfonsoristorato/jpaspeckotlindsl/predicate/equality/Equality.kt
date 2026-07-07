@@ -9,8 +9,8 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Predicate] that checks if the property is equal to the given value.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to compare against.
@@ -25,8 +25,8 @@ fun <T, P> KProperty1<T, P>.equal(
 /**
  * Creates a [Predicate] that checks if the property is not equal to the given value.
  *
- * @receiver [T] - the type of the entity.
- * @receiver [P] - the type of the property.
+ * @param T the type of the entity.
+ * @param P the type of the property.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to compare against.
@@ -41,8 +41,8 @@ fun <T, P> KProperty1<T, P>.notEqual(
 /**
  * Creates a [Predicate] that checks if the nested property is equal to the given value.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to compare against.
@@ -57,8 +57,8 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.equal(
 /**
  * Creates a [Predicate] that checks if the nested property is not equal to the given value.
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [PROP] - the type of the property.
+ * @param ROOT the root entity type.
+ * @param PROP the type of the property.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The value to compare against.

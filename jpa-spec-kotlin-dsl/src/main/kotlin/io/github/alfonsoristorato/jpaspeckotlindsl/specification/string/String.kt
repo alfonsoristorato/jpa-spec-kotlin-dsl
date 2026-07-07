@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Specification] that checks if the property matches the given pattern.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -21,7 +21,7 @@ fun <T : Any> KProperty1<T, String>.like(pattern: String): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property matches the given pattern (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -34,7 +34,7 @@ fun <T : Any> KProperty1<T, String?>.like(pattern: String): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property does not match the given pattern.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -46,7 +46,7 @@ fun <T : Any> KProperty1<T, String>.notLike(pattern: String): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property does not match the given pattern (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -59,7 +59,7 @@ fun <T : Any> KProperty1<T, String?>.notLike(pattern: String): Specification<T> 
 /**
  * Creates a [Specification] that checks if the nested String property matches the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -71,7 +71,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.like(pattern: String): Specificati
 /**
  * Creates a [Specification] that checks if the nested nullable String property matches the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -84,7 +84,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.like(pattern: String): Specificat
 /**
  * Creates a [Specification] that checks if the nested String property does not match the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -96,7 +96,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notLike(pattern: String): Specific
 /**
  * Creates a [Specification] that checks if the nested nullable String property does not match the given pattern.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */

@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
 /**
  * Creates a [Specification] that checks if the property matches the given pattern, ignoring case sensitivity.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -25,7 +25,7 @@ fun <T : Any> KProperty1<T, String>.ilike(pattern: String): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property matches the given pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -38,7 +38,7 @@ fun <T : Any> KProperty1<T, String?>.ilike(pattern: String): Specification<T> =
 /**
  * Creates a [Specification] that checks if the property does not match the given pattern, ignoring case sensitivity.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -50,7 +50,7 @@ fun <T : Any> KProperty1<T, String>.notIlike(pattern: String): Specification<T> 
 /**
  * Creates a [Specification] that checks if the property does not match the given pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -63,7 +63,7 @@ fun <T : Any> KProperty1<T, String?>.notIlike(pattern: String): Specification<T>
 /**
  * Creates a [Specification] that checks if the nested String property matches the given pattern, ignoring case sensitivity.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -75,7 +75,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.ilike(pattern: String): Specificat
 /**
  * Creates a [Specification] that checks if the nested nullable String property matches the given pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -88,7 +88,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.ilike(pattern: String): Specifica
 /**
  * Creates a [Specification] that checks if the nested String property does not match the given pattern, ignoring case sensitivity.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -100,7 +100,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notIlike(pattern: String): Specifi
 /**
  * Creates a [Specification] that checks if the nested nullable String property does not match the given pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -113,7 +113,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.notIlike(pattern: String): Specif
 /**
  * Creates a [Specification] that checks if the property matches the given POSIX regex pattern (case-sensitive).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -125,7 +125,7 @@ fun <T : Any> KProperty1<T, String>.likeRegexp(pattern: String): Specification<T
 /**
  * Creates a [Specification] that checks if the property matches the given POSIX regex pattern, case-sensitive (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -138,7 +138,7 @@ fun <T : Any> KProperty1<T, String?>.likeRegexp(pattern: String): Specification<
 /**
  * Creates a [Specification] that checks if the property does not match the given POSIX regex pattern (case-sensitive).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -150,7 +150,7 @@ fun <T : Any> KProperty1<T, String>.notLikeRegexp(pattern: String): Specificatio
 /**
  * Creates a [Specification] that checks if the property does not match the given POSIX regex pattern, case-sensitive (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -163,7 +163,7 @@ fun <T : Any> KProperty1<T, String?>.notLikeRegexp(pattern: String): Specificati
 /**
  * Creates a [Specification] that checks if the nested String property matches the given POSIX regex pattern (case-sensitive).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -175,7 +175,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.likeRegexp(pattern: String): Speci
 /**
  * Creates a [Specification] that checks if the nested nullable String property matches the given POSIX regex pattern, case-sensitive (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -188,7 +188,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.likeRegexp(pattern: String): Spec
 /**
  * Creates a [Specification] that checks if the nested String property does not match the given POSIX regex pattern (case-sensitive).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -200,7 +200,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notLikeRegexp(pattern: String): Sp
 /**
  * Creates a [Specification] that checks if the nested nullable String property does not match the given POSIX regex pattern, case-sensitive (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -213,7 +213,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.notLikeRegexp(pattern: String): S
 /**
  * Creates a [Specification] that checks if the property matches the given POSIX regex pattern, ignoring case sensitivity.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -225,7 +225,7 @@ fun <T : Any> KProperty1<T, String>.ilikeRegexp(pattern: String): Specification<
 /**
  * Creates a [Specification] that checks if the property matches the given POSIX regex pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property matches the pattern.
  */
@@ -238,7 +238,7 @@ fun <T : Any> KProperty1<T, String?>.ilikeRegexp(pattern: String): Specification
 /**
  * Creates a [Specification] that checks if the property does not match the given POSIX regex pattern, ignoring case sensitivity.
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -250,7 +250,7 @@ fun <T : Any> KProperty1<T, String>.notIlikeRegexp(pattern: String): Specificati
 /**
  * Creates a [Specification] that checks if the property does not match the given POSIX regex pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [T] - the type of the entity.
+ * @param T the type of the entity.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the property does not match the pattern.
  */
@@ -263,7 +263,7 @@ fun <T : Any> KProperty1<T, String?>.notIlikeRegexp(pattern: String): Specificat
 /**
  * Creates a [Specification] that checks if the nested String property matches the given POSIX regex pattern, ignoring case sensitivity.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -275,7 +275,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.ilikeRegexp(pattern: String): Spec
 /**
  * Creates a [Specification] that checks if the nested nullable String property matches the given POSIX regex pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property matches the pattern.
  */
@@ -288,7 +288,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.ilikeRegexp(pattern: String): Spe
 /**
  * Creates a [Specification] that checks if the nested String property does not match the given POSIX regex pattern, ignoring case sensitivity.
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */
@@ -300,7 +300,7 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notIlikeRegexp(pattern: String): S
 /**
  * Creates a [Specification] that checks if the nested nullable String property does not match the given POSIX regex pattern, ignoring case sensitivity (nullable version).
  *
- * @receiver [ROOT] - the root entity type.
+ * @param ROOT the root entity type.
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Specification] that checks if the nested property does not match the pattern.
  */

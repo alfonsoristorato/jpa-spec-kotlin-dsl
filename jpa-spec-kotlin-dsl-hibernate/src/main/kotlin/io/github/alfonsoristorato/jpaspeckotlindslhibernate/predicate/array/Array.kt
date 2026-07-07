@@ -13,8 +13,8 @@ import kotlin.reflect.KProperty1
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for containment.
@@ -35,8 +35,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for non-containment.
@@ -57,8 +57,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for containment.
@@ -79,8 +79,8 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param value The element value to check for non-containment.
@@ -101,8 +101,8 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array whose elements must all be present in the column.
@@ -123,8 +123,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array whose elements must not all be present in the column.
@@ -145,8 +145,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array whose elements must all be present in the column.
@@ -167,8 +167,8 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array whose elements must not all be present in the column.
@@ -189,8 +189,8 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array to check for overlap.
@@ -211,8 +211,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIntersects(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [T] - the type of the entity.
- * @receiver [E] - the type of the element in the array.
+ * @param T the type of the entity.
+ * @param E the type of the element in the array.
  * @param path The path of the entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array to check for overlap.
@@ -233,8 +233,8 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotIntersects(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array to check for overlap.
@@ -255,8 +255,8 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIntersects(
  * Use this for properties mapped with [@JdbcTypeCode(SqlTypes.ARRAY)][org.hibernate.annotations.JdbcTypeCode]
  * and typed as [Array].
  *
- * @receiver [ROOT] - the root entity type.
- * @receiver [E] - the type of the element in the array.
+ * @param ROOT the root entity type.
+ * @param E the type of the element in the array.
  * @param path The path of the root entity.
  * @param criteriaBuilder The criteria builder.
  * @param subArray The sub-array to check for overlap.
