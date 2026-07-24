@@ -2,11 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-}
-
 dependencies {
     //region Plugins for main
     implementation(plugin(libs.plugins.kotlin.jvm))
