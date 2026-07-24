@@ -13,10 +13,6 @@ plugins {
     //endregion
 }
 
-repositories {
-    mavenCentral()
-}
-
 val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
 dependencies {

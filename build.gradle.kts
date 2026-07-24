@@ -3,10 +3,6 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dokka {
     moduleName.set("JPA Specification Kotlin DSL")
     dokkaPublications.html {
