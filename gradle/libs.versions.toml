@@ -1,6 +1,6 @@
 # Keep alphabetical and formatted correctly please
 [versions]
-archunit-junit5                 = "1.4.2"
+archunit-junit5                 = "1.5.0"
 dokka                           = "2.2.0"
 flyway                          = "13.1.0"
 gradle-ktlint                   = "14.2.0"
