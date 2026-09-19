@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     //region Plugins for main
     id("org.jetbrains.kotlin.jvm")
@@ -39,8 +41,14 @@ kotlin {
     compilerOptions {
         extraWarnings.set(true)
         allWarningsAsErrors.set(true)
+        jvmTarget.set(JvmTarget.JVM_17)
     }
-    jvmToolchain(21)
+    jvmToolchain(25)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.build {
