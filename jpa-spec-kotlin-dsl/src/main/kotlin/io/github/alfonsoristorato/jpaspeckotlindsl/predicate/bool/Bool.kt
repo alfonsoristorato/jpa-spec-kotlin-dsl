@@ -18,7 +18,7 @@ import kotlin.reflect.KProperty1
 fun <T> KProperty1<T, Boolean>.isTrue(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isTrue(path.get(this.name))
+): Predicate = criteriaBuilder.isTrue(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nullable Boolean property is true.
@@ -32,7 +32,7 @@ fun <T> KProperty1<T, Boolean>.isTrue(
 fun <T> KProperty1<T, Boolean?>.isTrue(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isTrue(path.get(this.name))
+): Predicate = criteriaBuilder.isTrue(path(path))
 
 /**
  * Creates a [Predicate] that checks if the Boolean property is false.
@@ -45,7 +45,7 @@ fun <T> KProperty1<T, Boolean?>.isTrue(
 fun <T> KProperty1<T, Boolean>.isFalse(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isFalse(path.get(this.name))
+): Predicate = criteriaBuilder.isFalse(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nullable Boolean property is false.
@@ -59,7 +59,7 @@ fun <T> KProperty1<T, Boolean>.isFalse(
 fun <T> KProperty1<T, Boolean?>.isFalse(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isFalse(path.get(this.name))
+): Predicate = criteriaBuilder.isFalse(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested Boolean property is true.

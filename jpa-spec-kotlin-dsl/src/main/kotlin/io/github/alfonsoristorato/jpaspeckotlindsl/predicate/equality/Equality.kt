@@ -21,7 +21,7 @@ fun <T, P> KProperty1<T, P>.equal(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
-): Predicate = criteriaBuilder.equal(path.get<P>(this.name), value)
+): Predicate = criteriaBuilder.equal(path(path), value)
 
 /**
  * Creates a [Predicate] that checks if the property is not equal to the given value.
@@ -37,7 +37,7 @@ fun <T, P> KProperty1<T, P>.notEqual(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
-): Predicate = criteriaBuilder.notEqual(path.get<P>(this.name), value)
+): Predicate = criteriaBuilder.notEqual(path(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is equal to the given value.

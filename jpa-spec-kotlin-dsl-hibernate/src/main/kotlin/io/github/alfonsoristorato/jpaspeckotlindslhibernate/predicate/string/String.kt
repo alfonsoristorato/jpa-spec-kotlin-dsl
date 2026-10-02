@@ -21,7 +21,7 @@ fun <T> KProperty1<T, String>.ilike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given pattern, ignoring case sensitivity (nullable version).
@@ -37,7 +37,7 @@ fun <T> KProperty1<T, String?>.ilike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern, ignoring case sensitivity.
@@ -52,7 +52,7 @@ fun <T> KProperty1<T, String>.notIlike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern, ignoring case sensitivity (nullable version).
@@ -68,7 +68,7 @@ fun <T> KProperty1<T, String?>.notIlike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property matches the given pattern, ignoring case sensitivity.
@@ -145,7 +145,7 @@ fun <T> KProperty1<T, String>.likeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given POSIX regex pattern, case-sensitive (nullable version).
@@ -161,7 +161,7 @@ fun <T> KProperty1<T, String?>.likeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given POSIX regex pattern (case-sensitive).
@@ -176,7 +176,7 @@ fun <T> KProperty1<T, String>.notLikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given POSIX regex pattern, case-sensitive (nullable version).
@@ -192,7 +192,7 @@ fun <T> KProperty1<T, String?>.notLikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property matches the given POSIX regex pattern (case-sensitive).
@@ -269,7 +269,7 @@ fun <T> KProperty1<T, String>.ilikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given POSIX regex pattern, ignoring case sensitivity (nullable version).
@@ -285,7 +285,7 @@ fun <T> KProperty1<T, String?>.ilikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given POSIX regex pattern, ignoring case sensitivity.
@@ -300,7 +300,7 @@ fun <T> KProperty1<T, String>.notIlikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given POSIX regex pattern, ignoring case sensitivity (nullable version).
@@ -316,7 +316,7 @@ fun <T> KProperty1<T, String?>.notIlikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property matches the given POSIX regex pattern, ignoring case sensitivity.

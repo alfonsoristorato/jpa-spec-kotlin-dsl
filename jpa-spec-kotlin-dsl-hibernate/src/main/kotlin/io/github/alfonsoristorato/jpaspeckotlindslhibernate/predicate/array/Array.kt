@@ -29,7 +29,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayContains(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayContains(path.get(this.name), value)
+        .arrayContains(path(path), value)
 
 /**
  * Creates a [Predicate] that tests whether a native array column does not contain a given element.
@@ -50,7 +50,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotContains(
     value: E,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayContains(path.get(this@arrayNotContains.name), value))
+        not(arrayContains(this@arrayNotContains.path(path), value))
     }
 
 /**
@@ -117,7 +117,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIncludes(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayIncludes(path.get(this.name), subArray)
+        .arrayIncludes(path(path), subArray)
 
 /**
  * Creates a [Predicate] that tests whether a native array column does not contain all elements of the given sub-array.
@@ -138,7 +138,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotIncludes(
     subArray: Array<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayIncludes(path.get(this@arrayNotIncludes.name), subArray))
+        not(arrayIncludes(this@arrayNotIncludes.path(path), subArray))
     }
 
 /**
@@ -205,7 +205,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIntersects(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayIntersects(path.get(this.name), subArray)
+        .arrayIntersects(path(path), subArray)
 
 /**
  * Creates a [Predicate] that tests whether a native array column does not share any element with the given sub-array.
@@ -226,7 +226,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayNotIntersects(
     subArray: Array<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayIntersects(path.get(this@arrayNotIntersects.name), subArray))
+        not(arrayIntersects(this@arrayNotIntersects.path(path), subArray))
     }
 
 /**

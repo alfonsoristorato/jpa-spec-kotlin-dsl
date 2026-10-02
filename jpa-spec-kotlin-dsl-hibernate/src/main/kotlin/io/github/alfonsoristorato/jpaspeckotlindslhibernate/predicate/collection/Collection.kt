@@ -29,7 +29,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionContains(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionContains(path.get(this.name), value)
+        .collectionContains(path(path), value)
 
 /**
  * Creates a [Predicate] that tests whether a native collection column does not contain a given element.
@@ -50,7 +50,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotContains(
     value: E,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionContains(path.get(this@collectionNotContains.name), value))
+        not(collectionContains(this@collectionNotContains.path(path), value))
     }
 
 /**
@@ -119,7 +119,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIncludes(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionIncludes(path.get(this.name), subCollection)
+        .collectionIncludes(path(path), subCollection)
 
 /**
  * Creates a [Predicate] that tests whether a native collection column does not contain all elements of the given sub-collection.
@@ -140,7 +140,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotIncludes(
     subCollection: Collection<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionIncludes(path.get(this@collectionNotIncludes.name), subCollection))
+        not(collectionIncludes(this@collectionNotIncludes.path(path), subCollection))
     }
 
 /**
@@ -209,7 +209,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIntersects(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionIntersects(path.get(this.name), subCollection)
+        .collectionIntersects(path(path), subCollection)
 
 /**
  * Creates a [Predicate] that tests whether a native collection column does not share any element with the given sub-collection.
@@ -230,7 +230,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionNotIntersects(
     subCollection: Collection<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionIntersects(path.get(this@collectionNotIntersects.name), subCollection))
+        not(collectionIntersects(this@collectionNotIntersects.path(path), subCollection))
     }
 
 /**

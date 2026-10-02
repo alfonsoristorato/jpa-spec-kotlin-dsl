@@ -20,7 +20,7 @@ fun <T> KProperty1<T, String>.like(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.like(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.like(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given pattern (nullable version).
@@ -36,7 +36,7 @@ fun <T> KProperty1<T, String?>.like(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.like(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.like(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern.
@@ -51,7 +51,7 @@ fun <T> KProperty1<T, String>.notLike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.notLike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.notLike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property does not match the given pattern (nullable version).
@@ -67,7 +67,7 @@ fun <T> KProperty1<T, String?>.notLike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.notLike(path.get(this.name), pattern)
+): Predicate = criteriaBuilder.notLike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property matches the given pattern.
