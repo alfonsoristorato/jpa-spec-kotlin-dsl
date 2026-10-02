@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.string
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.resolveHibernateCriteriaBuilder
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
@@ -82,7 +83,7 @@ fun <ROOT> NestedProperty<ROOT, String>.ilike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property matches the given pattern, ignoring case sensitivity (nullable version).
@@ -98,7 +99,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.ilike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property does not match the given pattern, ignoring case sensitivity.
@@ -113,7 +114,7 @@ fun <ROOT> NestedProperty<ROOT, String>.notIlike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property does not match the given pattern, ignoring case sensitivity (nullable version).
@@ -129,7 +130,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.notIlike(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlike(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given POSIX regex pattern (case-sensitive).
@@ -206,7 +207,7 @@ fun <ROOT> NestedProperty<ROOT, String>.likeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property matches the given POSIX regex pattern, case-sensitive (nullable version).
@@ -222,7 +223,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.likeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().likeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property does not match the given POSIX regex pattern (case-sensitive).
@@ -237,7 +238,7 @@ fun <ROOT> NestedProperty<ROOT, String>.notLikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property does not match the given POSIX regex pattern, case-sensitive (nullable version).
@@ -253,7 +254,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.notLikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notLikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the property matches the given POSIX regex pattern, ignoring case sensitivity.
@@ -330,7 +331,7 @@ fun <ROOT> NestedProperty<ROOT, String>.ilikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property matches the given POSIX regex pattern, ignoring case sensitivity (nullable version).
@@ -346,7 +347,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.ilikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().ilikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested String property does not match the given POSIX regex pattern, ignoring case sensitivity.
@@ -361,7 +362,7 @@ fun <ROOT> NestedProperty<ROOT, String>.notIlikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path(path), pattern)
 
 /**
  * Creates a [Predicate] that checks if the nested nullable String property does not match the given POSIX regex pattern, ignoring case sensitivity (nullable version).
@@ -377,4 +378,4 @@ fun <ROOT> NestedProperty<ROOT, String?>.notIlikeRegexp(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
-): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(resolve(path), pattern)
+): Predicate = criteriaBuilder.resolveHibernateCriteriaBuilder().notIlikeRegexp(path(path), pattern)

@@ -1,5 +1,6 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.nested
 
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.Path
 import kotlin.reflect.KProperty1
 
@@ -24,11 +25,12 @@ data class NestedProperty<ROOT, out PROP>(
      * @param root The JPA root or parent path to start from.
      * @return The fully resolved [Path] pointing to the leaf property.
      */
-    @Suppress("UNCHECKED_CAST")
-    fun resolve(root: Path<*>): Path<@UnsafeVariance PROP> {
-        val parentPath = parentNames.fold(root as Path<Any>) { path, name -> path.get(name) }
-        return parentPath.get(child.name)
-    }
+    @Deprecated(
+        "Renamed to the top-level path() extension.",
+        ReplaceWith("path(root)", "io.github.alfonsoristorato.jpaspeckotlindsl.path.path"),
+        DeprecationLevel.WARNING
+    )
+    fun resolve(root: Path<*>): Path<@UnsafeVariance PROP> = path(root)
 }
 
 /**

@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.collection
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.resolveHibernateCriteriaBuilder
 import jakarta.persistence.criteria.CriteriaBuilder
@@ -73,7 +74,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionContain
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionContains(resolve(path), value)
+        .collectionContains(path(path), value)
 
 /**
  * Creates a [Predicate] that tests whether a nested native collection column does not contain a given element.
@@ -95,7 +96,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotCont
     value: E,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionContains(resolve(path), value))
+        not(collectionContains(path(path), value))
     }
 
 /**
@@ -163,7 +164,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionInclude
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionIncludes(resolve(path), subCollection)
+        .collectionIncludes(path(path), subCollection)
 
 /**
  * Creates a [Predicate] that tests whether a nested native collection column does not contain all elements of the given sub-collection.
@@ -185,7 +186,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncl
     subCollection: Collection<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionIncludes(resolve(path), subCollection))
+        not(collectionIncludes(path(path), subCollection))
     }
 
 /**
@@ -253,7 +254,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionInterse
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .collectionIntersects(resolve(path), subCollection)
+        .collectionIntersects(path(path), subCollection)
 
 /**
  * Creates a [Predicate] that tests whether a nested native collection column does not share any element with the given sub-collection.
@@ -275,5 +276,5 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotInte
     subCollection: Collection<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(collectionIntersects(resolve(path), subCollection))
+        not(collectionIntersects(path(path), subCollection))
     }

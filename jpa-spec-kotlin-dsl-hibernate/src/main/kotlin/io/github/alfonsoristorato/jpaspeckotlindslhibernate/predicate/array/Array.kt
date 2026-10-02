@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindslhibernate.predicate.array
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.ExperimentalHibernateApi
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.internal.resolveHibernateCriteriaBuilder
 import jakarta.persistence.criteria.CriteriaBuilder
@@ -72,7 +73,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayContains(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayContains(resolve(path), value)
+        .arrayContains(path(path), value)
 
 /**
  * Creates a [Predicate] that tests whether a nested native array column does not contain a given element.
@@ -93,7 +94,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(
     value: E,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayContains(resolve(path), value))
+        not(arrayContains(path(path), value))
     }
 
 /**
@@ -160,7 +161,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIncludes(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayIncludes(resolve(path), subArray)
+        .arrayIncludes(path(path), subArray)
 
 /**
  * Creates a [Predicate] that tests whether a nested native array column does not contain all elements of the given sub-array.
@@ -181,7 +182,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(
     subArray: Array<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayIncludes(resolve(path), subArray))
+        not(arrayIncludes(path(path), subArray))
     }
 
 /**
@@ -248,7 +249,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayIntersects(
 ): Predicate =
     criteriaBuilder
         .resolveHibernateCriteriaBuilder()
-        .arrayIntersects(resolve(path), subArray)
+        .arrayIntersects(path(path), subArray)
 
 /**
  * Creates a [Predicate] that tests whether a nested native array column does not share any element with the given sub-array.
@@ -269,5 +270,5 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIntersects(
     subArray: Array<E>,
 ): Predicate =
     criteriaBuilder.resolveHibernateCriteriaBuilder().run {
-        not(arrayIntersects(resolve(path), subArray))
+        not(arrayIntersects(path(path), subArray))
     }

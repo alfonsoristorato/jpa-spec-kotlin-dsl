@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.nullability
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -46,7 +47,7 @@ fun <T, P> KProperty1<T, P>.isNotNull(
 fun <ROOT, PROP> NestedProperty<ROOT, PROP>.isNull(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isNull(resolve(path))
+): Predicate = criteriaBuilder.isNull(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested property is not null.
@@ -60,4 +61,4 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.isNull(
 fun <ROOT, PROP> NestedProperty<ROOT, PROP>.isNotNull(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isNotNull(resolve(path))
+): Predicate = criteriaBuilder.isNotNull(path(path))
