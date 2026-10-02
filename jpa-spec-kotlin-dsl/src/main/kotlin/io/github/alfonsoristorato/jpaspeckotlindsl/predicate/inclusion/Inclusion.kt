@@ -21,7 +21,7 @@ fun <T, P> KProperty1<T, P>.`in`(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
-): Predicate = criteriaBuilder.`in`(path.get<P>(this.name)).value(value)
+): Predicate = criteriaBuilder.`in`(path(path)).value(value)
 
 /**
  * Creates a [Predicate] that checks if the property's value is in the given value.

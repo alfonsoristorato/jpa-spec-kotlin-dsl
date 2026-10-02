@@ -19,7 +19,7 @@ import kotlin.reflect.KProperty1
 fun <T, P> KProperty1<T, P>.isNull(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isNull(path.get<P>(this.name))
+): Predicate = criteriaBuilder.isNull(path(path))
 
 /**
  * Creates a [Predicate] that checks if the property is not null.
@@ -33,7 +33,7 @@ fun <T, P> KProperty1<T, P>.isNull(
 fun <T, P> KProperty1<T, P>.isNotNull(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isNotNull(path.get<P>(this.name))
+): Predicate = criteriaBuilder.isNotNull(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested property is null.
