@@ -64,6 +64,7 @@ nav:
       - Nested Properties: examples/nested-properties.md
       - Joins: examples/joins.md
       - Combining Specifications: examples/combining.md
+      - Combining Predicates: examples/combining-predicates.md
   - Hibernate Module:
       - Overview: hibernate/index.md
       - Case-insensitive string matching: hibernate/string-operations.md
