@@ -28,7 +28,7 @@ data class NestedProperty<ROOT, out PROP>(
     @Deprecated(
         "Renamed to the top-level path() extension.",
         ReplaceWith("path(root)", "io.github.alfonsoristorato.jpaspeckotlindsl.path.path"),
-        DeprecationLevel.WARNING
+        DeprecationLevel.WARNING,
     )
     fun resolve(root: Path<*>): Path<@UnsafeVariance PROP> = path(root)
 }
