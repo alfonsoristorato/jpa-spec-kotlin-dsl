@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.collection
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -87,7 +88,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotMember(
 fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isEmpty(resolve(path))
+): Predicate = criteriaBuilder.isEmpty(path(path))
 
 /**
  * Creates a [Predicate] that tests whether a nested collection is not empty.
@@ -102,7 +103,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isEmpty(
 fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotEmpty(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isNotEmpty(resolve(path))
+): Predicate = criteriaBuilder.isNotEmpty(path(path))
 
 /**
  * Creates a [Predicate] that tests whether an element is a member of a nested collection.
@@ -119,7 +120,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isMember(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
-): Predicate = criteriaBuilder.isMember(value, resolve(path))
+): Predicate = criteriaBuilder.isMember(value, path(path))
 
 /**
  * Creates a [Predicate] that tests whether an element is not a member of a nested collection.
@@ -136,4 +137,4 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.isNotMember(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
-): Predicate = criteriaBuilder.isNotMember(value, resolve(path))
+): Predicate = criteriaBuilder.isNotMember(value, path(path))

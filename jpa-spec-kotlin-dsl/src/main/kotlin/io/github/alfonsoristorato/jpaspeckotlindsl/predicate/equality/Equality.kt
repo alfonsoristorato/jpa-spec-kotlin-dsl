@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.equality
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -52,7 +53,7 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.equal(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.equal(resolve(path), value)
+): Predicate = criteriaBuilder.equal(path(path), value)
 
 /**
  * Creates a [Predicate] that checks if the nested property is not equal to the given value.
@@ -68,4 +69,4 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.notEqual(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.notEqual(resolve(path), value)
+): Predicate = criteriaBuilder.notEqual(path(path), value)

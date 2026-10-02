@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.comparison
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -90,7 +91,7 @@ fun <T, P : Comparable<P>> KProperty1<T, P?>.between(
 
 @Suppress("UNCHECKED_CAST")
 private fun <ROOT, PROP : Comparable<PROP>> NestedProperty<ROOT, PROP?>.resolveComparable(path: Path<ROOT>): Path<PROP> =
-    resolve(path) as Path<PROP>
+    path(path) as Path<PROP>
 
 /**
  * Creates a [Predicate] that checks if the nested property is greater than the given value.

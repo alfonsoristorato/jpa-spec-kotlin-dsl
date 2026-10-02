@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.inclusion
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -53,7 +54,7 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.`in`(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
     value: PROP,
-): Predicate = criteriaBuilder.`in`(resolve(path)).value(value)
+): Predicate = criteriaBuilder.`in`(path(path)).value(value)
 
 /**
  * Creates a [Predicate] that checks if the nested property's value is in the given value.

@@ -1,6 +1,7 @@
 package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.bool
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.NestedProperty
+import io.github.alfonsoristorato.jpaspeckotlindsl.path.path
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
@@ -71,7 +72,7 @@ fun <T> KProperty1<T, Boolean?>.isFalse(
 fun <ROOT> NestedProperty<ROOT, Boolean>.isTrue(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isTrue(resolve(path))
+): Predicate = criteriaBuilder.isTrue(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested nullable Boolean property is true.
@@ -85,7 +86,7 @@ fun <ROOT> NestedProperty<ROOT, Boolean>.isTrue(
 fun <ROOT> NestedProperty<ROOT, Boolean?>.isTrue(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isTrue(resolve(path))
+): Predicate = criteriaBuilder.isTrue(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested Boolean property is false.
@@ -98,7 +99,7 @@ fun <ROOT> NestedProperty<ROOT, Boolean?>.isTrue(
 fun <ROOT> NestedProperty<ROOT, Boolean>.isFalse(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isFalse(resolve(path))
+): Predicate = criteriaBuilder.isFalse(path(path))
 
 /**
  * Creates a [Predicate] that checks if the nested nullable Boolean property is false.
@@ -112,4 +113,4 @@ fun <ROOT> NestedProperty<ROOT, Boolean>.isFalse(
 fun <ROOT> NestedProperty<ROOT, Boolean?>.isFalse(
     path: Path<ROOT>,
     criteriaBuilder: CriteriaBuilder,
-): Predicate = criteriaBuilder.isFalse(resolve(path))
+): Predicate = criteriaBuilder.isFalse(path(path))
