@@ -1,0 +1,18 @@
+{
+  "name": "jpa-spec-kotlin-dsl",
+  "owner": {
+    "name": "Alfonso Ristorato",
+    "url": "https://github.com/alfonsoristorato"
+  },
+  "metadata": {
+    "description": "Official marketplace for jpa-spec-kotlin-dsl agent skills.",
+    "version": "1.8.0"
+  },
+  "plugins": [
+    {
+      "name": "jpa-spec-kotlin-dsl-skills",
+      "source": "./",
+      "description": "Agent skills for writing, migrating, and debugging type-safe Spring Data JPA queries with jpa-spec-kotlin-dsl."
+    }
+  ]
+}

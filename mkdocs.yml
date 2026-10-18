@@ -71,4 +71,5 @@ nav:
       - Case-insensitive string matching: hibernate/string-operations.md
       - Native array operations: hibernate/array-operations.md
       - Native collection operations: hibernate/collection-operations.md
+  - AI Agent Skills: ai/index.md
   - API Reference: https://alfonsoristorato.github.io/jpa-spec-kotlin-dsl/api/
