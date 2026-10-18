@@ -1,0 +1,51 @@
+name: Bump Skill Plugin Version
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to set on the skill plugin'
+        required: true
+        type: string
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Open PR bumping plugin version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version || github.ref_name }}
+        run: |
+          set -euo pipefail
+          VERSION="${RELEASE_VERSION#v}"
+          BUMP_BRANCH="release-bot/bump-skill-plugin-${VERSION}"
+          jq --arg v "$VERSION" '.version = $v' .claude-plugin/plugin.json > "$RUNNER_TEMP/plugin.json"
+          mv "$RUNNER_TEMP/plugin.json" .claude-plugin/plugin.json
+          jq --arg v "$VERSION" '.metadata.version = $v' .claude-plugin/marketplace.json > "$RUNNER_TEMP/marketplace.json"
+          mv "$RUNNER_TEMP/marketplace.json" .claude-plugin/marketplace.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .claude-plugin/plugin.json .claude-plugin/marketplace.json
+          if git diff --cached --quiet; then
+            echo "Skill plugin already at ${VERSION}; nothing to commit."
+            exit 0
+          fi
+          git checkout -b "${BUMP_BRANCH}"
+          git commit -m "Bump skill plugin version to ${VERSION}"
+          git push origin "${BUMP_BRANCH}"
+          gh pr create \
+            --base main \
+            --head "${BUMP_BRANCH}" \
+            --title "Bump skill plugin version to ${VERSION}" \
+            --body "Automated version bump for the jpa-spec-kotlin-dsl-skills plugin as part of the ${VERSION} release."

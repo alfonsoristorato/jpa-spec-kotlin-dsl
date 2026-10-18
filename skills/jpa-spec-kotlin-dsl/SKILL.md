@@ -13,7 +13,6 @@ description: >
 license: MIT
 metadata:
   author: Alfonso Ristorato
-  version: "1.0.0"
 ---
 
 # JPA Specification Kotlin DSL
