@@ -1,6 +1,6 @@
 {
   "name": "jpa-spec-kotlin-dsl-skills",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Agent skills for writing, migrating, and debugging type-safe Spring Data JPA queries with jpa-spec-kotlin-dsl.",
   "author": {
     "name": "Alfonso Ristorato"
