@@ -24,11 +24,11 @@ No additional configuration is needed. The DSL is available as soon as the depen
 
 The library provides the same operations across three layers depending on what you want to return:
 
-| DSL                            | Returns                     | Use when                                                              |
-|--------------------------------|-----------------------------|-----------------------------------------------------------------------|
-| **Specification DSL**          | `Specification<T>`          | You use `JpaSpecificationExecutor`                                    |
-| **PredicateSpecification DSL** | `PredicateSpecification<T>` | You use `QuerydslPredicateExecutor` / Spring Data's predicate support |
-| **Predicate DSL**              | `Predicate`                 | You need a raw predicate inside a custom `Specification {}` block     |
+| DSL                            | Returns                     | Use when                                                                                                                                                                        |
+|--------------------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Specification DSL**          | `Specification<T>`          | You use `JpaSpecificationExecutor`                                                                                                                                              |
+| **PredicateSpecification DSL** | `PredicateSpecification<T>` | You want query-independent conditions (Spring Data JPA 4.x), passed to `JpaSpecificationExecutor` or reused in `Specification`, `UpdateSpecification` and `DeleteSpecification` |
+| **Predicate DSL**              | `Predicate`                 | You need a raw predicate inside a custom `Specification {}` block                                                                                                               |
 
 ## Your first query
 
