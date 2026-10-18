@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Official marketplace for jpa-spec-kotlin-dsl agent skills.",
-    "version": "1.8.0"
+    "version": "1.8.1"
   },
   "plugins": [
     {
