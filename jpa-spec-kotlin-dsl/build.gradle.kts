@@ -44,7 +44,7 @@ dependencies {
     testFixturesImplementation(libs.bundles.kotest)
     testFixturesImplementation(libs.bundles.db.test)
     testFixturesImplementation(libs.bundles.spring.test)
-    testFixturesImplementation(libs.archunit.junit5)
+    testFixturesImplementation(libs.archunit.junit6)
 }
 
 kover {

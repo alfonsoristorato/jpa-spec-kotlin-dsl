@@ -24,7 +24,7 @@ dependencies {
     testImplementation(libs.findBundle("kotest").get())
     testImplementation(libs.findBundle("db-test").get())
     testImplementation(libs.findBundle("spring-test").get())
-    testImplementation(libs.findLibrary("archunit-junit5").get())
+    testImplementation(libs.findLibrary("archunit-junit6").get())
 }
 
 tasks.test {
