@@ -1,7 +1,7 @@
 # Keep alphabetical and formatted correctly please
 [versions]
 archunit-junit6                 = "1.5.1"
-dokka                           = "2.2.0"
+dokka                           = "2.3.0"
 flyway                          = "13.12.1"
 gradle-ktlint                   = "14.2.0"
 gradle-nexus-publish-plugin     = "2.0.0"
