@@ -134,7 +134,25 @@ With the Hibernate module: `User::name.ilike("%smith%")`.
 
 ---
 
-## 11. Entities and Kotlin
+## 11. Matching `%` or `_` literally
+
+Symptom: a pattern built from user input (e.g. `"%${term}%"` where `term` contains `_` or `%`) matches too much,
+or an escaped pattern like `"50\\%%"` returns nothing. Without an `ESCAPE` clause, escaping depends on the
+database (backslash on PostgreSQL / MySQL / H2, nothing on Oracle / SQL Server), and Hibernate's `ilike` rendering
+may not honour it. Pass the escape character explicitly - it works the same on every database:
+
+```kotlin
+fun escapeLike(s: String) = s.replace("!", "!!").replace("%", "!%").replace("_", "!_")
+
+User::name.like("%${escapeLike(term)}%", '!')
+User::name.ilike("%${escapeLike(term)}%", '!')   // Hibernate module
+```
+
+Do not work around it with `cb.like(cb.lower(...), pattern, '\\')` unless you also lowercase the pattern.
+
+---
+
+## 12. Entities and Kotlin
 
 Not specific to this DSL, but frequent in the same projects: JPA entities in Kotlin need the `kotlin-jpa`
 (no-arg) and `kotlin-spring` / all-open plugins, otherwise Hibernate cannot instantiate or proxy them.

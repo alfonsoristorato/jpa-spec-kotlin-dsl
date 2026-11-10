@@ -48,7 +48,21 @@ val workingAge = User::age.between(18, 65)
 val gmailUsers = User::email.like("%@gmail.com")
 val startsWithJohn = User::name.like("John%")
 val doesNotContainSmith = User::name.notLike("%Smith%")
+
 ```
+
+### Matching `%` or `_` literally
+
+`like` and `notLike` take an optional `escapeChar`. A `%`, `_` or the escape character itself preceded by it
+matches literally:
+
+```kotlin
+val discountCodes = User::name.like("50!%%", '!') // names starting with the literal text "50%"
+```
+
+Without `escapeChar`, escaping falls back to the database default (PostgreSQL, MySQL and H2 use `\`, Oracle and
+SQL Server have none). Pass it explicitly when the pattern contains user input so the query behaves the same on
+every database.
 
 ## Nullability
 

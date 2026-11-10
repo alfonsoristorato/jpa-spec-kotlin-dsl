@@ -117,7 +117,7 @@ Package suffix shown in brackets; prefix it with the layer package from Path B.
 |-----------------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------------------|
 | Equality (`equality`)       | `equal(v)`, `notEqual(v)`                                                                                | any                                                  |
 | Comparison (`comparison`)   | `greaterThan`, `greaterThanOrEqualTo`, `lessThan`, `lessThanOrEqualTo`, `between(lo, hi)`                | `Comparable<P>` or `Comparable<P>?`                  |
-| String (`string`)           | `like(pattern)`, `notLike(pattern)` - pattern uses SQL `%` / `_`                                         | `String` or `String?`                                |
+| String (`string`)           | `like(pattern, escapeChar?)`, `notLike(...)` - SQL `%` / `_`; pass `escapeChar` to match them literally  | `String` or `String?`                                |
 | Nullability (`nullability`) | `isNull()`, `isNotNull()`                                                                                | any                                                  |
 | Boolean (`bool`)            | `isTrue()`, `isFalse()`                                                                                  | `Boolean` or `Boolean?`                              |
 | Inclusion (`inclusion`)     | `` `in`(v) ``, `containedIn(v)`, `notIn(v)`, `notContainedIn(v)` - accept a single value or a collection | any                                                  |

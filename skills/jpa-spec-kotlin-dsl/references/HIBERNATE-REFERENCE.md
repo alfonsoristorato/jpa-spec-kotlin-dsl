@@ -51,11 +51,11 @@ String functions need no opt-in.
 
 Receiver: `String` or `String?` property.
 
-| Function                                | Meaning                                      |
-|-----------------------------------------|----------------------------------------------|
-| `ilike(pattern)` / `notIlike`           | case-insensitive `LIKE` (`%`, `_` wildcards) |
-| `likeRegexp(regex)` / `notLikeRegexp`   | case-sensitive regular expression match      |
-| `ilikeRegexp(regex)` / `notIlikeRegexp` | case-insensitive regular expression match    |
+| Function                                   | Meaning                                                            |
+|--------------------------------------------|--------------------------------------------------------------------|
+| `ilike(pattern, escapeChar?)` / `notIlike` | case-insensitive `LIKE` (`%`, `_` wildcards; optional escape char) |
+| `likeRegexp(regex)` / `notLikeRegexp`      | case-sensitive regular expression match                            |
+| `ilikeRegexp(regex)` / `notIlikeRegexp`    | case-insensitive regular expression match                          |
 
 Regex syntax and support depend on the database dialect (on PostgreSQL these map to `~` and `~*`).
 
@@ -64,6 +64,7 @@ import io.github.alfonsoristorato.jpaspeckotlindslhibernate.specification.string
 import io.github.alfonsoristorato.jpaspeckotlindslhibernate.specification.string.ilikeRegexp
 
 User::name.ilike("%smith%")
+User::name.ilike("%!_admin", '!')   // ends with the literal text "_admin", any case
 (Organisation::addressInfo / AddressInfo::street).ilikeRegexp("^main")
 ```
 

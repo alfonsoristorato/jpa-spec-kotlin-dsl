@@ -27,6 +27,12 @@ val notSmiths = User::name.notIlike("%smith%")
 repository.findAll(smiths)
 ```
 
+Like the core `like`, both take an optional `escapeChar` to match `%` or `_` literally:
+
+```kotlin
+val underscored = User::name.ilike("%!_admin", '!') // ends with "_admin", any case
+```
+
 ## `likeRegexp` / `notLikeRegexp`
 
 Case-sensitive POSIX regex matching. Uses the PostgreSQL `~` operator under the hood.
