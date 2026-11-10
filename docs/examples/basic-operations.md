@@ -94,3 +94,23 @@ val admins = User::role.containedIn("ADMIN")
 val notAdminOrManager = User::role.notIn(listOf("ADMIN", "MANAGER"))
 val stillNotAdminOrManager = User::role.notContainedIn(listOf("ADMIN", "MANAGER"))
 ```
+
+## Properties declared on a supertype
+
+A property declared on a shared supertype (an interface or a `@MappedSuperclass`) builds a spec for any subtype,
+so one filter can be reused across entities without a cast:
+
+```kotlin
+interface Named { val name: String }
+
+@Entity class User(override val name: String /* ... */) : Named
+@Entity class Team(override val name: String /* ... */) : Named
+
+fun <T : Named> named(name: String): Specification<T> = Named::name.equal(name)
+
+userRepository.findAll(named<User>("Alice"))
+teamRepository.findAll(named<Team>("Core"))
+```
+
+The same works in the Predicate layer, e.g. `Specification<User> { root, _, cb -> Named::name.equal(root, cb, "Alice") }`.
+

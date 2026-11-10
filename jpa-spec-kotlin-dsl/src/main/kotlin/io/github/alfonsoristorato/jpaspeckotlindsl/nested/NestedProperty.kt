@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty1
  * @property parentNames  All intermediate field names, in traversal order.
  * @property child  The leaf [KProperty1], carrying its name and type [PROP].
  */
-data class NestedProperty<ROOT, out PROP>(
+data class NestedProperty<in ROOT, out PROP>(
     val parentNames: List<String>,
     val child: KProperty1<*, PROP>,
 ) {
@@ -39,7 +39,8 @@ data class NestedProperty<ROOT, out PROP>(
  * @return a [NestedProperty] with the first property as the initial [NestedProperty.parentNames]
  * and [next] as [NestedProperty.child].
  */
-operator fun <T, E, P> KProperty1<T, E>.div(next: KProperty1<in E & Any, P>): NestedProperty<T, P> = NestedProperty(listOf(this.name), next)
+operator fun <T, E, P> KProperty1<in T, E>.div(next: KProperty1<in E & Any, P>): NestedProperty<T, P> =
+    NestedProperty(listOf(this.name), next)
 
 /**
  * Extends an existing [NestedProperty] chain by one more level, keeping [ROOT] fixed.

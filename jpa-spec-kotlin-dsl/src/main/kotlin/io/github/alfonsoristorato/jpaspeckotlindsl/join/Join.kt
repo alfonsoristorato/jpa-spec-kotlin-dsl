@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @return A [Join] representing the join.
  */
 
-fun <Z, T, R> KProperty1<T, R>.join(
+fun <Z, T, R> KProperty1<in T, R>.join(
     from: From<Z, T>,
     joinType: JoinType = JoinType.INNER,
 ): Join<T, R> = from.join(this.name, joinType)

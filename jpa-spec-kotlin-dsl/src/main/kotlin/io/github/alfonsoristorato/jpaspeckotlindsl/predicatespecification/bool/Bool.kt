@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty1
  * @param T the type of the entity.
  * @return A [PredicateSpecification] that checks if the property is true.
  */
-fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
+fun <T : Any> KProperty1<in T, Boolean>.isTrue(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isTrue(from, criteriaBuilder)
     }
@@ -24,7 +24,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): PredicateSpecification<T> =
  * @return A [PredicateSpecification] that checks if the property is true.
  */
 @JvmName("isTrueNullable")
-fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
+fun <T : Any> KProperty1<in T, Boolean?>.isTrue(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isTrue(from, criteriaBuilder)
     }
@@ -35,7 +35,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): PredicateSpecification<T> =
  * @param T the type of the entity.
  * @return A [PredicateSpecification] that checks if the property is false.
  */
-fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
+fun <T : Any> KProperty1<in T, Boolean>.isFalse(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isFalse(from, criteriaBuilder)
     }
@@ -47,7 +47,7 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): PredicateSpecification<T> =
  * @return A [PredicateSpecification] that checks if the property is false.
  */
 @JvmName("isFalseNullable")
-fun <T : Any> KProperty1<T, Boolean?>.isFalse(): PredicateSpecification<T> =
+fun <T : Any> KProperty1<in T, Boolean?>.isFalse(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isFalse(from, criteriaBuilder)
     }

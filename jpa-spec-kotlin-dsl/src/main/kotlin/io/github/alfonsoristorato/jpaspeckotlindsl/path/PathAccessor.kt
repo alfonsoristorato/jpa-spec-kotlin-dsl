@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty1
  * @param path The path of the entity.
  * @return The [Path] pointing at this property.
  */
-fun <T, P> KProperty1<T, P>.path(path: Path<T>): Path<P> = path.get(this.name)
+fun <T, P> KProperty1<in T, P>.path(path: Path<T>): Path<P> = path.get(this.name)
 
 /**
  * Resolves this nested property to its JPA [Path] by traversing all intermediate

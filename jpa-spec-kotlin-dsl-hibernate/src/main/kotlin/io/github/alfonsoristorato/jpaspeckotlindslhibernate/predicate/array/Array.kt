@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty1
  * @return A [Predicate] that tests whether the element is contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayContains(
+fun <T, E> KProperty1<in T, Array<E>>.arrayContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
@@ -44,7 +44,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayContains(
  * @return A [Predicate] that tests whether the element is not contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayNotContains(
+fun <T, E> KProperty1<in T, Array<E>>.arrayNotContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
@@ -110,7 +110,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(
  * @return A [Predicate] that tests whether all elements of the sub-array are contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayIncludes(
+fun <T, E> KProperty1<in T, Array<E>>.arrayIncludes(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subArray: Array<E>,
@@ -132,7 +132,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIncludes(
  * @return A [Predicate] that tests whether not all elements of the sub-array are contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayNotIncludes(
+fun <T, E> KProperty1<in T, Array<E>>.arrayNotIncludes(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subArray: Array<E>,
@@ -198,7 +198,7 @@ fun <ROOT, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(
  * @return A [Predicate] that tests whether the native array column intersects with the given sub-array.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayIntersects(
+fun <T, E> KProperty1<in T, Array<E>>.arrayIntersects(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subArray: Array<E>,
@@ -220,7 +220,7 @@ fun <T, E> KProperty1<T, Array<E>>.arrayIntersects(
  * @return A [Predicate] that tests whether the native array column does not intersect with the given sub-array.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Array<E>>.arrayNotIntersects(
+fun <T, E> KProperty1<in T, Array<E>>.arrayNotIntersects(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subArray: Array<E>,

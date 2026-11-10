@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty1
  * @param value the value to check for inclusion (can be a [Collection]).
  * @return A [PredicateSpecification] that checks if the property is in the value.
  */
-fun <T : Any, P> KProperty1<T, P>.`in`(value: P): PredicateSpecification<T> =
+fun <T : Any, P> KProperty1<in T, P>.`in`(value: P): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         `in`(from, criteriaBuilder, value)
     }
@@ -28,7 +28,7 @@ fun <T : Any, P> KProperty1<T, P>.`in`(value: P): PredicateSpecification<T> =
  * @param value the value to check for inclusion (can be a [Collection]).
  * @return A [PredicateSpecification] that checks if the property is in the value.
  */
-fun <T : Any, P> KProperty1<T, P>.containedIn(value: P): PredicateSpecification<T> = `in`(value)
+fun <T : Any, P> KProperty1<in T, P>.containedIn(value: P): PredicateSpecification<T> = `in`(value)
 
 /**
  * Creates a [PredicateSpecification] that checks if the nested property's value is in the given value.
@@ -62,7 +62,7 @@ fun <ROOT : Any, PROP> NestedProperty<ROOT, PROP>.containedIn(value: PROP): Pred
  * @param value the value to check for exclusion (can be a [Collection]).
  * @return A [PredicateSpecification] that checks if the property is not in the value.
  */
-fun <T : Any, P> KProperty1<T, P>.notIn(value: P): PredicateSpecification<T> =
+fun <T : Any, P> KProperty1<in T, P>.notIn(value: P): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         notIn(from, criteriaBuilder, value)
     }
@@ -76,7 +76,7 @@ fun <T : Any, P> KProperty1<T, P>.notIn(value: P): PredicateSpecification<T> =
  * @param value the value to check for exclusion (can be a [Collection]).
  * @return A [PredicateSpecification] that checks if the property is not in the value.
  */
-fun <T : Any, P> KProperty1<T, P>.notContainedIn(value: P): PredicateSpecification<T> = notIn(value)
+fun <T : Any, P> KProperty1<in T, P>.notContainedIn(value: P): PredicateSpecification<T> = notIn(value)
 
 /**
  * Creates a [PredicateSpecification] that checks if the nested property's value is not in the given value.

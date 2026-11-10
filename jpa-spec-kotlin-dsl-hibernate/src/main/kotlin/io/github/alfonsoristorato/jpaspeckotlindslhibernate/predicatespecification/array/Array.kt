@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty1
  * @return A [PredicateSpecification] that tests whether the element is contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayContains(value: E): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayContains(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayContains(from, criteriaBuilder, value)
     }
@@ -38,7 +38,7 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayContains(value: E): PredicateSpeci
  * @return A [PredicateSpecification] that tests whether the element is not contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotContains(value: E): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayNotContains(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayNotContains(from, criteriaBuilder, value)
     }
@@ -86,7 +86,7 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotContains(value: E): P
  * @return A [PredicateSpecification] that tests whether all elements of the sub-array are contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayIncludes(subArray: Array<E>): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayIncludes(subArray: Array<E>): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayIncludes(from, criteriaBuilder, subArray)
     }
@@ -102,7 +102,7 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayIncludes(subArray: Array<E>): Pred
  * @return A [PredicateSpecification] that tests whether not all elements of the sub-array are contained in the native array column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotIncludes(subArray: Array<E>): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayNotIncludes(subArray: Array<E>): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayNotIncludes(from, criteriaBuilder, subArray)
     }
@@ -150,7 +150,7 @@ fun <ROOT : Any, E> NestedProperty<ROOT, Array<E>>.arrayNotIncludes(subArray: Ar
  * @return A [PredicateSpecification] that tests whether the native array column intersects with the given sub-array.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayIntersects(subArray: Array<E>): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayIntersects(subArray: Array<E>): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayIntersects(from, criteriaBuilder, subArray)
     }
@@ -166,7 +166,7 @@ fun <T : Any, E> KProperty1<T, Array<E>>.arrayIntersects(subArray: Array<E>): Pr
  * @return A [PredicateSpecification] that tests whether the native array column does not intersect with the given sub-array.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Array<E>>.arrayNotIntersects(subArray: Array<E>): PredicateSpecification<T> =
+fun <T : Any, E> KProperty1<in T, Array<E>>.arrayNotIntersects(subArray: Array<E>): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         arrayNotIntersects(from, criteriaBuilder, subArray)
     }

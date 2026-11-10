@@ -15,7 +15,7 @@ import org.hibernate.type.SqlTypes
 @Entity
 @Table
 class Organisation(
-    val name: String,
+    override val name: String,
     @Embedded
     val organisationInfo: OrganisationInfo,
     @ElementCollection
@@ -24,7 +24,7 @@ class Organisation(
     val identifiers: Set<String>,
     @JdbcTypeCode(SqlTypes.ARRAY)
     val tags: Array<String>,
-) {
+) : Named {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organisation_id_sequence")
     @SequenceGenerator(name = "organisation_id_sequence", allocationSize = 1)

@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @param P the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether a collection is empty.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): PredicateSpecification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isEmpty(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isEmpty(from, criteriaBuilder)
     }
@@ -29,7 +29,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): PredicateSpecifi
  * @param P the type of the [Collection] property.
  * @return A [PredicateSpecification] that tests whether a collection is not empty.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): PredicateSpecification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isNotEmpty(): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isNotEmpty(from, criteriaBuilder)
     }
@@ -44,7 +44,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): PredicateSpec
  * @param value the element value to check for membership.
  * @return A [PredicateSpecification] that tests whether an element is a member of a collection.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): PredicateSpecification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isMember(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isMember(from, criteriaBuilder, value)
     }
@@ -59,7 +59,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Predica
  * @param value the element value to check for non-membership.
  * @return A [PredicateSpecification] that tests whether an element is not a member of a collection.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotMember(value: E): PredicateSpecification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isNotMember(value: E): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         isNotMember(from, criteriaBuilder, value)
     }

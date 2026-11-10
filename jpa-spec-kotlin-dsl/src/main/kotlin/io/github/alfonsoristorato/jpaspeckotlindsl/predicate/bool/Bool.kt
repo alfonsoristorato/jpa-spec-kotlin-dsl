@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty1
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is true.
  */
-fun <T> KProperty1<T, Boolean>.isTrue(
+fun <T> KProperty1<in T, Boolean>.isTrue(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isTrue(path(path))
@@ -29,7 +29,7 @@ fun <T> KProperty1<T, Boolean>.isTrue(
  * @return A [Predicate] that checks if the property is true.
  */
 @JvmName("isTrueNullable")
-fun <T> KProperty1<T, Boolean?>.isTrue(
+fun <T> KProperty1<in T, Boolean?>.isTrue(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isTrue(path(path))
@@ -42,7 +42,7 @@ fun <T> KProperty1<T, Boolean?>.isTrue(
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is false.
  */
-fun <T> KProperty1<T, Boolean>.isFalse(
+fun <T> KProperty1<in T, Boolean>.isFalse(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isFalse(path(path))
@@ -56,7 +56,7 @@ fun <T> KProperty1<T, Boolean>.isFalse(
  * @return A [Predicate] that checks if the property is false.
  */
 @JvmName("isFalseNullable")
-fun <T> KProperty1<T, Boolean?>.isFalse(
+fun <T> KProperty1<in T, Boolean?>.isFalse(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isFalse(path(path))

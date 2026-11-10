@@ -18,7 +18,7 @@ import kotlin.reflect.KProperty1
  * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [Predicate] that checks if the property matches the pattern.
  */
-fun <T> KProperty1<T, String>.ilike(
+fun <T> KProperty1<in T, String>.ilike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -41,7 +41,7 @@ fun <T> KProperty1<T, String>.ilike(
  * @return A [Predicate] that checks if the property matches the pattern.
  */
 @JvmName("ilikeNullable")
-fun <T> KProperty1<T, String?>.ilike(
+fun <T> KProperty1<in T, String?>.ilike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -63,7 +63,7 @@ fun <T> KProperty1<T, String?>.ilike(
  * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
-fun <T> KProperty1<T, String>.notIlike(
+fun <T> KProperty1<in T, String>.notIlike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -86,7 +86,7 @@ fun <T> KProperty1<T, String>.notIlike(
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
 @JvmName("notIlikeNullable")
-fun <T> KProperty1<T, String?>.notIlike(
+fun <T> KProperty1<in T, String?>.notIlike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -197,7 +197,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.notIlike(
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Predicate] that checks if the property matches the pattern.
  */
-fun <T> KProperty1<T, String>.likeRegexp(
+fun <T> KProperty1<in T, String>.likeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -213,7 +213,7 @@ fun <T> KProperty1<T, String>.likeRegexp(
  * @return A [Predicate] that checks if the property matches the pattern.
  */
 @JvmName("likeRegexpNullable")
-fun <T> KProperty1<T, String?>.likeRegexp(
+fun <T> KProperty1<in T, String?>.likeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -228,7 +228,7 @@ fun <T> KProperty1<T, String?>.likeRegexp(
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
-fun <T> KProperty1<T, String>.notLikeRegexp(
+fun <T> KProperty1<in T, String>.notLikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -244,7 +244,7 @@ fun <T> KProperty1<T, String>.notLikeRegexp(
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
 @JvmName("notLikeRegexpNullable")
-fun <T> KProperty1<T, String?>.notLikeRegexp(
+fun <T> KProperty1<in T, String?>.notLikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -321,7 +321,7 @@ fun <ROOT> NestedProperty<ROOT, String?>.notLikeRegexp(
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Predicate] that checks if the property matches the pattern.
  */
-fun <T> KProperty1<T, String>.ilikeRegexp(
+fun <T> KProperty1<in T, String>.ilikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -337,7 +337,7 @@ fun <T> KProperty1<T, String>.ilikeRegexp(
  * @return A [Predicate] that checks if the property matches the pattern.
  */
 @JvmName("ilikeRegexpNullable")
-fun <T> KProperty1<T, String?>.ilikeRegexp(
+fun <T> KProperty1<in T, String?>.ilikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -352,7 +352,7 @@ fun <T> KProperty1<T, String?>.ilikeRegexp(
  * @param pattern The POSIX regex pattern to match against.
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
-fun <T> KProperty1<T, String>.notIlikeRegexp(
+fun <T> KProperty1<in T, String>.notIlikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -368,7 +368,7 @@ fun <T> KProperty1<T, String>.notIlikeRegexp(
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
 @JvmName("notIlikeRegexpNullable")
-fun <T> KProperty1<T, String?>.notIlikeRegexp(
+fun <T> KProperty1<in T, String?>.notIlikeRegexp(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,

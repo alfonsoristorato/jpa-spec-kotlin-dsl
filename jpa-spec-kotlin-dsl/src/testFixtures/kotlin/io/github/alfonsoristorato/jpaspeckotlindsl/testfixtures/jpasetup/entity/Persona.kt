@@ -12,7 +12,7 @@ import jakarta.persistence.Table
 @Entity
 @Table
 class Persona(
-    val name: String,
+    override val name: String,
     val lastName: String?,
     val age: Int,
     val userName: String,
@@ -20,7 +20,7 @@ class Persona(
     val isMagic: Boolean?,
     @OneToOne(fetch = FetchType.LAZY)
     val organisation: Organisation?,
-) {
+) : Named {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_id_sequence")
     @SequenceGenerator(name = "persona_id_sequence", allocationSize = 1)
