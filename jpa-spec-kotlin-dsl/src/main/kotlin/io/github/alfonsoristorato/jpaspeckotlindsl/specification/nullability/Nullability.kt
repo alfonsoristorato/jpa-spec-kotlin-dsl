@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty1
  * @param P the type of the property.
  * @return A [Specification] that checks if the property is null.
  */
-fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
+fun <T : Any, P> KProperty1<in T, P>.isNull(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isNull(root, criteriaBuilder)
     }
@@ -25,7 +25,7 @@ fun <T : Any, P> KProperty1<T, P>.isNull(): Specification<T> =
  * @param P the type of the property.
  * @return A [Specification] that checks if the property is not null.
  */
-fun <T : Any, P> KProperty1<T, P>.isNotNull(): Specification<T> =
+fun <T : Any, P> KProperty1<in T, P>.isNotNull(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isNotNull(root, criteriaBuilder)
     }

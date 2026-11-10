@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is null.
  */
-fun <T, P> KProperty1<T, P>.isNull(
+fun <T, P> KProperty1<in T, P>.isNull(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isNull(path(path))
@@ -30,7 +30,7 @@ fun <T, P> KProperty1<T, P>.isNull(
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that checks if the property is not null.
  */
-fun <T, P> KProperty1<T, P>.isNotNull(
+fun <T, P> KProperty1<in T, P>.isNotNull(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isNotNull(path(path))

@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that tests whether a collection is empty.
  */
-fun <T, E, P : Collection<E>> KProperty1<T, P>.isEmpty(
+fun <T, E, P : Collection<E>> KProperty1<in T, P>.isEmpty(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isEmpty(path(path))
@@ -32,7 +32,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isEmpty(
  * @param criteriaBuilder The criteria builder.
  * @return A [Predicate] that tests whether a collection is not empty.
  */
-fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(
+fun <T, E, P : Collection<E>> KProperty1<in T, P>.isNotEmpty(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
 ): Predicate = criteriaBuilder.isNotEmpty(path(path))
@@ -50,7 +50,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(
  * @return A [Predicate] that tests whether an element is a member of a collection.
  * If the collection is empty, the predicate will be false.
  */
-fun <T, E, P : Collection<E>> KProperty1<T, P>.isMember(
+fun <T, E, P : Collection<E>> KProperty1<in T, P>.isMember(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
@@ -69,7 +69,7 @@ fun <T, E, P : Collection<E>> KProperty1<T, P>.isMember(
  * @return A [Predicate] that tests whether an element is not a member of a collection.
  * If the collection is empty, the predicate will be true.
  */
-fun <T, E, P : Collection<E>> KProperty1<T, P>.isNotMember(
+fun <T, E, P : Collection<E>> KProperty1<in T, P>.isNotMember(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,

@@ -12,6 +12,9 @@ function names:
 | Predicate              | `io.github.alfonsoristorato.jpaspeckotlindsl.predicate.<category>.<fn>`              | `prop.fn(path, criteriaBuilder, values...): Predicate` |
 
 - `prop` is either a `KProperty1<T, P>` (`User::name`) or a `NestedProperty<ROOT, P>` (`(A::b / B::c)`).
+- Receivers are contravariant in the entity type (`KProperty1<in T, P>`, `NestedProperty<in ROOT, P>`), so a
+  property declared on a supertype builds a spec for any subtype: `fun <T : Named> named(n: String): Specification<T> =
+  Named::name.equal(n)`. No unchecked `as Specification<T>` cast is needed.
 - Specification and PredicateSpecification layers require `T : Any`.
 - In the Predicate layer, `path` is a `jakarta.persistence.criteria.Path<T>`: the `Root`, or the `From` / `Join`
   you received in a join lambda.

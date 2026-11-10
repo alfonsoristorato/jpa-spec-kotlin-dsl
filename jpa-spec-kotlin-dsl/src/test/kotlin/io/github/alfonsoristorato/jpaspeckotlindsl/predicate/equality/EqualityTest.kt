@@ -2,6 +2,7 @@ package io.github.alfonsoristorato.jpaspeckotlindsl.predicate.equality
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Named
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
@@ -181,6 +182,16 @@ class EqualityTest(
                     }
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org 2"
+            }
+        }
+
+        context("equal for Predicate with a property declared on a supertype") {
+            expect("is usable inside each subtype's Specification without a cast") {
+                val personas = personaRepository.findAll { root, _, cb -> Named::name.equal(root, cb, "Persona 1") }
+                personas.map { it.name } shouldBe listOf("Persona 1")
+
+                val organisations = organisationRepository.findAll { root, _, cb -> Named::name.equal(root, cb, "Org 1") }
+                organisations.map { it.name } shouldBe listOf("Org 1")
             }
         }
     })

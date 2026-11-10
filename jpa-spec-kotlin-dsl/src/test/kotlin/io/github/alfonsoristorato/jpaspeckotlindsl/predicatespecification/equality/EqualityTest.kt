@@ -2,6 +2,7 @@ package io.github.alfonsoristorato.jpaspeckotlindsl.predicatespecification.equal
 
 import io.github.alfonsoristorato.jpaspeckotlindsl.nested.div
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.AddressInfo
+import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Named
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Organisation
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.OrganisationInfo
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.entity.Persona
@@ -14,6 +15,7 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixture
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import org.springframework.data.jpa.domain.PredicateSpecification
 
 @SpringBootTestEnhanced
 class EqualityTest(
@@ -173,6 +175,15 @@ class EqualityTest(
                 val result = organisationRepository.findAll(spec)
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org 2"
+            }
+        }
+
+        context("equal for PredicateSpecification with a property declared on a supertype") {
+            fun <T : Named> named(name: String): PredicateSpecification<T> = Named::name.equal(name)
+
+            expect("gives a PredicateSpecification for each subtype without a cast") {
+                personaRepository.findAll(named<Persona>("Persona 1")).map { it.name } shouldBe listOf("Persona 1")
+                organisationRepository.findAll(named<Organisation>("Org 1")).map { it.name } shouldBe listOf("Org 1")
             }
         }
     })

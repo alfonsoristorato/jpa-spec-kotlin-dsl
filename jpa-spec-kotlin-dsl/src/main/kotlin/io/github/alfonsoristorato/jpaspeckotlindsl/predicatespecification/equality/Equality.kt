@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty1
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks for equality.
  */
-fun <T : Any, P> KProperty1<T, P>.equal(value: P): PredicateSpecification<T> =
+fun <T : Any, P> KProperty1<in T, P>.equal(value: P): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         equal(from, criteriaBuilder, value)
     }
@@ -27,7 +27,7 @@ fun <T : Any, P> KProperty1<T, P>.equal(value: P): PredicateSpecification<T> =
  * @param value the value to compare against.
  * @return A [PredicateSpecification] that checks for inequality.
  */
-fun <T : Any, P> KProperty1<T, P>.notEqual(value: P): PredicateSpecification<T> =
+fun <T : Any, P> KProperty1<in T, P>.notEqual(value: P): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
         notEqual(from, criteriaBuilder, value)
     }

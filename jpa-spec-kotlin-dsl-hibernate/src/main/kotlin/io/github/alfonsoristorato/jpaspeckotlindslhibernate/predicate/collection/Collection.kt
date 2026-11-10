@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty1
  * @return A [Predicate] that tests whether the element is contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionContains(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
@@ -44,7 +44,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionContains(
  * @return A [Predicate] that tests whether the element is not contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionNotContains(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionNotContains(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: E,
@@ -112,7 +112,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotCont
  * @return A [Predicate] that tests whether all elements of the sub-collection are contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionIncludes(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionIncludes(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subCollection: Collection<E>,
@@ -134,7 +134,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIncludes(
  * @return A [Predicate] that tests whether not all elements of the sub-collection are contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionNotIncludes(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionNotIncludes(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subCollection: Collection<E>,
@@ -202,7 +202,7 @@ fun <ROOT, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionNotIncl
  * @return A [Predicate] that tests whether the native collection column intersects with the given sub-collection.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionIntersects(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionIntersects(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subCollection: Collection<E>,
@@ -224,7 +224,7 @@ fun <T, E> KProperty1<T, Collection<E>>.collectionIntersects(
  * @return A [Predicate] that tests whether the native collection column does not intersect with the given sub-collection.
  */
 @ExperimentalHibernateApi
-fun <T, E> KProperty1<T, Collection<E>>.collectionNotIntersects(
+fun <T, E> KProperty1<in T, Collection<E>>.collectionNotIntersects(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     subCollection: Collection<E>,

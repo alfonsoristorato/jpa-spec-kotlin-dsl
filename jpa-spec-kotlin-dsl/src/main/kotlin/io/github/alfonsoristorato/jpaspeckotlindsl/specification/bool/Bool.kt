@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty1
  * @param T the type of the entity.
  * @return A [Specification] that checks if the property is true.
  */
-fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
+fun <T : Any> KProperty1<in T, Boolean>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isTrue(root, criteriaBuilder)
     }
@@ -24,7 +24,7 @@ fun <T : Any> KProperty1<T, Boolean>.isTrue(): Specification<T> =
  * @return A [Specification] that checks if the property is true.
  */
 @JvmName("isTrueNullable")
-fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
+fun <T : Any> KProperty1<in T, Boolean?>.isTrue(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isTrue(root, criteriaBuilder)
     }
@@ -35,7 +35,7 @@ fun <T : Any> KProperty1<T, Boolean?>.isTrue(): Specification<T> =
  * @param T the type of the entity.
  * @return A [Specification] that checks if the property is false.
  */
-fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
+fun <T : Any> KProperty1<in T, Boolean>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isFalse(root, criteriaBuilder)
     }
@@ -47,7 +47,7 @@ fun <T : Any> KProperty1<T, Boolean>.isFalse(): Specification<T> =
  * @return A [Specification] that checks if the property is false.
  */
 @JvmName("isFalseNullable")
-fun <T : Any> KProperty1<T, Boolean?>.isFalse(): Specification<T> =
+fun <T : Any> KProperty1<in T, Boolean?>.isFalse(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isFalse(root, criteriaBuilder)
     }

@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [Predicate] that checks if the property matches the pattern.
  */
-fun <T> KProperty1<T, String>.like(
+fun <T> KProperty1<in T, String>.like(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -40,7 +40,7 @@ fun <T> KProperty1<T, String>.like(
  * @return A [Predicate] that checks if the property matches the pattern.
  */
 @JvmName("likeNullable")
-fun <T> KProperty1<T, String?>.like(
+fun <T> KProperty1<in T, String?>.like(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -62,7 +62,7 @@ fun <T> KProperty1<T, String?>.like(
  * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
-fun <T> KProperty1<T, String>.notLike(
+fun <T> KProperty1<in T, String>.notLike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,
@@ -85,7 +85,7 @@ fun <T> KProperty1<T, String>.notLike(
  * @return A [Predicate] that checks if the property does not match the pattern.
  */
 @JvmName("notLikeNullable")
-fun <T> KProperty1<T, String?>.notLike(
+fun <T> KProperty1<in T, String?>.notLike(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     pattern: String,

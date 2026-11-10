@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicates.
  */
-fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
+fun <T : Any, R> KProperty1<in T, R>.joinWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
 ): PredicateSpecification<T> =
@@ -38,7 +38,7 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicates(
  * @return A [PredicateSpecification] that performs the join and applies the predicates.
  */
 @Suppress("UNCHECKED_CAST")
-fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicates(
+fun <T : Any, R : Any> KProperty1<in T, R?>.joinNullableWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
 ): PredicateSpecification<T> =
@@ -58,7 +58,7 @@ fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicates(
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicate.
  */
-fun <T : Any, R> KProperty1<T, R>.joinWithPredicate(
+fun <T : Any, R> KProperty1<in T, R>.joinWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
 ): PredicateSpecification<T> =
@@ -75,7 +75,7 @@ fun <T : Any, R> KProperty1<T, R>.joinWithPredicate(
  * @param predicateBuilder A lambda that receives the joined entity path and criteria builder, and returns a predicate.
  * @return A [PredicateSpecification] that performs the join and applies the predicate.
  */
-fun <T : Any, R : Any> KProperty1<T, R?>.joinNullableWithPredicate(
+fun <T : Any, R : Any> KProperty1<in T, R?>.joinNullableWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
 ): PredicateSpecification<T> =

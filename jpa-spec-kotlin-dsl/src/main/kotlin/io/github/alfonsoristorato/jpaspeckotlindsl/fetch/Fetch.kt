@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @return A [Fetch] representing the fetch.
  */
 
-fun <Z, T, R> KProperty1<T, R>.fetch(
+fun <Z, T, R> KProperty1<in T, R>.fetch(
     from: From<Z, T>,
     joinType: JoinType = JoinType.INNER,
 ): Fetch<T, R> = from.fetch(this.name, joinType)

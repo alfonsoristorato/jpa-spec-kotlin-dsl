@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @param P the type of the [Collection] property.
  * @return A [Specification] that tests whether a collection is empty.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): Specification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isEmpty(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isEmpty(root, criteriaBuilder)
     }
@@ -29,7 +29,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isEmpty(): Specification<T>
  * @param P the type of the [Collection] property.
  * @return A [Specification] that tests whether a collection is not empty.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): Specification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isNotEmpty(): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isNotEmpty(root, criteriaBuilder)
     }
@@ -44,7 +44,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotEmpty(): Specification
  * @param value the element value to check for membership.
  * @return A [Specification] that tests whether an element is a member of a collection.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Specification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isMember(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isMember(root, criteriaBuilder, value)
     }
@@ -59,7 +59,7 @@ fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isMember(value: E): Specifi
  * @param value the element value to check for non-membership.
  * @return A [Specification] that tests whether an element is not a member of a collection.
  */
-fun <T : Any, E, P : Collection<E>> KProperty1<T, P>.isNotMember(value: E): Specification<T> =
+fun <T : Any, E, P : Collection<E>> KProperty1<in T, P>.isNotMember(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         isNotMember(root, criteriaBuilder, value)
     }

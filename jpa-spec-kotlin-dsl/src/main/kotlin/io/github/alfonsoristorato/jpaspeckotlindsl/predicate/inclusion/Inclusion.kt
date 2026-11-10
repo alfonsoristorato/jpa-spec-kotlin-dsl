@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param value The value to check for inclusion (can be a [Collection]).
  * @return A [Predicate] that checks if the property is in the value.
  */
-fun <T, P> KProperty1<T, P>.`in`(
+fun <T, P> KProperty1<in T, P>.`in`(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
@@ -34,7 +34,7 @@ fun <T, P> KProperty1<T, P>.`in`(
  * @param value The value to check for inclusion (can be a [Collection]).
  * @return A [Predicate] that checks if the property is in the value.
  */
-fun <T, P> KProperty1<T, P>.containedIn(
+fun <T, P> KProperty1<in T, P>.containedIn(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
@@ -84,7 +84,7 @@ fun <ROOT, PROP> NestedProperty<ROOT, PROP>.containedIn(
  * @param value The value to check for exclusion (can be a [Collection]).
  * @return A [Predicate] that checks if the property is not in the value.
  */
-fun <T, P> KProperty1<T, P>.notIn(
+fun <T, P> KProperty1<in T, P>.notIn(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
@@ -101,7 +101,7 @@ fun <T, P> KProperty1<T, P>.notIn(
  * @param value The value to check for exclusion (can be a [Collection]).
  * @return A [Predicate] that checks if the property is not in the value.
  */
-fun <T, P> KProperty1<T, P>.notContainedIn(
+fun <T, P> KProperty1<in T, P>.notContainedIn(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,

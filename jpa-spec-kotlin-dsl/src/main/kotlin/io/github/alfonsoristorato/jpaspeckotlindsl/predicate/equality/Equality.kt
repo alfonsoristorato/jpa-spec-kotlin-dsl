@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty1
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the property is equal to the given value.
  */
-fun <T, P> KProperty1<T, P>.equal(
+fun <T, P> KProperty1<in T, P>.equal(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,
@@ -33,7 +33,7 @@ fun <T, P> KProperty1<T, P>.equal(
  * @param value The value to compare against.
  * @return A [Predicate] that checks if the property is not equal to the given value.
  */
-fun <T, P> KProperty1<T, P>.notEqual(
+fun <T, P> KProperty1<in T, P>.notEqual(
     path: Path<T>,
     criteriaBuilder: CriteriaBuilder,
     value: P,

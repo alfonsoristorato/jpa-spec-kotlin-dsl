@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty1
  * @return A [Specification] that tests whether the element is contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionContains(value: E): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionContains(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionContains(root, criteriaBuilder, value)
     }
@@ -38,7 +38,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionContains(value: E): Spec
  * @return A [Specification] that tests whether the element is not contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotContains(value: E): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionNotContains(value: E): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionNotContains(root, criteriaBuilder, value)
     }
@@ -88,7 +88,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionN
  * @return A [Specification] that tests whether all elements of the sub-collection are contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIncludes(subCollection: Collection<E>): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionIncludes(subCollection: Collection<E>): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionIncludes(root, criteriaBuilder, subCollection)
     }
@@ -104,7 +104,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIncludes(subCollection: 
  * @return A [Specification] that tests whether not all elements of the sub-collection are contained in the native collection column.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotIncludes(subCollection: Collection<E>): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionNotIncludes(subCollection: Collection<E>): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionNotIncludes(root, criteriaBuilder, subCollection)
     }
@@ -156,7 +156,7 @@ fun <ROOT : Any, E, PROP : Collection<E>> NestedProperty<ROOT, PROP>.collectionN
  * @return A [Specification] that tests whether the native collection column intersects with the given sub-collection.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIntersects(subCollection: Collection<E>): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionIntersects(subCollection: Collection<E>): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionIntersects(root, criteriaBuilder, subCollection)
     }
@@ -172,7 +172,7 @@ fun <T : Any, E> KProperty1<T, Collection<E>>.collectionIntersects(subCollection
  * @return A [Specification] that tests whether the native collection column does not intersect with the given sub-collection.
  */
 @ExperimentalHibernateApi
-fun <T : Any, E> KProperty1<T, Collection<E>>.collectionNotIntersects(subCollection: Collection<E>): Specification<T> =
+fun <T : Any, E> KProperty1<in T, Collection<E>>.collectionNotIntersects(subCollection: Collection<E>): Specification<T> =
     Specification { root, _, criteriaBuilder ->
         collectionNotIntersects(root, criteriaBuilder, subCollection)
     }

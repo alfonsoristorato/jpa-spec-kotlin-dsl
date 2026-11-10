@@ -18,7 +18,7 @@ import kotlin.reflect.KProperty1
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicates.
  */
-fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
+fun <T : Any, R> KProperty1<in T, R>.fetchJoinWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
 ): Specification<T> =
@@ -40,7 +40,7 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicates(
  * @return A [Specification] that performs the fetch-join and applies the predicates.
  */
 @Suppress("UNCHECKED_CAST")
-fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicates(
+fun <T : Any, R : Any> KProperty1<in T, R?>.fetchJoinNullableWithPredicates(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> List<Predicate>,
 ): Specification<T> =
@@ -61,7 +61,7 @@ fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicates(
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicate.
  */
-fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicate(
+fun <T : Any, R> KProperty1<in T, R>.fetchJoinWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
 ): Specification<T> =
@@ -78,7 +78,7 @@ fun <T : Any, R> KProperty1<T, R>.fetchJoinWithPredicate(
  * @param predicateBuilder A lambda that receives the fetch-joined entity path and criteria builder, and returns a predicate.
  * @return A [Specification] that performs the fetch-join and applies the predicate.
  */
-fun <T : Any, R : Any> KProperty1<T, R?>.fetchJoinNullableWithPredicate(
+fun <T : Any, R : Any> KProperty1<in T, R?>.fetchJoinNullableWithPredicate(
     joinType: JoinType = JoinType.INNER,
     predicateBuilder: (From<T, R>, CriteriaBuilder) -> Predicate,
 ): Specification<T> =
