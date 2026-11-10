@@ -11,6 +11,7 @@ import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.reposit
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.jpasetup.testconfig.SpringBootTestEnhanced
 import io.github.alfonsoristorato.jpaspeckotlindsl.testfixtures.util.TestFixtures
 import io.kotest.core.spec.style.ExpectSpec
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
@@ -29,8 +30,8 @@ class StringTest(
             val persona2 =
                 TestFixtures.createPersona(
                     name = "Jane Doe",
-                    userName = "janedoe456",
-                    lastName = "Doe",
+                    userName = "jane_doe456",
+                    lastName = "D_oe",
                 )
             val persona3 =
                 TestFixtures.createPersona(
@@ -69,8 +70,8 @@ class StringTest(
                     name = "Org Gamma",
                     organisationInfo =
                         TestFixtures.createOrganisationInfo(
-                            addressInfo = TestFixtures.createAddressInfo(street = "Oak Road"),
-                            contactInfo = TestFixtures.contactInfo(nickname = "Gam"),
+                            addressInfo = TestFixtures.createAddressInfo(street = "Oak_Road"),
+                            contactInfo = TestFixtures.contactInfo(nickname = "Ga_m"),
                         ),
                 )
             organisationRepository.saveAll(listOf(org1, org2, org3))
@@ -164,7 +165,7 @@ class StringTest(
                     }
                 result shouldHaveSize 2
                 result[0].apply {
-                    userName shouldBe "janedoe456"
+                    userName shouldBe "jane_doe456"
                 }
                 result[1].apply {
                     userName shouldBe "bobjohnson789"
@@ -177,7 +178,7 @@ class StringTest(
                     }
                 result shouldHaveSize 1
                 result[0].apply {
-                    lastName shouldBe "Doe"
+                    lastName shouldBe "D_oe"
                 }
             }
         }
@@ -222,6 +223,72 @@ class StringTest(
                     }
                 result shouldHaveSize 1
                 result[0].name shouldBe "Org Gamma"
+            }
+        }
+
+        context("like for Predicate with escapeChar treats escaped wildcards literally") {
+            expect("with property") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        Persona::userName.like(root, cb, "jane!_doe%", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Jane Doe")
+            }
+            expect("with nullable property") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        Persona::lastName.like(root, cb, "D!_oe", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Jane Doe")
+            }
+            expect("with nested property") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                            .like(root, cb, "Oak!_%", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Org Gamma")
+            }
+            expect("with nested nullable property") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .like(root, cb, "Ga!_m", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Org Gamma")
+            }
+        }
+
+        context("notLike for Predicate with escapeChar treats escaped wildcards literally") {
+            expect("with property") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        Persona::userName.notLike(root, cb, "jane!_doe%", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("John Smith", "Bob Johnson", "Alice Smith")
+            }
+            expect("with nullable property") {
+                val result =
+                    personaRepository.findAll { root, _, cb ->
+                        Persona::lastName.notLike(root, cb, "D!_oe", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("John Smith", "Alice Smith")
+            }
+            expect("with nested property") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::addressInfo / AddressInfo::street)
+                            .notLike(root, cb, "Oak!_%", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Org Alpha", "Org Beta")
+            }
+            expect("with nested nullable property") {
+                val result =
+                    organisationRepository.findAll { root, _, cb ->
+                        (Organisation::organisationInfo / OrganisationInfo::contactInfo / ContactInfo::nickname)
+                            .notLike(root, cb, "Ga!_m", '!')
+                    }
+                result.map { it.name } shouldContainExactlyInAnyOrder listOf("Org Alpha")
             }
         }
     })

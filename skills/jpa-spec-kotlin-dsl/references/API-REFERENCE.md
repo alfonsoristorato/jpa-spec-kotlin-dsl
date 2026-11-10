@@ -54,14 +54,19 @@ Receiver: `String` or `String?` property. Patterns use SQL wildcards (`%` any se
 add them yourself. Matching is case-sensitive in most databases; for case-insensitive matching use the Hibernate
 module's `ilike`, or a raw `cb.lower(prop.path(root))`.
 
-| Function  | Spec / PredicateSpec | Predicate                     |
-|-----------|----------------------|-------------------------------|
-| `like`    | `(pattern: String)`  | `(path, cb, pattern: String)` |
-| `notLike` | `(pattern: String)`  | `(path, cb, pattern: String)` |
+| Function  | Spec / PredicateSpec                          | Predicate                                               |
+|-----------|-----------------------------------------------|---------------------------------------------------------|
+| `like`    | `(pattern: String, escapeChar: Char? = null)` | `(path, cb, pattern: String, escapeChar: Char? = null)` |
+| `notLike` | `(pattern: String, escapeChar: Char? = null)` | `(path, cb, pattern: String, escapeChar: Char? = null)` |
+
+`escapeChar` makes `%`, `_` (and the escape character itself) match literally when prefixed by it. Without it,
+escaping falls back to the database default (PostgreSQL, MySQL and H2 treat `\` as the escape; Oracle and SQL
+Server have none), so pass it explicitly whenever the pattern is built from user input.
 
 ```kotlin
 User::email.like("%@example.com")
 User::name.notLike("%Smith%")
+User::name.like("50!%%", '!')   // starts with the literal text "50%"
 ```
 
 ## Nullability - `<layer>.nullability`

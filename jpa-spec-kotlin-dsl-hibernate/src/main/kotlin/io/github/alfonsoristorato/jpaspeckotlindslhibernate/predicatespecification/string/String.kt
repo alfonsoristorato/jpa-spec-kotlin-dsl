@@ -15,11 +15,15 @@ import kotlin.reflect.KProperty1
  *
  * @param T the type of the entity.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the property matches the pattern.
  */
-fun <T : Any> KProperty1<T, String>.ilike(pattern: String): PredicateSpecification<T> =
+fun <T : Any> KProperty1<T, String>.ilike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        ilike(from, criteriaBuilder, pattern)
+        ilike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -27,12 +31,16 @@ fun <T : Any> KProperty1<T, String>.ilike(pattern: String): PredicateSpecificati
  *
  * @param T the type of the entity.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the property matches the pattern.
  */
 @JvmName("ilikeNullable")
-fun <T : Any> KProperty1<T, String?>.ilike(pattern: String): PredicateSpecification<T> =
+fun <T : Any> KProperty1<T, String?>.ilike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        ilike(from, criteriaBuilder, pattern)
+        ilike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -40,11 +48,15 @@ fun <T : Any> KProperty1<T, String?>.ilike(pattern: String): PredicateSpecificat
  *
  * @param T the type of the entity.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the property does not match the pattern.
  */
-fun <T : Any> KProperty1<T, String>.notIlike(pattern: String): PredicateSpecification<T> =
+fun <T : Any> KProperty1<T, String>.notIlike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        notIlike(from, criteriaBuilder, pattern)
+        notIlike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -52,12 +64,16 @@ fun <T : Any> KProperty1<T, String>.notIlike(pattern: String): PredicateSpecific
  *
  * @param T the type of the entity.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the property does not match the pattern.
  */
 @JvmName("notIlikeNullable")
-fun <T : Any> KProperty1<T, String?>.notIlike(pattern: String): PredicateSpecification<T> =
+fun <T : Any> KProperty1<T, String?>.notIlike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<T> =
     PredicateSpecification { from, criteriaBuilder ->
-        notIlike(from, criteriaBuilder, pattern)
+        notIlike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -65,11 +81,15 @@ fun <T : Any> KProperty1<T, String?>.notIlike(pattern: String): PredicateSpecifi
  *
  * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the nested property matches the pattern.
  */
-fun <ROOT : Any> NestedProperty<ROOT, String>.ilike(pattern: String): PredicateSpecification<ROOT> =
+fun <ROOT : Any> NestedProperty<ROOT, String>.ilike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
-        ilike(from, criteriaBuilder, pattern)
+        ilike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -77,12 +97,16 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.ilike(pattern: String): PredicateS
  *
  * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the nested property matches the pattern.
  */
 @JvmName("nestedIlikeNullable")
-fun <ROOT : Any> NestedProperty<ROOT, String?>.ilike(pattern: String): PredicateSpecification<ROOT> =
+fun <ROOT : Any> NestedProperty<ROOT, String?>.ilike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
-        ilike(from, criteriaBuilder, pattern)
+        ilike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -90,11 +114,15 @@ fun <ROOT : Any> NestedProperty<ROOT, String?>.ilike(pattern: String): Predicate
  *
  * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the nested property does not match the pattern.
  */
-fun <ROOT : Any> NestedProperty<ROOT, String>.notIlike(pattern: String): PredicateSpecification<ROOT> =
+fun <ROOT : Any> NestedProperty<ROOT, String>.notIlike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
-        notIlike(from, criteriaBuilder, pattern)
+        notIlike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
@@ -102,12 +130,16 @@ fun <ROOT : Any> NestedProperty<ROOT, String>.notIlike(pattern: String): Predica
  *
  * @param ROOT the root entity type.
  * @param pattern The pattern to match against.
+ * @param escapeChar Optional character that escapes `%`, `_` and itself in [pattern], so they match literally.
  * @return A [PredicateSpecification] that checks if the nested property does not match the pattern.
  */
 @JvmName("nestedNotIlikeNullable")
-fun <ROOT : Any> NestedProperty<ROOT, String?>.notIlike(pattern: String): PredicateSpecification<ROOT> =
+fun <ROOT : Any> NestedProperty<ROOT, String?>.notIlike(
+    pattern: String,
+    escapeChar: Char? = null,
+): PredicateSpecification<ROOT> =
     PredicateSpecification { from, criteriaBuilder ->
-        notIlike(from, criteriaBuilder, pattern)
+        notIlike(from, criteriaBuilder, pattern, escapeChar)
     }
 
 /**
